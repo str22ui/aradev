@@ -20,6 +20,10 @@ use App\Models\Penawaran;
 use App\Models\PerumahanImage;
 use App\Models\SecondaryImage;
 use App\Models\LandImage;
+use App\Models\Info;
+use App\Models\InfoImage;
+use App\Models\Testimony;
+use App\Models\TestimonyImage;
 use App\Models\Announcement;
 use Illuminate\Support\Str;
 use App\Models\CategoryBursa;
@@ -89,8 +93,6 @@ class AdminController extends Controller
             'luas' => 'required',
             'unit' => 'required',
             'lokasi' => 'required',
-            // 'posisi' => 'required',
-            // 'no_kavling ' => 'required',
             'kota' => 'required',
             'satuan' => 'required',
             'harga' => 'required',
@@ -422,6 +424,7 @@ class AdminController extends Controller
          $validatedData = $request->validate([
              'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
              'judul' => 'required',
+             'available' => 'required',
              'lt' => 'required',
              'lb' => 'required',
              'kt' => 'required',
@@ -514,6 +517,7 @@ class AdminController extends Controller
          $request->validate([
             'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
              'judul' => 'required',
+             'available' => 'required',
              'status' => 'required',
              'lt' => 'required',
              'lb' => 'required',
@@ -544,6 +548,7 @@ class AdminController extends Controller
          $secondary->update([
              'judul' => $request->judul,
              'status' => $request->status,
+             'available' => $request->available,
              'lt' => $request->lt,
              'lb' => $request->lb,
              'kt' => $request->kt,
@@ -1492,5 +1497,349 @@ class AdminController extends Controller
           return Excel::download(new ExportReport($report), "Report.xlsx");
       }
 
+      // ============ INFO ================
 
+      public function indexInfo()
+     {
+        //  $info = Info::all();
+        $info = Info::with('imagesInfo')->get();
+         $user = Auth::user();
+         return view('admin.info.index', [
+             'info' => $info,
+             // 'user' => $user,
+         ]);
+     }
+
+     public function imagesInfo()
+     {
+         return $this->hasMany(InfoImage::class);
+     }
+
+
+     public function createInfo(){
+         return view('admin.info.createInfo');
+     }
+
+     public function showInfo(Info $info)
+     {
+         $info = Info::with('position')->findOrFail($management->id);
+         $perumahan->keunggulan = json_decode($perumahan->keunggulan);
+         return view('admin.teacher.showTeacher', compact([
+             'management',
+         ]));
+     }
+
+     public function storeInfo(Request $request)
+     {
+         $validatedData = $request->validate([
+             'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
+             'title' => 'required',
+             'headline' => 'required',
+             'description' => 'required',
+
+         ]);
+
+
+         // Simpan data perumahan dan ambil objeknya
+         $info = Info::create($validatedData);
+
+         // Simpan gambar terkait jika ada
+         if ($request->hasFile('images')) {
+             foreach ($request->file('images') as $image) {
+                 $path = $image->store('foto-info', 'public');
+                 InfoImage::create([
+                     'info_id' => $info->id, // Gunakan $secondary yang sudah didefinisikan
+                     'image_path' => $path,
+                 ]);
+             }
+         }
+
+         return redirect('/info')->with('success', 'Berhasil Menambahkan Data Tanah');
+ }
+
+
+
+     public function editInfo($id)
+     {
+         $info = Info::find($id);
+         $images = InfoImage::where('info_id', $id)->get();
+
+
+         return view('admin.info.editInfo', [
+             'info' => $info,
+             'images' => $images, // Kirim gambar ke view
+         ]);
+     }
+
+     public function removeImageInfo(Request $request)
+     {
+         try {
+             Log::info('Request diterima:', $request->all());
+             $imagePath = $request->input('image');
+
+             // Hapus dari database
+             $deleted = InfoImage::where('image_path', $imagePath)->delete();
+             Log::info('Hasil penghapusan dari database:', ['deleted' => $deleted]);
+
+             if (!$deleted) {
+                 return response()->json(['success' => false, 'message' => 'Gambar tidak ditemukan di database']);
+             }
+
+             // Hapus file fisik
+             $filePath = public_path('storage/' . $imagePath);
+             if (file_exists($filePath)) {
+                 unlink($filePath);
+                 Log::info('File berhasil dihapus:', [$filePath]);
+             } else {
+                 Log::warning('File tidak ditemukan:', [$filePath]);
+             }
+
+             return response()->json(['success' => true]);
+         } catch (\Exception $e) {
+             Log::error('Terjadi kesalahan:', [$e->getMessage()]);
+             return response()->json(['success' => false, 'message' => 'Terjadi kesalahan server'], 500);
+         }
+     }
+
+
+     public function updateInfo(Request $request, $id)
+     {
+         // Validasi input
+         $request->validate([
+            'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
+            'title' => 'required',
+            'headline' => 'required',
+            'description' => 'required',
+         ]);
+
+         // Ambil data perumahan
+         $info = Info::findOrFail($id);
+
+         // Update data utama
+         $info->update([
+             'title' => $request->title,
+             'headline' => $request->headline,
+             'description' => $request->description,
+         ]);
+
+         // Menangani gambar baru
+         if ($request->hasFile('images')) {
+             foreach ($request->file('images') as $file) {
+                 $path = $file->store('info_images', 'public');
+                 InfoImage::create([
+                     'info_id' => $info->id,
+                     'image_path' => $path,
+                 ]);
+             }
+         }
+
+
+         // Simpan perubahan
+         $info->save();
+
+         return redirect()->route('admin.info')->with('success', 'Data tanah berhasil diperbarui.');
+     }
+
+     public function destroyImageInfo(Request $request)
+     {
+         // Debugging
+         \Log::info($request->all());
+         \Log::info('Request ID: ' . $request->image_id);
+         // Temukan gambar berdasarkan ID
+         $image = InfoImage::findOrFail($request->image_id);
+
+         // Hapus file fisik
+         $filePath = storage_path('app/public/' . $image->image_path);
+         if (file_exists($filePath)) {
+             unlink($filePath);
+         }
+
+         // Hapus dari database
+         $image->delete();
+
+         return redirect()->back()->with('success', 'Gambar berhasil dihapus.');
+         }
+
+
+     public function destroyInfo(Request $request)
+     {
+         // Debug untuk melihat data yang diterima
+         \Log::info($request->id);
+
+         // Ambil data perumahan berdasarkan ID
+         $info = Info::findOrFail($request->id);
+
+         // Hapus data
+         $info->delete();
+
+         // Redirect dengan pesan sukses
+         return redirect('/info')->with('success', 'Berhasil Menghapus Data Info');
+     }
+
+    // ============ END INFO ================
+
+    // ============ TESTIMONY ================
+
+    public function indexTestimony()
+    {
+        $testimony = Testimony::all();
+    //    $testimony = Testimony::with('imagesTestimony')->get();
+        $user = Auth::user();
+        return view('admin.testimony.index', [
+            'testimony' => $testimony,
+            // 'user' => $user,
+        ]);
+    }
+
+    public function imagesTestimony()
+    {
+        return $this->hasMany(TestimonyImage::class);
+    }
+
+
+    public function createTestimony(){
+        return view('admin.testimony.createTestimony');
+    }
+
+    public function showTestimony(Testimony $testimony)
+    {
+        $info = Info::with('position')->findOrFail($management->id);
+        $perumahan->keunggulan = json_decode($perumahan->keunggulan);
+        return view('admin.teacher.showTeacher', compact([
+            'management',
+        ]));
+    }
+
+    public function storeTestimony(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'image' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
+            'testimony' => 'required',
+        ]);
+
+
+    // Simpan gambar jika ada
+    if ($request->hasFile('image')) {
+        $validatedData['image'] = $request->file('image')->store('foto-testimony', 'public');
+    }
+
+    // Simpan data ke tabel testimony
+    Testimony::create($validatedData);
+    return redirect('/testimony')->with('success', 'Berhasil Menambahkan Data Testimony');
+}
+
+
+
+    public function editTestimony($id)
+    {
+        $testimony = Testimony::find($id);
+
+        return view('admin.testimony.editTestimony', [
+            'testimony' => $testimony,
+        ]);
+    }
+
+    public function removeImageTestimony(Request $request)
+    {
+        try {
+            Log::info('Request diterima:', $request->all());
+            $imagePath = $request->input('image');
+
+            // Hapus dari database
+            $deleted = TestimonyImage::where('image_path', $imagePath)->delete();
+            Log::info('Hasil penghapusan dari database:', ['deleted' => $deleted]);
+
+            if (!$deleted) {
+                return response()->json(['success' => false, 'message' => 'Gambar tidak ditemukan di database']);
+            }
+
+            // Hapus file fisik
+            $filePath = public_path('storage/' . $imagePath);
+            if (file_exists($filePath)) {
+                unlink($filePath);
+                Log::info('File berhasil dihapus:', [$filePath]);
+            } else {
+                Log::warning('File tidak ditemukan:', [$filePath]);
+            }
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            Log::error('Terjadi kesalahan:', [$e->getMessage()]);
+            return response()->json(['success' => false, 'message' => 'Terjadi kesalahan server'], 500);
+        }
+    }
+
+
+    public function updateTestimony(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'name' => 'required',
+            'image' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
+            'testimony' => 'required',
+        ]);
+
+        $testimony = Testimony::findOrFail($id);
+
+        // Jika ada file gambar baru
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($testimony->image) {
+                Storage::disk('public')->delete($testimony->image);
+            }
+
+            // Simpan gambar baru
+            $imagePath = $request->file('image')->store('foto-testimony', 'public');
+            $testimony->image = $imagePath;
+        }
+
+        // Update data lainnya
+        $testimony->name = $request->name;
+        $testimony->testimony = $request->testimony;
+
+        // Simpan perubahan
+        $testimony->save();
+
+        return redirect()->route('admin.testimony')->with('success', 'Data testimony berhasil diperbarui.');
+    }
+
+
+    public function destroyImageTestimony(Request $request)
+    {
+        // Debugging
+        \Log::info($request->all());
+        \Log::info('Request ID: ' . $request->image_id);
+        // Temukan gambar berdasarkan ID
+        $image = TestimonyImage::findOrFail($request->image_id);
+
+        // Hapus file fisik
+        $filePath = storage_path('app/public/' . $image->image_path);
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        // Hapus dari database
+        $image->delete();
+
+        return redirect()->back()->with('success', 'Gambar berhasil dihapus.');
+        }
+
+
+    public function destroyTestimony(Request $request)
+    {
+        // Debug untuk melihat data yang diterima
+        \Log::info($request->id);
+
+        // Ambil data perumahan berdasarkan ID
+        $testimony = Testimony::findOrFail($request->id);
+
+        // Hapus data
+        $testimony->delete();
+
+        // Redirect dengan pesan sukses
+        return redirect('/testimony')->with('success', 'Berhasil Menghapus Data Testimony');
+    }
+
+   // ============ END INFO ================
 }

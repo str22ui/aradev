@@ -21,73 +21,45 @@ use Illuminate\Support\Facades\View;
 
 class LandingController extends Controller
 {
-    // public function index()
-    // {
-    //     $todayDate = Carbon::now()->format('Y-m-d');
-    //     $monthDate = Carbon::now()->format('m');
 
-    //     $totalVisits = Visit::count();
-    //     $todayVisits = Visit::whereDate('visited_at', $todayDate)->count();
-    //     $monthVisits = Visit::whereMonth('visited_at', $monthDate)->count();
-
-    //     $kotas = Perumahan::whereIn('id', function ($query) {
-    //         $query->selectRaw('MAX(id)')
-    //             ->from('perumahan')
-    //             ->groupBy('kota');
-    //     })->orderBy('created_at', 'desc')->get();
-
-    //     $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
-    //     $perumahan = Perumahan::orderBy('created_at', 'desc')->get();
-    //     $perumahanStat = Perumahan::where('status', 'Available')->get();
-
-    //     return view('client.page.index', compact([
-    //         'totalVisits',
-    //         'todayVisits',
-    //         'monthVisits',
-    //         'perumahan',
-    //         'kotas',
-    //         'allPerumahan',
-    //         'perumahanStat'
-    //     ]));
-    //     }
     public function index(Request $request)
-{
-    $status = $request->query('status', 'all'); // Default: all
-    $todayDate = Carbon::now()->format('Y-m-d');
-    $monthDate = Carbon::now()->format('m');
+    {
+        $status = $request->query('status', 'all'); // Default: all
+        $todayDate = Carbon::now()->format('Y-m-d');
+        $monthDate = Carbon::now()->format('m');
 
-    $totalVisits = Visit::count();
-    $todayVisits = Visit::whereDate('visited_at', $todayDate)->count();
-    $monthVisits = Visit::whereMonth('visited_at', $monthDate)->count();
+        $totalVisits = Visit::count();
+        $todayVisits = Visit::whereDate('visited_at', $todayDate)->count();
+        $monthVisits = Visit::whereMonth('visited_at', $monthDate)->count();
 
-        $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
+            $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
 
-        $perumahanStat = Perumahan::where('status', 'Available')->get();
+            $perumahanStat = Perumahan::where('status', 'Available')->get();
 
-    $kotas = Perumahan::whereIn('id', function ($query) {
-        $query->selectRaw('MAX(id)')
-            ->from('perumahan')
-            ->groupBy('kota');
-    })->orderBy('created_at', 'desc')->get();
+        $kotas = Perumahan::whereIn('id', function ($query) {
+            $query->selectRaw('MAX(id)')
+                ->from('perumahan')
+                ->groupBy('kota');
+        })->orderBy('created_at', 'desc')->get();
 
-    $query = Perumahan::orderBy('created_at', 'desc');
+        $query = Perumahan::orderBy('created_at', 'desc');
 
-    if ($status !== 'all') {
-        $query->where('status', $status);
+        if ($status !== 'all') {
+            $query->where('status', $status);
+        }
+
+        $perumahan = $query->get();
+
+        return view('client.page.index', compact([
+            'totalVisits',
+            'todayVisits',
+            'monthVisits',
+            'perumahan',
+            'kotas',
+            'allPerumahan',
+            'perumahanStat'
+        ]));
     }
-
-    $perumahan = $query->get();
-
-    return view('client.page.index', compact([
-        'totalVisits',
-        'todayVisits',
-        'monthVisits',
-        'perumahan',
-        'kotas',
-        'allPerumahan',
-        'perumahanStat'
-    ]));
-}
 
 
 

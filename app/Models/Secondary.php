@@ -11,6 +11,7 @@ class Secondary extends Model
     protected $table = 'secondary';
     protected $fillable = [
         'status',        // Dijual/Disewakan
+        'available',      
         'judul',         // Judul
         'lt',            // Luas Tanah
         'lb',            // Luas Bangunan

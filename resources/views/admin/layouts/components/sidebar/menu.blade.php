@@ -11,6 +11,7 @@
 
 @include('admin.layouts.components.sidebar.masterRumah')
 @include('admin.layouts.components.sidebar.dataKonsumen')
+
 {{-- @include('admin.layouts.components.sidebar.galleryDropdown')
 @include('admin.layouts.components.sidebar.masterDropdown') --}}
 
@@ -34,7 +35,7 @@
 </li>
 
 {{-- announce --}}
-
+@include('admin.layouts.components.sidebar.dataLainnya')
 <li class="sidebar-item">
     <form method="POST" action="/logout" id="logout">
         @csrf
@@ -44,3 +45,5 @@
         </a>
     </form>
 </li>
+
+

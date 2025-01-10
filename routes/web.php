@@ -105,6 +105,26 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/rumah/{id}/', [AdminController::class, 'editRumah'])->name('admin.editRumah');
         Route::put('/rumah/update/{id}', [AdminController::class, 'updateRumah'])->name('admin.updateRumah');
         Route::delete('/deleteRumah', [AdminController::class, 'destroyRumah'])->name('admin.deleteRumah');
+
+        //Info
+        Route::get('/info', [AdminController::class, 'indexInfo'])->name('admin.info');
+        Route::get('/showInfo', [AdminController::class, 'showInfo'])->name('admin.showInfo');
+        Route::get('/createInfo', [AdminController::class, 'createInfo'])->name('admin.createInfo');
+        Route::post('/storeInfo', [adminController::class, 'storeInfo'])->name('admin.storeInfo');
+        Route::get('/info/{id}/', [AdminController::class, 'editInfo'])->name('admin.editInfo');
+        Route::delete('/deleteInfo', [AdminController::class, 'destroyInfo'])->name('admin.deleteInfo');
+        Route::put('/info/update/{id}', [AdminController::class, 'updateInfo'])->name('admin.updateInfo');
+        Route::delete('/deleteInfoImage', [AdminController::class, 'destroyImageInfo'])->name('admin.deleteImageInfo');
+
+        //Testimony
+        Route::get('/testimony', [AdminController::class, 'indexTestimony'])->name('admin.testimony');
+        Route::get('/showTestimony', [AdminController::class, 'showTestimony'])->name('admin.showTestimony');
+        Route::get('/createTestimony', [AdminController::class, 'createTestimony'])->name('admin.createTestimony');
+        Route::post('/storeTestimony', [adminController::class, 'storeTestimony'])->name('admin.storeTestimony');
+        Route::get('/testimony/{id}/', [AdminController::class, 'editTestimony'])->name('admin.editTestimony');
+        Route::delete('/deleteTestimony', [AdminController::class, 'destroyTestimony'])->name('admin.deleteTestimony');
+        Route::put('/testimony/update/{id}', [AdminController::class, 'updateTestimony'])->name('admin.updateTestimony');
+        Route::delete('/deleteTestimonyImage', [AdminController::class, 'destroyImageTestimony'])->name('admin.deleteImageTestimony');
     });
 
 });

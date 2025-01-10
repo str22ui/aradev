@@ -13,6 +13,17 @@
             @method('PUT')
             {{-- Title --}}
             <div class="mb-3">
+                <label for="available" class="form-label">Available</label>
+                    <select class="form-select" id="available" name="available">
+                        <option value="Available"
+                        {{ $secondary->available === 'Available' ? 'selected' : '' }}>Available</option>
+                        <option value="Sold Out" {{ $secondary->available === 'Sold Out' ? 'selected' : '' }}>
+                        Sold Out</option>
+
+                    </select>
+
+                </div>
+            <div class="mb-3">
             <label for="status" class="form-label">Status</label>
                 <select class="form-select" id="status" name="status">
                     <option value="Dijual"
@@ -31,7 +42,7 @@
                     Lihat Gambar Lama
                 </button>
             </div>
-            
+
             <div class="mb-3">
               <input type="hidden" value="0" name="views">
               <label for="name" class="form-label">Judul</label>
