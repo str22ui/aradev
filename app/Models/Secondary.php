@@ -11,7 +11,7 @@ class Secondary extends Model
     protected $table = 'secondary';
     protected $fillable = [
         'status',        // Dijual/Disewakan
-        'available',      
+        'available',
         'judul',         // Judul
         'lt',            // Luas Tanah
         'lb',            // Luas Bangunan
@@ -42,6 +42,6 @@ class Secondary extends Model
 
     public function imagesSecondary()
     {
-        return $this->hasMany(SecondaryImage::class, 'secondary_id', 'id');
+        return $this->hasMany(SecondaryImage::class, 'secondary_id'); // Pastikan foreign key benar
     }
 }

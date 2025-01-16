@@ -46,6 +46,16 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/agent/update/{id}', [AdminController::class, 'updateAgent'])->name('admin.updateAgent');
     Route::delete('/deleteAgent', [AdminController::class, 'destroyAgent'])->name('admin.deleteAgent');
 
+
+    //Reseller
+    Route::get('/reseller', [AdminController::class, 'indexReseller'])->name('admin.reseller');
+    Route::get('/showReseller', [AdminController::class, 'showReseller'])->name('admin.showReseller');
+    Route::get('/createReseller', [AdminController::class, 'createReseller'])->name('admin.createReseller');
+    Route::post('/storeReseller', [adminController::class, 'storeReseller'])->name('admin.storeReseller');
+    Route::get('/reseller/{id}/', [AdminController::class, 'editReseller'])->name('admin.editReseller');
+    Route::put('/reseller/update/{id}', [AdminController::class, 'updateReseller'])->name('admin.updateReseller');
+    Route::delete('/deleteReseller', [AdminController::class, 'destroyReseller'])->name('admin.deleteReseller');
+
     //Report
     Route::get('/report', [AdminController::class, 'indexReport'])->name('admin.report');
     Route::get('/showReport', [AdminController::class, 'createReport'])->name('admin.createReport');
@@ -76,7 +86,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/deletePerumahanImage', [AdminController::class, 'destroyImage'])->name('admin.deleteImage');
 
         //Secondary
-        Route::get('/secondary', [AdminController::class, 'indexSecondary'])->name('admin.secondary');
+        Route::get('/secondary-home', [AdminController::class, 'indexSecondary'])->name('admin.secondary-home');
         Route::get('/showSecondary', [AdminController::class, 'showSecondary'])->name('admin.showSecondary');
         Route::get('/createSecondary', [AdminController::class, 'createSecondary'])->name('admin.createSecondary');
         Route::post('/storeSecondary', [adminController::class, 'storeSecondary'])->name('admin.storeSecondary');
@@ -147,10 +157,12 @@ Route::middleware('log.visits')->group(function(){
     Route::get('/perumahan/{kota}', [LandingController::class, 'getPerumahanByKota']);
     Route::get('/perumahan/filter', [PerumahanController::class, 'filterPerumahan']);
 
+    Route::get('/secondary', [LandingController::class, 'indexSecondary'])->name('index.secondary');
     Route::get('/about', [LandingController::class, 'about'])->name('about');
 
     Route::get('/contact', [LandingController::class, 'contact'])->name('contact');
     Route::get('/showProject/{kota}', [LandingController::class, 'showProject'])->name('showProject');
+    Route::get('/showSecondary/{kota}', [LandingController::class, 'showSecondary'])->name('showSecondary');
     Route::get('/form/{id}', [LandingController::class, 'form'])->name('landingpage.form');
     Route::get('/form-download/{id}', [LandingController::class, 'download'])->name('download.form');
     Route::post('/form-create/{id}', [LandingController::class, 'storeKonsumen'])->name('form.konsumen');

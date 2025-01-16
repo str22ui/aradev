@@ -99,6 +99,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const carousel = document.querySelector('#secondary-carousel');
+    const cards = document.querySelectorAll('#secondary-carousel .card');
+    const leftBtn = document.querySelector('.kiri-btn');
+    const rightBtn = document.querySelector('.kanan-btn');
+    const cardWidth = cards[0].offsetWidth + 16; // Including gap
+
+    let currentIndex = 0;
+
+    // Event Listener for Left Button
+    leftBtn.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+        }
+    });
+
+    // Event Listener for Right Button
+    rightBtn.addEventListener('click', () => {
+        if (currentIndex < cards.length - 1) {
+            currentIndex++;
+            carousel.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+        }
+    });
+});
+
  // Ambil semua tombol filter
  const filterButtons = document.querySelectorAll('.filter-btn');
 

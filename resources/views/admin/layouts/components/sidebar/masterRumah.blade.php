@@ -14,8 +14,8 @@
         </a>
     </li>
 
-    <li class="sidebar-item {{ Request::is('admin/secondary*') || Request::is('admin/createSecondary*') || Request::is('admin/editSecondary*') || Request::is('admin/showSecondary*') ? 'active' : '' }}">
-        <a href="{{ route('admin.secondary') }}" class='sidebar-link'>
+    <li class="sidebar-item {{ Request::is('admin/secondary-home*') || Request::is('admin/createSecondary*') || Request::is('admin/editSecondary*') || Request::is('admin/showSecondary*') ? 'active' : '' }}">
+        <a href="{{ route('admin.secondary-home') }}" class='sidebar-link'>
             <i class="bi  bi-houses-fill"></i>
             <span>Secondary</span>
         </a>
