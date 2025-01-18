@@ -21,7 +21,7 @@
                         <span class="absolute top-2 left-2 bg-blue-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Soon</span>
                     @endif
                 </div>
-                
+
 
                 <!-- Content Section -->
                 <div class="p-5">
@@ -58,8 +58,10 @@
                             </a>
                             <a href="/formPenawaran/{{ $p->id }}"
                                  class="block text-center text-white py-2 px-4 rounded-lg bg-green-500 hover:bg-green-700 transition">
-                            <i class="fas fa-handshake"></i> Penawaran
-                        </a>
+                            <i class="fas fa-handshake"></i> Penawaran</a>
+                            <a href="/formSurvey/{{ $p->id }}" class="block text-center text-primary py-2 px-4 rounded-lg border-solid border-2 border-sky-500  hover:bg-sky-600 hover:text-white transition">
+                                <i class="fas fa-calendar-check" style="color:blue"></i> Janjian Survey
+                            </a>
                         @else
                             <button disabled
                                     class="block text-center w-full text-gray-500 py-2 px-4 rounded-lg bg-gray-300 cursor-not-allowed">
@@ -69,6 +71,9 @@
                                     class="block text-center w-full text-gray-500 py-2 px-4 rounded-lg bg-gray-300 cursor-not-allowed">
                                 <i class="fas fa-handshake"></i> Penawaran
                             </button>
+                            <button disabled
+                            class="block text-center w-full text-gray-500 py-2 px-4 rounded-lg bg-gray-300 cursor-not-allowed">
+                            <i class="fas fa-calendar-check"></i> Janjian Survey
                         @endif
 
 

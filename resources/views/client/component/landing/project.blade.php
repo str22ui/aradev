@@ -60,12 +60,18 @@
                             <a href="/formPenawaran/{{ $p->id }}" class="btn-penawaran">
                                 <i class="fas fa-handshake"></i> Penawaran
                             </a>
+                            <a href="/formSurvey/{{ $p->id }}" class="btn-download">
+                                <i class="fas fa-calendar-check" style="color:blue"></i> Janjian Survey
+                            </a>
                         @else
                             <button disabled class="btn-disabled">
                                 <i class="fas fa-file-download"></i> Download Pricelist & Brosur
                             </button>
                             <button disabled class="btn-disabled">
                                 <i class="fas fa-handshake"></i> Penawaran
+                            </button>
+                            <button disabled class="btn-disabled">
+                                <i class="fas fa-calendar-check"></i> Janjian Survey
                             </button>
                         @endif
                         <a href="/showPerumahan/{{$p->id}}" class="btn-see-more">

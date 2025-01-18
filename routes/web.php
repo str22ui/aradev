@@ -31,6 +31,15 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/konsumen/update/{id}', [AdminController::class, 'updateKonsumen'])->name('admin.updateKonsumen');
     Route::delete('/deleteKonsumen', [AdminController::class, 'destroyKonsumen'])->name('admin.deleteKonsumen');
 
+   //Survey
+   Route::get('/survey', [AdminController::class, 'indexSurvey'])->name('admin.survey');
+   Route::get('/createSurvey', [AdminController::class, 'createSurvey'])->name('admin.createSurvey');
+   Route::post('/storeSurvey', [adminController::class, 'storeSurvey'])->name('admin.storeSurvey');
+   Route::get('/survey/{id}/', [AdminController::class, 'editSurvey'])->name('admin.editSurvey');
+   Route::put('/survey/update/{id}', [AdminController::class, 'updateSurvey'])->name('admin.updateSurvey');
+   Route::delete('/deleteSurvey', [AdminController::class, 'destroySurvey'])->name('admin.deleteSurvey');
+
+
     //Penawaran
     Route::get('/penawaran', [AdminController::class, 'indexPenawaran'])->name('admin.penawaran');
     Route::get('/createPenawaran', [AdminController::class, 'createPenawaran'])->name('admin.createPenawaran');
@@ -180,8 +189,10 @@ Route::middleware('log.visits')->group(function(){
     Route::post('/form-create/{id}', [LandingController::class, 'storeKonsumen'])->name('form.konsumen');
 
     Route::get('/formPenawaran/{id}', [LandingController::class, 'formPenawaran'])->name('landingpage.formPenawaran');
-    // Route::post('/form-createPenawaran/{id}', [LandingController::class, 'storePenawaranKonsumen'])->name('form.penawaran');
     Route::post('/storePenawaran', [LandingController::class, 'storePenawaranKonsumen'])->name('form.penawaran');
+
+    Route::get('/formSurvey/{id}', [LandingController::class, 'formSurvey'])->name('landingpage.formSurvey');
+    Route::post('/survey/store/{id}', [LandingController::class, 'storeSurvey'])->name('form.survey');
     //
     Route::get('/showPerumahan/{id}', [LandingController::class, 'showPerumahan'])->name('landingpage.showPerumahan');
 

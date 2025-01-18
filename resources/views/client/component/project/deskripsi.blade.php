@@ -14,10 +14,9 @@
         <div>
             <h1 class="text-xl font-semibold mb-4">Deskripsi</h1>
             {{-- <p>{{ $perumahan->deskripsi }}</p> --}}
-            <p>
-
+            {{-- <p>
                 {{ Str::limit(str_replace('&nbsp;', ' ', strip_tags($perumahan->deskripsi)), 150) }}
-            </p>
+            </p> --}}
             <div class="prose">
                 {!! $perumahan->deskripsi !!}
             </div>
@@ -32,12 +31,19 @@
                 <a href="/formPenawaran/{{ $perumahan->id }}" class="btn-penawaran flex items-center gap-2 ">
                     <i class="fas fa-handshake"></i> Penawaran
                 </a>
+                <a href="/formSurvey/{{ $perumahan->id }}" class="btn-download">
+                    <i class="fas fa-calendar-check" style="color:blue"></i> Janjian Survey
+                </a>
+
             @else
                 <button disabled class="btn-disabled flex items-center gap-2 text-gray-400 cursor-not-allowed">
                     <i class="fas fa-file-download"></i> Download Pricelist
                 </button>
                 <button disabled class="btn-disabled flex items-center gap-2 text-gray-400 cursor-not-allowed">
                     <i class="fas fa-handshake"></i> Penawaran
+                </button>
+                <button disabled class="btn-disabled flex items-center gap-2 text-gray-400 cursor-not-allowed">
+                    <i class="fas fa-calendar-check" ></i> Janjian Survey
                 </button>
             @endif
         </div>

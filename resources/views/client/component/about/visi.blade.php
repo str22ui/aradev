@@ -6,7 +6,7 @@
         <div class="bg-white p-6 rounded-lg shadow-md mx-auto text-left w-1/2 border-2 border-gray-500">
             <h2 class="text-lg font-semibold mb-2">Visi Kami</h2>
             <p class="text-gray-700 text-justify">
-                Commitment to the personal success and professional growth of our people, the success of our projects and the long-term success of Mitramas Multi Investindo.
+                Menjadi platform pemasaran properti terpercaya yang menciptakan peluang bisnis tak terbatas melalui pendapatan optimal, jaringan profesional yang luas, dan inovasi digital terdepan.
             </p>
         </div>
         <div></div>
@@ -18,15 +18,18 @@
         <div class="bg-white p-6 rounded-lg shadow-md border-2 border-gray-500">
             <h2 class="text-lg font-semibold mb-2">Misi Kami</h2>
             <p class="text-gray-700 text-justify">
-                To be the most progressive and innovative property company in Indonesia, and an important partner for our Clients and for society in general.
+                Membangun tim dan mitra kerja yang solid dengan semangat kolaborasi, kepercayaan, dan komitmen untuk mencapai tujuan Bersama, dengan mengedepankan layanan yang professional, transparan dan beritegritas tinggi.
             </p>
         </div>
         <!-- Mission Statement -->
         <div class="bg-white p-6 rounded-lg shadow-md border-2 border-gray-500">
             <h2 class="text-lg font-semibold mb-2">Tujuan Kami</h2>
-            <p class="text-gray-700 text-justify">
-                We aim to understand the Customer's requirements and exceed expectations while strengthening our profile to provide creative solutions and design through a mix experience and capability, based on competent work and total reliability.
-            </p>
+            <ul class="list-disc pl-4">
+                <li>Menjadi salah satu platform pemasaran properti digital terkemuka di wilayah Anda atau bahkan nasional.</li>
+                <li>Menyediakan layanan tambahan, seperti konsultasi properti, manajemen properti, dan investasi properti</li>
+                <li>Membentuk komunitas properti profesional yang melibatkan agen, reseller, investor, kontraktor, dan developer untuk berbagi peluang.</li>
+                <li>Menjadi bisnis yang memberikan dampak positif, seperti menyediakan properti terjangkau dan mendukung program perumahan untuk masyarakat luas.</li>
+            </ul>
         </div>
     </div>
 </div>

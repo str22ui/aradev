@@ -17,6 +17,7 @@ use App\Models\Penawaran;
 use App\Models\Agent;
 use App\Models\PerumahanImage;
 use App\Models\Konsumen;
+use App\Models\Survey;
 use App\Models\Visit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -248,26 +249,6 @@ class LandingController extends Controller
         View::share('secondaryAll', $secondary);
     }
 
-
-    // public function project(){
-    //     return view('client.page.project');
-    // }
-
-    // public function showPerumahan($id){
-    //     return view('client.page.project',[
-    //         'perumahan' => Perumahan::findorFail($id),
-    //     ]);
-    // }
-
-    // public function showPerumahan($id)
-    // {
-    //     $perumahan = Perumahan::with('images')->findOrFail($id); // Eager load images
-
-
-    //     return view('client.page.project', [
-    //         'perumahan' => $perumahan,
-    //     ]);
-    // }
     public function showPerumahan($id)
     {
         // Mengambil data Perumahan beserta gambar
@@ -418,6 +399,59 @@ class LandingController extends Controller
     }
 
 
+    //==================== SURVEY ====================
+    public function formSurvey($id)
+    {
+        $allPerumahan = Perumahan::all(); // Ambil semua data Perumahan
+        $selectedPerumahan = Perumahan::findOrFail($id); // Data spesifik berdasarkan ID
+        // $agents = Agent::all();
+        $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
+
+        return view('client.page.formSurvey', compact('allPerumahan', 'selectedPerumahan', 'agents'));
+    }
+
+
+    public function storeSurvey(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama_konsumen' => 'required',
+            'no_hp' => 'required',
+            'domisili' => 'nullable',
+            'email' => 'nullable|email',
+            'pekerjaan' => 'nullable',
+            'nama_kantor' => 'nullable',
+            'perumahan' => 'required',
+            'tanggal_janjian' => 'required|date',
+            'waktu_janjian' => 'required',
+            'sumber_informasi' => 'required',
+            'agent_id' => 'nullable',
+        ]);
+
+        // Jika agent_id adalah 'pilih', set ke null
+        if ($request->input('agent_id') === 'pilih') {
+            $validatedData['agent_id'] = null;
+        } else {
+            $validatedData['agent_id'] = $request->input('agent_id');
+        }
+
+        try {
+            // Simpan data ke tabel survey
+            Survey::create($validatedData);
+
+            // Persiapkan data untuk tabel konsumen
+            $konsumenData = $validatedData;
+            unset($konsumenData['tanggal_janjian'], $konsumenData['waktu_janjian']); // Hapus kolom yang tidak ada di tabel konsumen
+
+            // Simpan data ke tabel konsumen
+            Konsumen::create($konsumenData);
+
+            return redirect()->back()->with('success', 'Survey dan data konsumen berhasil disimpan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data.']);
+        }
+    }
+
+    //==================== END SURVEY ====================
 
     public function downloadBrosur($id)
     {

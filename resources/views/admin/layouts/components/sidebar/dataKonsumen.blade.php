@@ -14,6 +14,15 @@
         </a>
     </li>
 
+    <li class="sidebar-item {{ Request::is('admin/survey*') || Request::is('admin/createSurvey*') || Request::is('admin/editSurvey*') || Request::is('admin/showSurvey*') ? 'active' : '' }}">
+        <a href="{{ route('admin.survey') }}" class='sidebar-link'>
+    {{-- <li class="sidebar-item {{ Request::is('admin/survey*') || Request::is('admin/createSurvey*') || Request::is('admin/editSurvey*') || Request::is('admin/showSurvey*') ? 'active' : '' }}">
+        <a href="{{ route('admin.survey') }}" class='sidebar-link'> --}}
+            <i class="bi bi-calendar-check"></i>
+            <span>Survey<span>
+        </a>
+    </li>
+    
     <li class="sidebar-item {{ Request::is('admin/penawaran*') || Request::is('admin/createPenawaran*') || Request::is('admin/editPenawaran*') || Request::is('admin/showPenawaran*') ? 'active' : '' }}">
         <a href="{{ route('admin.penawaran') }}" class='sidebar-link'>
             <i class="bi bi-file-earmark-text-fill"></i>

@@ -32,6 +32,10 @@ class Agent extends Model
         return $this->belongsTo(Perumahan::class);
     }
 
+    public function surveys()
+    {
+        return $this->hasMany(Survey::class, 'agent_id');
+    }
 
 }
 

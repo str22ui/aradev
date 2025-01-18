@@ -13,6 +13,7 @@ use App\Models\Perumahan;
 use App\Models\Secondary;
 use App\Models\Rumah;
 use App\Models\Konsumen;
+use App\Models\Survey;
 use App\Models\Land;
 use App\Models\Agent;
 use App\Models\Reseller;
@@ -926,7 +927,7 @@ class AdminController extends Controller
 
 
     // ============ END RUMAH ================
-// ============ KONSUMEN ================
+    // ============ KONSUMEN ================
     public function indexKonsumen()
     {
         $konsumen = Konsumen::with('agent')->get();
@@ -1036,6 +1037,128 @@ class AdminController extends Controller
     }
     // ============ END KONSUMEN ================
 
+    // ============ SURVEY ================
+      public function indexSurvey()
+      {
+          $survey = Survey::with('agent')->get();
+          // $konsumen = Konsumen::all();
+          $user = Auth::user();
+          return view('admin.survey.index', [
+              'survey' => $survey,
+              // 'user' => $user,
+          ]);
+      }
+
+      public function createSurvey(){
+          $perumahan= Perumahan::all();
+          $agent = Agent::all();
+          return view('admin.survey.createSurvey', compact('perumahan','agent'));
+      }
+
+      public function storeSurvey(Request $request)
+      {
+          $validatedData = $request->validate([
+              'nama_konsumen' => 'required',
+              'no_hp' => 'required',
+              'domisili' => 'nullable',
+              'email' => 'nullable|email',
+              'pekerjaan' => 'nullable',
+              'nama_kantor' => 'nullable',
+              'perumahan' => 'required',
+              'tanggal_janjian' => 'required|date',
+              'waktu_janjian' => 'required',
+              'sumber_informasi' => 'required',
+              'agent_id' => 'nullable',
+          ]);
+
+          // Jika agent_id adalah 'pilih', set ke null
+          if ($request->input('agent_id') === 'pilih') {
+              $validatedData['agent_id'] = null;
+          } else {
+              $validatedData['agent_id'] = $request->input('agent_id');
+          }
+
+          try {
+              // Simpan data ke tabel survey
+              Survey::create($validatedData);
+
+              // Persiapkan data untuk tabel konsumen
+              $konsumenData = $validatedData;
+              unset($konsumenData['tanggal_janjian'], $konsumenData['waktu_janjian']); // Hapus kolom yang tidak ada di tabel konsumen
+
+              // Simpan data ke tabel konsumen
+              Konsumen::create($konsumenData);
+
+              return redirect('/survey')->with('success', 'Survey dan data konsumen berhasil disimpan.');
+          } catch (\Exception $e) {
+              return redirect()
+                  ->back()
+                  ->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
+          }
+      }
+
+
+
+      public function destroySurvey(Request $request)
+      {
+          // Ambil ID dari request
+          $survey = Survey::findOrFail($request->id);
+
+          // Hapus data
+          $survey->delete();
+
+          // Redirect kembali dengan pesan sukses
+          return redirect('/survey')->with('success', 'Berhasil Menghapus Konsumen');
+      }
+
+      public function editSurvey($id)
+      {
+          // Coba temukan data konsumen berdasarkan ID
+          $survey = Survey::find($id);
+          $rumah = Rumah::find($id);
+          $perumahan = Perumahan::all();
+          $agent = Agent::all();
+
+          // Jika konsumen tidak ditemukan, tampilkan pesan error atau redirect
+          if (!$survey) {
+              return redirect()->route('admin.survey')->with('error', 'Data Konsumen tidak ditemukan');
+          }
+
+          // Jika ditemukan, kirim data ke view
+          return view('admin.survey.editSurvey', [
+              'survey' => $survey,
+              'perumahan' => $perumahan,
+              'agent' => $agent,
+              'rumah' => $rumah,
+          ]);
+      }
+
+
+      public function updateSurvey(Request $request, $id)
+      {
+          // Find the agent by id
+          $survey = Survey::find($id);
+
+          // Update the agent's data
+          $survey->nama_konsumen = $request->input('nama_konsumen');
+          $survey->no_hp = $request->input('no_hp');
+          $survey->domisili = $request->input('domisili');
+          $survey->email = $request->input('email');
+          $survey->pekerjaan = $request->input('pekerjaan');
+          $survey->nama_kantor = $request->input('nama_kantor');
+          $survey->perumahan = $request->input('perumahan');
+          $survey->tanggal_janjian = $request->input('tanggal_janjian');
+          $survey->waktu_janjian = $request->input('waktu_janjian');
+          $survey->sumber_informasi = $request->input('sumber_informasi');
+          $survey->agent_id = $request->input('agent_id');
+
+          // Save the changes to the database
+          $survey->save();
+
+          // Redirect back or to any other page
+          return redirect('/survey');
+      }
+      // ============ END SURVEY ================
 
     // ============ PENAWARAN ================
     public function indexPenawaran()
