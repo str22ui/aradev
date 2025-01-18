@@ -422,40 +422,55 @@ class AdminController extends Controller
      }
 
      public function storeSecondary(Request $request)
-     {
-         $validatedData = $request->validate([
-             'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
-             'judul' => 'required',
-             'available' => 'required',
-             'lt' => 'required',
-             'lb' => 'required',
-             'kt' => 'required',
-             'ktp' => 'required',
-             'km' => 'required',
-             'kmp' => 'required',
-             'carport' => 'required',
-             'garasi' => 'required',
-             'listrik' => 'required',
-             'air' => 'required',
-             'surat' => 'required',
-             'imb' => 'required',
-             'posisi' => 'required',
-             'furnish' => 'required',
-             'harga' => 'required',
-             'lokasi' => 'required',
-             'kecamatan' => 'required',
-             'kota' => 'required',
-             'deskripsi' => 'required',
+    {
+        $validatedData = $request->validate([
+            'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
+            'judul' => 'required',
+            'available' => 'required',
+            'status' => 'required', // Pastikan status dijual/disewakan ada
+            'lt' => 'required',
+            'lb' => 'required',
+            'kt' => 'required',
+            'ktp' => 'required',
+            'km' => 'required',
+            'kmp' => 'required',
+            'carport' => 'required',
+            'garasi' => 'required',
+            'listrik' => 'required',
+            'air' => 'required',
+            'surat' => 'required',
+            'imb' => 'required',
+            'posisi' => 'required',
+            'furnish' => 'required',
+            'harga' => 'required',
+            'lokasi' => 'required',
+            'kecamatan' => 'required',
+            'kota' => 'required',
+            'deskripsi' => 'required',
+        ]);
 
+        // Tentukan kode status (1 untuk dijual, 2 untuk disewakan)
+        $statusCode = $request->status === 'Dijual' ? '1' : '2';
 
-         ]);
+        // Ambil nomor urut terakhir
+        $lastSecondary = Secondary::latest('id')->first();
+        $nextNumber = $lastSecondary ? sprintf('%03d', $lastSecondary->id + 1) : '001';
 
+        // Ambil bulan dan tahun saat ini
+        $currentMonth = now()->format('m');
+        $currentYear = now()->format('y');
 
-         // Simpan data perumahan dan ambil objeknya
-         $secondary = Secondary::create($validatedData);
+        // Generate kode listing
+        $kodeListing = $statusCode . $nextNumber . $currentMonth . $currentYear;
 
-         // Simpan gambar terkait jika ada
-         if ($request->hasFile('images')) {
+        // Tambahkan kode listing ke data yang divalidasi
+        $validatedData['kode_listing'] = $kodeListing;
+
+        // Simpan data perumahan
+        $secondary = Secondary::create($validatedData);
+
+        // Simpan gambar jika ada
+        if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $path = $image->store('foto-secondary', 'public');
                 SecondaryImage::create([
@@ -465,8 +480,56 @@ class AdminController extends Controller
             }
         }
 
-         return redirect('/secondary-home')->with('success', 'Berhasil Menambahkan Perumahan');
- }
+        return redirect('/secondary-home')->with('success', 'Berhasil Menambahkan Perumahan');
+    }
+
+
+//      public function storeSecondary(Request $request)
+//      {
+//          $validatedData = $request->validate([
+//              'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
+//              'judul' => 'required',
+//              'available' => 'required',
+//              'lt' => 'required',
+//              'lb' => 'required',
+//              'kt' => 'required',
+//              'ktp' => 'required',
+//              'km' => 'required',
+//              'kmp' => 'required',
+//              'carport' => 'required',
+//              'garasi' => 'required',
+//              'listrik' => 'required',
+//              'air' => 'required',
+//              'surat' => 'required',
+//              'imb' => 'required',
+//              'posisi' => 'required',
+//              'furnish' => 'required',
+//              'harga' => 'required',
+//              'lokasi' => 'required',
+//              'kecamatan' => 'required',
+//              'kota' => 'required',
+//              'deskripsi' => 'required',
+
+
+//          ]);
+
+
+//          // Simpan data perumahan dan ambil objeknya
+//          $secondary = Secondary::create($validatedData);
+
+//          // Simpan gambar terkait jika ada
+//          if ($request->hasFile('images')) {
+//             foreach ($request->file('images') as $image) {
+//                 $path = $image->store('foto-secondary', 'public');
+//                 SecondaryImage::create([
+//                     'secondary_id' => $secondary->id,
+//                     'image_path' => $path,
+//                 ]);
+//             }
+//         }
+
+//          return redirect('/secondary-home')->with('success', 'Berhasil Menambahkan Perumahan');
+//  }
 
 
 

@@ -10,6 +10,7 @@ class Secondary extends Model
     use HasFactory;
     protected $table = 'secondary';
     protected $fillable = [
+        'kode_listing',
         'status',        // Dijual/Disewakan
         'available',
         'judul',         // Judul

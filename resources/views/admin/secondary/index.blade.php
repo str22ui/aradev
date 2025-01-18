@@ -22,6 +22,7 @@
                 <tr>
                     <th class="col-sm-1">No</th>
                     <th class="col-md-2">Image</th>
+                    <th class="col-md-2">Kode</th>
                     <th class="col-md-2">Perumahan</th>
                     <th class="col-md-2">Harga</th>
                     <th class="col-md-2 ">Kota</th>
@@ -49,6 +50,7 @@
                         @endif
 
                         </td>
+                        <td>{{ $s->kode_listing }}</td>
                         <td>{{ $s->judul }}</td>
                         <td>{{ $s->harga }}</td>
                         <td>{{ $s->kota }}</td>

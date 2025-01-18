@@ -43,7 +43,7 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
 
         // $secondary = Secondary::orderBy('created_at', 'desc')->get();
-        $secondary = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc')->get();
+        $secondary = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc')->take(6)->get();
 
 
         $perumahanStat = Perumahan::where('status', 'Available')->get();
