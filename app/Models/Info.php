@@ -9,7 +9,12 @@ class Info extends Model
 {
     use HasFactory;
     protected $table = 'info'; // Nama tabel
-    protected $fillable = ['image', 'title', 'headline', 'description'];
+    protected $fillable = [
+    'image',
+    'title',
+    'headline',
+    'description'
+    ];
 
     public function imagesInfo()
     {

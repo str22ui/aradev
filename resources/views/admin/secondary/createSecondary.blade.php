@@ -182,7 +182,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Create</button>
-            <a class="btn btn-danger" href="{{ route('admin.secondary') }}">Back</a>
+            <a class="btn btn-danger" href="{{ route('admin.secondary-home') }}">Back</a>
         </form>
 
 		{{-- Menampilkan total pemasukan --}}

@@ -284,6 +284,12 @@ h1 {
     gap: 1rem;
 }
 
+.secondary-carousel {
+    display: flex;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    transition: transform 0.3s ease-in-out;
+}
 .card {
     background-color: white;
     border-radius: 8px;
@@ -424,6 +430,13 @@ h1 {
     right: 10px;
 }
 
+.kiri-btn {
+    left: 10px;
+}
+
+.kanan-btn {
+    right: 10px;
+}
 /* Responsive Design */
 @media (min-width: 768px) {
     .carousel {

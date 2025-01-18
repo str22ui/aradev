@@ -46,6 +46,16 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/agent/update/{id}', [AdminController::class, 'updateAgent'])->name('admin.updateAgent');
     Route::delete('/deleteAgent', [AdminController::class, 'destroyAgent'])->name('admin.deleteAgent');
 
+
+    //Reseller
+    Route::get('/reseller', [AdminController::class, 'indexReseller'])->name('admin.reseller');
+    Route::get('/showReseller', [AdminController::class, 'showReseller'])->name('admin.showReseller');
+    Route::get('/createReseller', [AdminController::class, 'createReseller'])->name('admin.createReseller');
+    Route::post('/storeReseller', [adminController::class, 'storeReseller'])->name('admin.storeReseller');
+    Route::get('/reseller/{id}/', [AdminController::class, 'editReseller'])->name('admin.editReseller');
+    Route::put('/reseller/update/{id}', [AdminController::class, 'updateReseller'])->name('admin.updateReseller');
+    Route::delete('/deleteReseller', [AdminController::class, 'destroyReseller'])->name('admin.deleteReseller');
+
     //Report
     Route::get('/report', [AdminController::class, 'indexReport'])->name('admin.report');
     Route::get('/showReport', [AdminController::class, 'createReport'])->name('admin.createReport');
@@ -76,7 +86,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/deletePerumahanImage', [AdminController::class, 'destroyImage'])->name('admin.deleteImage');
 
         //Secondary
-        Route::get('/secondary', [AdminController::class, 'indexSecondary'])->name('admin.secondary');
+        Route::get('/secondary-home', [AdminController::class, 'indexSecondary'])->name('admin.secondary-home');
         Route::get('/showSecondary', [AdminController::class, 'showSecondary'])->name('admin.showSecondary');
         Route::get('/createSecondary', [AdminController::class, 'createSecondary'])->name('admin.createSecondary');
         Route::post('/storeSecondary', [adminController::class, 'storeSecondary'])->name('admin.storeSecondary');
@@ -87,7 +97,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/deleteSecondaryImage', [AdminController::class, 'destroyImageSecondary'])->name('admin.deleteImageSecondary');
 
         //Land
-        Route::get('/land', [AdminController::class, 'indexLand'])->name('admin.land');
+        Route::get('/land-home', [AdminController::class, 'indexLand'])->name('admin.land');
         Route::get('/showLand', [AdminController::class, 'showLand'])->name('admin.showLand');
         Route::get('/createLand', [AdminController::class, 'createLand'])->name('admin.createLand');
         Route::post('/storeLan', [adminController::class, 'storeLand'])->name('admin.storeLand');
@@ -107,7 +117,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/deleteRumah', [AdminController::class, 'destroyRumah'])->name('admin.deleteRumah');
 
         //Info
-        Route::get('/info', [AdminController::class, 'indexInfo'])->name('admin.info');
+        Route::get('/info-home', [AdminController::class, 'indexInfo'])->name('admin.info');
         Route::get('/showInfo', [AdminController::class, 'showInfo'])->name('admin.showInfo');
         Route::get('/createInfo', [AdminController::class, 'createInfo'])->name('admin.createInfo');
         Route::post('/storeInfo', [adminController::class, 'storeInfo'])->name('admin.storeInfo');
@@ -117,7 +127,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/deleteInfoImage', [AdminController::class, 'destroyImageInfo'])->name('admin.deleteImageInfo');
 
         //Testimony
-        Route::get('/testimony', [AdminController::class, 'indexTestimony'])->name('admin.testimony');
+        Route::get('/testimony-home', [AdminController::class, 'indexTestimony'])->name('admin.testimony');
         Route::get('/showTestimony', [AdminController::class, 'showTestimony'])->name('admin.showTestimony');
         Route::get('/createTestimony', [AdminController::class, 'createTestimony'])->name('admin.createTestimony');
         Route::post('/storeTestimony', [adminController::class, 'storeTestimony'])->name('admin.storeTestimony');
@@ -149,8 +159,22 @@ Route::middleware('log.visits')->group(function(){
 
     Route::get('/about', [LandingController::class, 'about'])->name('about');
 
+    Route::get('/secondary', [LandingController::class, 'indexSecondary'])->name('index.secondary');
+    Route::get('/showSecondary/{id}', [LandingController::class, 'showSecondary'])->name('showSecondary');
+    // Route::get('/showSecondary/{kota}', [LandingController::class, 'showSecondary'])->name('showSecondary');
+
+    Route::get('/land', [LandingController::class, 'indexLand'])->name('index.land');
+    Route::get('/showLand/{id}', [LandingController::class, 'showLand'])->name('showLand');
+
+    Route::get('/testimony', [LandingController::class, 'indexTestimony'])->name('index.testimony');
+
+    Route::get('/info', [LandingController::class, 'indexInfo'])->name('index.info');
+    Route::get('/info/{id}', [LandingController::class, 'showInfo'])->name('info.show');
+
+
     Route::get('/contact', [LandingController::class, 'contact'])->name('contact');
     Route::get('/showProject/{kota}', [LandingController::class, 'showProject'])->name('showProject');
+
     Route::get('/form/{id}', [LandingController::class, 'form'])->name('landingpage.form');
     Route::get('/form-download/{id}', [LandingController::class, 'download'])->name('download.form');
     Route::post('/form-create/{id}', [LandingController::class, 'storeKonsumen'])->name('form.konsumen');

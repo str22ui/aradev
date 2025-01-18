@@ -11,20 +11,10 @@
 
 @include('admin.layouts.components.sidebar.masterRumah')
 @include('admin.layouts.components.sidebar.dataKonsumen')
+@include('admin.layouts.components.sidebar.dataAgent')
 
 {{-- @include('admin.layouts.components.sidebar.galleryDropdown')
 @include('admin.layouts.components.sidebar.masterDropdown') --}}
-
-
-{{-- teacher --}}
-
-<li class="sidebar-item {{ Request::is('admin/agent*') || Request::is('admin/createAgent*') || Request::is('admin/editAgent*') || Request::is('admin/showAgent*') ? 'active' : '' }}">
-    <a href="{{ route('admin.agent') }}" class='sidebar-link'>
-
-        <i class="bi bi-person-rolodex"></i>
-        <span>Agent</span>
-    </a>
-</li>
 
 {{-- Student --}}
 <li class="sidebar-item {{ Request::is('admin/report*') || Request::is('admin/createReport*') || Request::is('admin/editReport*') || Request::is('admin/showReport*') ? 'active' : '' }}">

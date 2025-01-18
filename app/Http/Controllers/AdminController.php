@@ -15,6 +15,7 @@ use App\Models\Rumah;
 use App\Models\Konsumen;
 use App\Models\Land;
 use App\Models\Agent;
+use App\Models\Reseller;
 use App\Models\Report;
 use App\Models\Penawaran;
 use App\Models\PerumahanImage;
@@ -463,7 +464,7 @@ class AdminController extends Controller
             }
         }
 
-         return redirect('/secondary')->with('success', 'Berhasil Menambahkan Perumahan');
+         return redirect('/secondary-home')->with('success', 'Berhasil Menambahkan Perumahan');
  }
 
 
@@ -582,11 +583,10 @@ class AdminController extends Controller
              }
          }
 
-
          // Simpan perubahan
          $secondary->save();
 
-         return redirect()->route('admin.secondary')->with('success', 'Data perumahan berhasil diperbarui.');
+         return redirect()->route('admin.secondary-home')->with('success', 'Data perumahan berhasil diperbarui.');
      }
 
      public function destroyImageSecondary(Request $request)
@@ -622,7 +622,7 @@ class AdminController extends Controller
          $secondary->delete();
 
          // Redirect dengan pesan sukses
-         return redirect('/secondary')->with('success', 'Berhasil Menghapus Perumahan');
+         return redirect('/secondary-home')->with('success', 'Berhasil Menghapus Perumahan');
      }
 
     // ============ END SECONDARY ================
@@ -690,7 +690,7 @@ class AdminController extends Controller
              }
          }
 
-         return redirect('/land')->with('success', 'Berhasil Menambahkan Data Tanah');
+         return redirect('/land-home')->with('success', 'Berhasil Menambahkan Data Tanah');
  }
 
 
@@ -821,7 +821,7 @@ class AdminController extends Controller
          $land->delete();
 
          // Redirect dengan pesan sukses
-         return redirect('/land')->with('success', 'Berhasil Menghapus Data Tanah');
+         return redirect('/land-home')->with('success', 'Berhasil Menghapus Data Tanah');
      }
 
     // ============ END LAND ================
@@ -1207,6 +1207,108 @@ class AdminController extends Controller
 
         // Redirect kembali dengan pesan sukses
         return redirect('/agent')->with('success', 'Berhasil Menghapus Agent');
+    }
+
+    // ============ END AGENT ================
+
+    // ============ START Reseller ===========
+
+     public function indexReseller()
+     {
+
+         $reseller = Reseller::all();
+         $user = Auth::user();
+         return view('admin.reseller.index', [
+             'reseller' => $reseller,
+         ]);
+     }
+
+     public function createReseller(){
+        // $perumahan= Perumahan::all();
+        // return view('admin.agent.createAgent', compact('perumahan'));
+        return view('admin.reseller.createReseller');
+    }
+
+    public function storeReseller(Request $request)
+    {
+        $validatedData = $request->validate([
+
+            'nama' => 'required',
+            'no_hp' => 'required',
+            'pekerjaan' => 'required',
+            'kota' => 'required',
+            'alamat' => 'required',
+        ]);
+        Reseller::create($validatedData);
+        return redirect('/reseller')->with('success', 'Berhasil Menambahkan Reseller');
+    }
+
+
+    public function editReseller($id)
+    {
+        $reseller = Reseller::find($id);
+
+        if (!$reseller) {
+            return redirect()->route('admin.reseller')->with('error', 'Data Agent tidak ditemukan');
+        }
+
+        // Decode JSON perumahan_id
+        // $agent->perumahan_id = json_decode($agent->perumahan_id, true);
+
+        // // Ambil data perumahan berdasarkan ID yang ada di perumahan_id
+        //  $perumahan = Perumahan::all();
+
+
+        return view('admin.reseller.editReseller', [
+            'reseller' => $reseller,
+            // 'perumahan' => $perumahan,
+        ]);
+    }
+
+
+
+    public function updateReseller(Request $request, $id)
+    {
+        // Validasi data
+        $request->validate([
+            'nama' => 'required|max:255',
+            'no_hp' => 'required|max:255',
+            'pekerjaan' => 'required|max:255',
+            'kota' => 'required|max:255',
+            'alamat' => 'required|max:255',
+        ]);
+
+        // Temukan agent berdasarkan id
+        $reseller = Reseller::find($id);
+
+        // Update agent data
+        $reseller->update([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'pekerjaan' => $request->pekerjaan,
+            'kota' => $request->kota,
+            'alamat' => $request->alamat,
+        ]);
+
+        // Simpan perubahan
+        $reseller->save();
+
+        // Redirect kembali ke halaman agent
+        return redirect('/reseller');
+    }
+
+
+
+    public function destroyReseller(Request $request)
+    {
+        // Ambil ID dari request
+        $reseller = Reseller::findOrFail($request->id);
+
+        // Hapus data
+        $reseller->delete();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect('/reseller')->with('success', 'Berhasil Menghapus Reseller');
     }
 
       // ============ END AGENT ================
@@ -1726,7 +1828,7 @@ class AdminController extends Controller
 
     // Simpan data ke tabel testimony
     Testimony::create($validatedData);
-    return redirect('/testimony')->with('success', 'Berhasil Menambahkan Data Testimony');
+    return redirect('/testimony-home')->with('success', 'Berhasil Menambahkan Data Testimony');
 }
 
 
@@ -1838,7 +1940,7 @@ class AdminController extends Controller
         $testimony->delete();
 
         // Redirect dengan pesan sukses
-        return redirect('/testimony')->with('success', 'Berhasil Menghapus Data Testimony');
+        return redirect('/testimony-home')->with('success', 'Berhasil Menghapus Data Testimony');
     }
 
    // ============ END INFO ================

@@ -29,8 +29,8 @@
                             <!-- Text dan Button -->
                             <div class="flex flex-col items-start space-y-2">
                                 <p class="font-semibold text-md md:text-lg">Hubungi Via Email</p>
-                                <p class=" text-sm md:text-lg">sheviaheights.official@gmail.com</p>
-                                <a href="mailto:sheviaheights.official@gmail.com" class="bg-white text-black px-6 py-2 text-xs md:text-md rounded-lg font-medium">
+                                <p class=" text-sm md:text-lg">aradev.property@gmail.com</p>
+                                <a href="mailto:aradev.property@gmail.com" class="bg-white text-black px-6 py-2 text-xs md:text-md rounded-lg font-medium">
                                     Mail Now
                                 </a>
                             </div>
