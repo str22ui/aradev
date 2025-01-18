@@ -48,6 +48,7 @@
                             <i class="fas fa-car"></i> {{ $s->garasi }}
                         </p>
                         <p class="text-sm text-gray-500 mt-4">Posted: {{ $s->created_at->format('d/m/y') }}</p>
+                        <p class="text-sm text-gray-500 mt-4">Kode: {{ $s->kode_listing }}</p>
                     </div>
                     <div class="mt-4">
                         <p class="text-gray-500 text-sm">Start From</p>
