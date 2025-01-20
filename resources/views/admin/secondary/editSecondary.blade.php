@@ -108,10 +108,17 @@
                 <input type="number" value="{{ $secondary->listrik }}" name="listrik" id="listrik" placeholder="Masukkan Jumlah Listrik" class="form-control">
             </div>
 
+
             <div class="mb-3">
-                <input type="hidden" value="0" name="views">
-                <label for="air" class="form-label">Air</label>
-                <input type="number" value="{{ $secondary->air }}" name="air" id="air" placeholder="Masukkan Air" class="form-control">
+                <label for="hidden" class="form-label">Air</label>
+                <select id="air" name="air"
+                    class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="PAM" {{ $secondary->air === 'PAM' ? 'selected' : '' }}>PAM</option>
+                    <option value="Jet Pump" {{ $secondary->air === 'Jet Pump' ? 'selected' : '' }}>Jet Pump</option>
+                    <option value="Sumur Bor" {{ $secondary->air === 'Sumur Bor' ? 'selected' : '' }}>Sumur Bor</option>
+                    <option value="Pompa" {{ $secondary->air === 'Pompa' ? 'selected' : '' }}>Pompa</option>
+
+                </select>
             </div>
 
             <div class="mb-3">
@@ -155,6 +162,7 @@
                 <label for="furnish" class="form-label">Furnish</label>
 
                 <select class="form-select" id="furnish" name="furnish">
+                    <option value="Full Furnished" {{ $secondary->furnish === 'Full Furnished' ? 'selected' : '' }}>Full Furnished</option>
                     <option value="Semi Furnished" {{ $secondary->furnish === 'Semi Furnished' ? 'selected' : '' }}>Semi Furnished</option>
                     <option value="Unfurnished" {{ $secondary->furnish === 'Unfurnished' ? 'selected' : '' }}>Unfurnished</option>
                 </select>

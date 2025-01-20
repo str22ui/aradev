@@ -1,8 +1,9 @@
-<nav id="a" class="fixed z-50  ease-linear duration-100 translate-x-0  w-screen top-0 font-[Poppins]">
+<nav id="a" class="fixed z-50 ease-linear duration-100 translate-x-0 w-screen top-0 font-[Poppins] bg-white shadow-lg">
+
     <div class="flex justify-between items-center px-5 lg:px-12 xl:px-20">
         <!-- Logo (Selalu Tampil di HP) -->
         <a href="/" class="lg:hidden">
-            <img id="mobileLogo" class="w-36" src="{{ asset('img/logo.png') }}" alt="logo">
+            <img id="mobileLogo" class="w-20 md:w-36" src="{{ asset('img/logo.png') }}" alt="logo">
         </a>
 
         <!-- Hamburger Menu -->
@@ -16,7 +17,8 @@
     </div>
 
     <!-- Mobile Navigation Menu -->
-    <div id="nav" class="hidden flex-col lg:block border-b-indigo-500 text-[3E3C3C] ">
+    <div id="nav" class="hidden flex-col lg:block bg-white lg:bg-transparent">
+
         <section id="navMenu" class="flex flex-col lg:flex-row lg:mt-0 py-5 px-5 lg:px-12 xl:px-20 justify-evenly">
             <!-- Logo untuk Mode Desktop -->
             <a href="/" class="hidden lg:block">

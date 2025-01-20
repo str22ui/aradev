@@ -28,18 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Toggle dropdown visibility on button click
     dropdownToggle.addEventListener('click', () => {
-        const isHidden = dropdownContent.classList.contains('hidden');
-
-        // Toggle dropdown visibility
-        if (isHidden) {
-            dropdownContent.classList.remove('hidden');
-            dropdownContent.classList.add('flex');
-            dropdownToggle.querySelector('svg').classList.add('rotate-180'); // Rotate arrow up
-        } else {
-            dropdownContent.classList.add('hidden');
-            dropdownContent.classList.remove('flex');
-            dropdownToggle.querySelector('svg').classList.remove('rotate-180'); // Rotate arrow down
-        }
+        dropdownContent.classList.toggle('hidden');
+        dropdownContent.classList.toggle('flex');
+        dropdownContent.classList.toggle('bg-white');
+        dropdownContent.classList.toggle('shadow-lg');
     });
 });
 
@@ -58,21 +50,15 @@ let lg = window.matchMedia("(min-width: 1024px)").matches;
 
 window.addEventListener("scroll", () => {
     let yScroll = window.scrollY;
-
-    if (lg) {
+    if (!lg) { // Untuk mode HP
         if (yScroll > 0) {
-            navMenu.style.background = "#F1F1F1";
-            fonts.forEach((font) => {
-                font.style.color = "#FFFFFF"; // Ganti warna font jadi putih saat scroll
-            });
+            a.style.background = "#F1F1F1"; // Latar belakang navigasi
         } else {
-            navMenu.style.background = "#9CA3Af";
-            fonts.forEach((font) => {
-                font.style.color = "#000000"; // Kembali ke hitam jika tidak di-scroll
-            });
+            a.style.background = "#FFFFFF"; // Kembali ke warna putih
         }
     }
 });
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.querySelector('.carousel');
@@ -273,3 +259,6 @@ document.querySelectorAll('.btn-delete-image').forEach(button => {
     });
 });
 
+
+
+//======= Secondary ==========

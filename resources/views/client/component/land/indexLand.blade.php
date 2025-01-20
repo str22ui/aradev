@@ -1,6 +1,7 @@
 @extends('client.layouts.index')
 
-@section('title', '')
+
+@section('title', 'Land')
 <div class="mx-auto bg-gray-100 md:mt-32 px-6 mt-24 pt-12">
     <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Land</h1>
 

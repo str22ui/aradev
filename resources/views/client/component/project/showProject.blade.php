@@ -73,7 +73,7 @@
                             </button>
                             <button disabled
                             class="block text-center w-full text-gray-500 py-2 px-4 rounded-lg bg-gray-300 cursor-not-allowed">
-                            <i class="fas fa-calendar-check"></i> Janjian Survey
+                            <i class="fas fa-calendar-check"></i> Janjian Survey</button>
                         @endif
 
 

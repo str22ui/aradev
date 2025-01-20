@@ -538,3 +538,14 @@ h1 {
   .filter-btn.bg-primary {
     transition: all 0.3s ease;
 }
+.filter-btn[data-status="all"] {
+    color: black; /* Pastikan warna fontnya hitam */
+    background-color: white; /* Pastikan latar belakangnya putih */
+}
+
+.filter-btn[data-status="all"]:hover {
+    background-color: #4883B2; /* Sesuaikan dengan warna hover yang diinginkan */
+    color: white; /* Pastikan warna font berubah saat hover */
+}
+
+

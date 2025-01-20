@@ -117,46 +117,23 @@ class LandingController extends Controller
     public function indexSecondary()
     {
         $secondary = Secondary::all();
-        $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
-        return view('client.component.secondary.indexSecondary', [
-            'secondary' => $secondary,
-            'allPerumahan' => $allPerumahan,
-            // 'user' => $user,
-        ]);
+        $allPerumahan = Perumahan::all();
+        $kotas = Perumahan::select('kota')->distinct()->get();
+        return view('client.component.secondary.indexSecondary', compact('secondary', 'allPerumahan','kotas'));
+
     }
 
 
-    //  public function showSecondary($kota)
-    //  {
-    //      $secondary = Secondary::where('kota', $kota)
-    //          ->with('images')
-    //          ->orderBy('created_at', 'desc')
-    //          ->get();
-    //       $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
-    //      $allSecondary = Secondary::orderBy('created_at', 'desc')->get();
-    //      $kotas = Secondary::select('kota')->distinct()->get();
-
-
-    //      return view('client.component.secondary.index', [
-    //          'secondary' => $secondary,
-    //          'kota' => $kota,
-    //          'allSecondary' => $allSecondary,
-    //          'kotas' => $kotas,
-    //          'allPerumahan' => $allPerumahan,
-    //      ]);
-    //  }
 
      public function showSecondary($id)
     {
         // Mengambil data Perumahan beserta gambar
         $secondary = Secondary::with('imagesSecondary')->findOrFail($id);
-        $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
+        $allPerumahan = Perumahan::all();
+        $kotas = Perumahan::select('kota')->distinct()->get();
 
+        return view('client.component.secondary.showSecondary', compact('secondary', 'allPerumahan','kotas'));
 
-        return view('client.component.secondary.showSecondary', [
-            'secondary' => $secondary,
-            'allPerumahan' => $allPerumahan,
-        ]);
     }
 
 
@@ -168,11 +145,8 @@ class LandingController extends Controller
     {
         $land = Land::all();
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
-        return view('client.component.land.indexLand', [
-            'land' => $land,
-            'allPerumahan' => $allPerumahan,
-            // 'user' => $user,
-        ]);
+        $kotas = Perumahan::select('kota')->distinct()->get();
+        return view('client.component.land.indexLand', compact('land', 'allPerumahan', 'kotas'));
     }
 
 
@@ -195,11 +169,8 @@ class LandingController extends Controller
     {
         $info = Info::all();
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
-        return view('client.component.info.indexInfo', [
-            'info' => $info,
-            'allPerumahan' => $allPerumahan,
-            // 'user' => $user,
-        ]);
+        $kotas = Perumahan::select('kota')->distinct()->get();
+        return view('client.component.info.indexInfo', compact('info', 'allPerumahan', 'kotas'));
     }
 
     public function showInfo($id)
@@ -217,11 +188,9 @@ class LandingController extends Controller
     {
         $testimony = Testimony::all();
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
-        return view('client.component.testimony.indexTestimony', [
-            'testimony' => $testimony,
-            'allPerumahan' => $allPerumahan,
-            // 'user' => $user,
-        ]);
+        $kotas = Perumahan::select('kota')->distinct()->get();
+        return view('client.component.testimony.indexTestimony', compact('testimony', 'allPerumahan', 'kotas'));
+
     }
     // =================== END TESTIMONY ===================
 

@@ -1,4 +1,5 @@
-<a class=" font-bold text-[#3E3C3C] text-base" id="font" href="/">Home</a>
+<a class="font-bold text-gray-800 text-base hover:text-blue-500 transition-colors duration-200" href="/">Home</a>
+
 <a class=" font-bold  text-[#3E3C3C] text-base"  href="/about">About</a>
 @include('client.component.NavigationComponent.ProjectDropdown')
 {{-- @include('client.component.NavigationComponent.SecondaryDropdown') --}}

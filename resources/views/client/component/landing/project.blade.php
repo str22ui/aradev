@@ -1,5 +1,13 @@
 <div data-aos="fade-up" data-aos-duration="1000" class="container mx-auto px-4 py-8">
-    <h2 class="text-center text-2xl font-bold mb-12"><i class="fa fa-home" style="font-size:20px; margin-bottom:20px;" aria-hidden="true"></i>Properti Primary</h2>
+    <div class="text-center mb-12">
+        <h2 class="flex items-center justify-center text-2xl font-bold text-blue-500 hover:text-blue-700 transition-colors duration-300">
+            <i class="fa fa-home mr-2 text-xl text-blue-500" aria-hidden="true"></i>
+            Properti Primary
+        </h2>
+        <hr class="mt-2 w-24 mx-auto border-t-2 border-blue-500">
+    </div>
+
+
     <div class="mx-auto text-center mb-12">
         <div class="flex flex-wrap justify-center gap-4">
           <button data-status="all" class="filter-btn border-solid border-2 border-primary text-black bg-white rounded-xl px-8 py-1 hover:bg-primary hover:text-white active ">All</button>
@@ -32,7 +40,8 @@
                         </div>
                         <div class="card-price">
                             <p class="start-from">Start From</p>
-                            <p class="price">Rp {{$p->harga}} {{ $p->satuan }}-an</p>
+                            <p class="price">Rp {{ number_format($p->harga, 0, ',', '.') }} {{ $p->satuan }}-an</p>
+
                         </div>
                     </div>
 

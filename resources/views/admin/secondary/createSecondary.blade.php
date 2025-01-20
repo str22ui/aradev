@@ -96,9 +96,15 @@
             </div>
 
             <div class="mb-3">
-                <input type="hidden" value="0" name="views">
-                <label for="air" class="form-label">Air</label>
-                <input type="number" autofocus value="" name="air" id="air" placeholder="Masukkan Air" class="form-control">
+                <label for="hidden" class="form-label">Air</label>
+                <select id="air" name="air"
+                    class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value ="">--- Pilih ---</option>
+                    <option value="PAM">PAM</option>
+                    <option value="Jet Pump">Jet Pump</option>
+                    <option value="Sumur Bor">Sumur Bor</option>
+                    <option value="Pompa">Pompa</option>
+                </select>
             </div>
 
             <div class="mb-3">
@@ -150,6 +156,7 @@
                 <select id="furnish" name="furnish"
                     class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value ="">--- Pilih ---</option>
+                    <option value="Full Furnished">Full Furnished</option>
                     <option value="Semi Furnished">Semi Furnished</option>
                     <option value="Unfurnished">Unfurnished</option>
                 </select>

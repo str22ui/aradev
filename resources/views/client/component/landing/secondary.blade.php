@@ -1,9 +1,11 @@
 <div data-aos="fade-up" data-aos-duration="1000" class="container mx-auto px-4 py-8">
-    <h2 class="text-center text-2xl font-bold mb-12">
-        <i class="fa fa-home" style="font-size:20px; margin-bottom:20px;" aria-hidden="true"></i>
-        Properti Secondary
-    </h2>
-
+    <div class="text-center mb-12">
+        <h2 class="flex items-center justify-center text-2xl font-bold text-green-500 hover:text-green-700 transition-colors duration-300">
+            <i class="fa fa-home mr-2 text-xl text-green-500" aria-hidden="true"></i>
+            Properti Secondary
+        </h2>
+        <hr class="mt-2 w-24 mx-auto border-t-2 border-green-500">
+    </div>
     <div class="grid lg:grid-cols-2 gap-6">
         @if ($secondary->isEmpty())
             <p class="text-center text-gray-500">No properties available for the selected status.</p>
