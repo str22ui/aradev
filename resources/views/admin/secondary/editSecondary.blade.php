@@ -190,7 +190,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
-            <a class="btn btn-danger" href="{{ route('admin.secondary') }}">Back</a>
+            <a class="btn btn-danger" href="{{ route('admin.secondary-home') }}">Back</a>
         </form>
         <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">

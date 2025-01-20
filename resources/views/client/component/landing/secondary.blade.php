@@ -42,19 +42,20 @@
                         </div>
                         <p class="text-gray-600">{{ $s->secondary }}</p>
                         <p class="text-sm text-gray-500 mt-2">
-                            LB: {{ $s->luas_bangunan }} | LT: {{ $s->luas_tanah }} |
-                            <i class="fas fa-bed"></i> {{ $s->kamar_tidur }} |
-                            <i class="fas fa-shower"></i> {{ $s->kamar_mandi }} |
+                            LB: {{ $s->lb }} | LT: {{ $s->lt }} |
+                            <i class="fas fa-bed"></i> {{ $s->kt }} |
+                            <i class="fas fa-shower"></i> {{ $s->km }} |
                             <i class="fas fa-car"></i> {{ $s->garasi }}
                         </p>
                         <p class="text-sm text-gray-500 mt-4">Posted: {{ $s->created_at->format('d/m/y') }}</p>
                         <p class="text-sm text-gray-500 mt-4">Kode: {{ $s->kode_listing }}</p>
                     </div>
                     <div class="mt-4">
-                        <p class="text-gray-500 text-sm">Start From</p>
-                        <p class="text-lg font-bold text-blue-600">Rp {{ $s->harga }}</p>
+                        <p class="text-gray-500 text-sm">Harga Dari</p>
+                        <p class="text-lg font-bold text-blue-600">Rp {{ number_format($s->harga, 0, ',', '.') }}</p>
+
                     </div>
-                    <a href="/showPerumahan/{{$s->id}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md text-center hover:bg-blue-600 transition">
+                    <a href="/showSecondary/{{$s->id}}" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md text-center hover:bg-blue-600 transition">
                         <i class="fas fa-info-circle"></i> See More
                     </a>
                 </div>
