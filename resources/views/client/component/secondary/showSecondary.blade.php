@@ -4,7 +4,7 @@
 @section('title', '')
 {{-- @section('desc', $desc)
 @section('keyword', 'al-hasra','smk', 'pendidikan', 'sekolah') --}}
-<div class="mx-auto bg-gray-100 md:mt-32 px-4 mt-24 pt-12">
+<div class="mx-auto bg-gray-100  px-4 mt-24 pt-12">
     <div class="container mx-auto py-12 px-6">
         <!-- Header -->
         <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Detail Properti</h1>

@@ -155,12 +155,10 @@ class LandingController extends Controller
         // Mengambil data Perumahan beserta gambar
         $land = Land::with('imagesLand')->findOrFail($id);
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
+        $kotas = Perumahan::select('kota')->distinct()->get();
 
+        return view('client.component.land.showLand', compact('land','allPerumahan', 'kotas'));
 
-        return view('client.component.land.showLand', [
-            'land' => $land,
-            'allPerumahan' => $allPerumahan,
-        ]);
     }
     // =================== END LAND ===================
 
@@ -177,8 +175,9 @@ class LandingController extends Controller
     {
         $info= Info::findOrFail($id);
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
+        $kotas = Perumahan::select('kota')->distinct()->get();
 
-        return view('client.component.info.show', compact('info','allPerumahan'));
+        return view('client.component.info.show', compact('info','allPerumahan','kotas'));
     }
 
     // =================== END INFO ===================

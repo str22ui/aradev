@@ -1842,22 +1842,20 @@ class AdminController extends Controller
              }
          }
 
-         return redirect('/info')->with('success', 'Berhasil Menambahkan Data Tanah');
- }
+         return redirect('/info-home')->with('success', 'Berhasil Menambahkan Data Tanah');
+    }
 
+    public function editInfo($id)
+    {
+        $info = Info::find($id);
+        $images = InfoImage::where('info_id', $id)->get();
 
+        return view('admin.info.editInfo', [
+            'info' => $info,
+            'images' => $images,
+        ]);
+    }
 
-     public function editInfo($id)
-     {
-         $info = Info::find($id);
-         $images = InfoImage::where('info_id', $id)->get();
-
-
-         return view('admin.info.editInfo', [
-             'info' => $info,
-             'images' => $images, // Kirim gambar ke view
-         ]);
-     }
 
      public function removeImageInfo(Request $request)
      {

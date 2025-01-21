@@ -130,7 +130,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/showInfo', [AdminController::class, 'showInfo'])->name('admin.showInfo');
         Route::get('/createInfo', [AdminController::class, 'createInfo'])->name('admin.createInfo');
         Route::post('/storeInfo', [adminController::class, 'storeInfo'])->name('admin.storeInfo');
-        Route::get('/info/{id}/', [AdminController::class, 'editInfo'])->name('admin.editInfo');
+        Route::get('/info-home/{id}/', [AdminController::class, 'editInfo'])->name('admin.editInfo');
         Route::delete('/deleteInfo', [AdminController::class, 'destroyInfo'])->name('admin.deleteInfo');
         Route::put('/info/update/{id}', [AdminController::class, 'updateInfo'])->name('admin.updateInfo');
         Route::delete('/deleteInfoImage', [AdminController::class, 'destroyImageInfo'])->name('admin.deleteImageInfo');

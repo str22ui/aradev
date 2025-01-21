@@ -53,6 +53,7 @@
                         </td>
 
                         <td>
+
                             <a href="{{ route('admin.editInfo', ['id' => $i->id]) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>
                             </a>

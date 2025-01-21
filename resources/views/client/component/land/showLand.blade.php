@@ -1,7 +1,7 @@
 @extends('client.layouts.index')
 
 @section('title', '')
-<div class="mx-auto bg-gray-100 md:mt-32 px-6 mt-24 pt-12">
+<div class="mx-auto bg-gray-100 px-6 mt-24 pt-12">
     <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Detail Tanah</h1>
 
     <!-- Konten -->
@@ -59,7 +59,7 @@
 
     <!-- Tombol -->
     <div class="text-center mt-8">
-        <a href="whatsapp://send?phone=NO_HP&text=Halo,%20saya%20tertarik%20dengan%20properti%20ini"
+        <a href="https://wa.me/6287854454888"
            class="inline-block bg-green-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-green-600 transition">
             <i class="fab fa-whatsapp"></i> Hubungi WA
         </a>

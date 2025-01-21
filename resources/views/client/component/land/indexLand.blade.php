@@ -2,7 +2,7 @@
 
 
 @section('title', 'Land')
-<div class="mx-auto bg-gray-100 md:mt-32 px-6 mt-24 pt-12">
+<div class="mx-auto bg-gray-100  px-6 mt-24 pt-12">
     <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Land</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
