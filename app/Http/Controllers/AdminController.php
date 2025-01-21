@@ -1959,7 +1959,7 @@ class AdminController extends Controller
          $info->delete();
 
          // Redirect dengan pesan sukses
-         return redirect('/info')->with('success', 'Berhasil Menghapus Data Info');
+         return redirect('/info-home')->with('success', 'Berhasil Menghapus Data Info');
      }
 
     // ============ END INFO ================
