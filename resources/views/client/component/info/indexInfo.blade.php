@@ -2,7 +2,7 @@
 
 @section('title', '')
 <div class="mx-auto  px-6 mt-24 pt-12 bg-gray-100">
-    <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Info & Education</h1>
+    <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Info & Event</h1>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach ($info as $i)
         <div class="bg-white shadow-lg rounded overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow duration-300">

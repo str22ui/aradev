@@ -37,7 +37,7 @@
                 <label for="headline" class="form-label">Headline</label>
                 <select class="form-select" id="headline" name="headline">
                     <option value="Info" {{ $info->headline === 'Info' ? 'selected' : '' }}>Info</option>
-                    <option value="Edukasi" {{ $info->headline === 'Edukasi' ? 'selected' : '' }}>Edukasi</option>
+                    <option value="Event" {{ $info->headline === 'Event' ? 'selected' : '' }}>Event</option>
                 </select>
             </div>
 

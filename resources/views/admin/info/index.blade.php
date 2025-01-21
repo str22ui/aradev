@@ -1,4 +1,4 @@
-@extends('admin.layouts.index', ['title' => 'Data Info', 'page_heading' => 'Data Info'])
+@extends('admin.layouts.index', ['title' => 'Data Info & Event', 'page_heading' => 'Data Info & Event'])
 
 
 @section('content')

@@ -55,7 +55,7 @@
     <!-- Tombol Kembali -->
     <div class="mt-8">
         <a href="{{ route('index.info') }}" class="text-blue-500 hover:underline">
-            ← Kembali ke Info & Education
+            ← Kembali ke Info & Event
         </a>
     </div>
 </div>

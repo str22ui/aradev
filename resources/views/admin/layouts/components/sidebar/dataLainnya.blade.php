@@ -10,7 +10,7 @@
      <li class="sidebar-item {{ Request::is('admin/info*') || Request::is('admin/createInfo*') || Request::is('admin/editInfo*') || Request::is('admin/showInfo*') ? 'active' : '' }}">
         <a href="{{ route('admin.info') }}" class='sidebar-link'>
             <i class="bi bi-info-circle-fill"></i>
-            <span>Info & Education</span>
+            <span>Info & Event</span>
         </a>
     </li>
 
