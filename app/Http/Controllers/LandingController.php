@@ -15,6 +15,7 @@ use App\Models\Testimony;
 use App\Models\Rumah;
 use App\Models\Penawaran;
 use App\Models\Agent;
+use App\Models\Reseller;
 use App\Models\PerumahanImage;
 use App\Models\Konsumen;
 use App\Models\Survey;
@@ -279,8 +280,9 @@ class LandingController extends Controller
         $selectedPerumahan = Perumahan::findOrFail($id); // Data spesifik berdasarkan ID
         // $agents = Agent::all();
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
+        $reseller = Reseller::all();
 
-        return view('client.page.form', compact('allPerumahan', 'selectedPerumahan', 'agents'));
+        return view('client.page.form', compact('allPerumahan', 'selectedPerumahan', 'agents', 'reseller'));
     }
 
 

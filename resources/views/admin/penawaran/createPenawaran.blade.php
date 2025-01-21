@@ -1,4 +1,4 @@
-@extends('admin.layouts.index', ['title' => 'Tambah Data Rumah', 'page_heading' => 'Tambah Data Rumah'])
+@extends('admin.layouts.index', ['title' => 'Tambah Data Penawaran', 'page_heading' => 'Tambah Data Penawaran'])
 
 @section('content')
 <section class="row">
@@ -8,7 +8,7 @@
 
 		<!-- Table untuk memanggil data dari database -->
         @include('sweetalert::alert')
-		<form method="post" action="{{ route('admin.storeRumah') }}" enctype="multipart/form-data">
+		<form method="post" action="{{ route('admin.storePenawaran') }}" enctype="multipart/form-data">
         @csrf
             {{-- Title --}}
 

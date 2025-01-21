@@ -10,7 +10,7 @@
 
 
         {{-- <a href="{{ route('admin.createTeacher') }}" class="btn btn-success me-2 py-2" > --}}
-        <a href="{{ route('admin.createRumah') }}" class="btn btn-success me-2 py-2" >
+        <a href="#" class="btn btn-success me-2 py-2" >
             + Insert Data
         </a>
         @if (session()->has('success'))
@@ -56,16 +56,20 @@
                             {{-- <a href='{{ route('admin.showTeacher', ['management' => $m->slug])  }}' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
                             {{-- <a href='#' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
                             {{-- <a href="{{ route('admin.editTeacher', ['management' => $m->slug]) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a> --}}
-                            <a href="" class="btn btn-warning btn-sm">
+                            <a href="" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="Edit">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
+                            <a href="{{ url('/penawaran/pdf/' . $p->id) }}" class="btn btn-primary btn-sm"  data-bs-toggle="tooltip" title="Download PDF">
+                                <i class="bi bi-file-earmark-pdf"></i>
+                            </a>
+
 
                             <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deletePenawaran') }}" method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <!-- Input untuk mengirim ID perumahan yang ingin dihapus -->
                                 <input type="hidden" name="id" value="{{ $p->id }}">
-                                <button type="submit" name="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
+                                <button type="submit" name="submit" class="btn btn-danger btn-sm"  data-bs-toggle="tooltip" title="Delete"><i class="bi bi-trash-fill"></i></button>
                             </form>
 
                         </td>

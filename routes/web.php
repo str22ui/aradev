@@ -5,7 +5,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ManagementController;
-
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Penawaran;
 
 /*
 |--------------------------------------------------------------------------
@@ -190,6 +191,15 @@ Route::middleware('log.visits')->group(function(){
 
     Route::get('/formPenawaran/{id}', [LandingController::class, 'formPenawaran'])->name('landingpage.formPenawaran');
     Route::post('/storePenawaran', [LandingController::class, 'storePenawaranKonsumen'])->name('form.penawaran');
+    Route::get('/penawaran/pdf/{id}', function ($id) {
+        $penawaran = Penawaran::with(['rumah', 'perumahan'])->findOrFail($id);
+
+        $pdf = Pdf::loadView('admin.Penawaran.pdfPenawaran', compact('penawaran'));
+        return $pdf->download('Surat_Penawaran.pdf'); // Unduh file
+        // return $pdf->stream(); // Tampilkan di browser
+    });
+
+
 
     Route::get('/formSurvey/{id}', [LandingController::class, 'formSurvey'])->name('landingpage.formSurvey');
     Route::post('/survey/store/{id}', [LandingController::class, 'storeSurvey'])->name('form.survey');
