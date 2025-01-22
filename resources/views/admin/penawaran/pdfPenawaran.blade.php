@@ -144,6 +144,11 @@
                         <td>:</td>
                         <td>{{ $penawaran->pekerjaan }}</td>
                     </tr>
+                    <tr>
+                        <td>Harga Pengajuan</td>
+                        <td>:</td>
+                        <td>{{ $penawaran->harga_pengajuan }}</td>
+                    </tr>
                 </table>
             </td>
         </tr>

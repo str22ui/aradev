@@ -303,7 +303,7 @@ class LandingController extends Controller
 
         $perumahan = Perumahan::findOrFail($id);
 
-        Konsumen::create($validatedData);
+        // Konsumen::create($validatedData);
 
         // Pemberitahuan berhasil
         try {
@@ -354,6 +354,7 @@ class LandingController extends Controller
             'payment' => 'required',
             'income' => 'required',
             'dp' => 'required',
+            'harga_pengajuan' => 'required',
             'rumah_id' => 'required',
         ]);
 

@@ -24,6 +24,7 @@ class Penawaran extends Model
         'payment',
         'income',
         'dp',
+        'harga_pengajuan',
         'rumah_id',
     ];
 

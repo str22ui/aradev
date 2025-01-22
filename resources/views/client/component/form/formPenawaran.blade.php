@@ -118,7 +118,7 @@
                 </select>
             </div>
             <!-- Div untuk "Agent" -->
-            <div class="agent flex w-full gap-4" style="display: none;">
+            <div class="agent flex w-full gap-4 mb-5" style="display: none;">
                 <div class="w-full">
                     <label for="agent_id" class="form-label block mb-2 text-sm font-medium">Nama Agent</label>
                     <select id="agent_id" name="agent_id"
@@ -136,7 +136,7 @@
                 </div>
             </div>
 
-            <div class="reseller hidden flex w-full gap-4">
+            <div class="reseller hidden flex w-full gap-4 mb-5">
                 <div class="w-full">
                     <label for="reseller_id" class="form-label block mb-2 text-sm font-medium ">Nama Reseller</label>
                     <select id="reseller_id" name="reseller_id"
@@ -151,12 +151,6 @@
                 @enderror
                 </div>
             </div>
-
-        </div>
-
-        <!-- Bagian kanan form -->
-        <div class="text-blue-700 mx-5  ">
-
             <div class="flex w-full gap-4 mb-5">
                 <div class="w-full">
                     <label for="rumah_id" class="form-label block mb-2 text-sm font-medium"><i class="fas fa-home text-gray-400 mr-2"></i>No Kavling</label>
@@ -180,6 +174,12 @@
                     @enderror
                 </div>
             </div>
+        </div>
+
+        <!-- Bagian kanan form -->
+        <div class="text-blue-700 mx-5  ">
+
+
 
 
 
@@ -257,6 +257,16 @@
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
                 </div>
+
+                <div class="mb-5 relative">
+                    <label for="harga_pengajuan" class="form-label block mb-2 text-sm font-medium">
+                        <i class="fa-solid fa-money-bill text-gray-400 mr-2"></i>Harga Pengajuan
+                    </label>
+                    <div class="input-with-icon">
+                        <input type="text" id="harga_pengajuan" name="harga_pengajuan"
+                            class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"   oninput="formatHarga(this)">
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -291,6 +301,24 @@
             });
         }
     });
+
+    function formatHarga(input) {
+    // Menghapus semua karakter yang bukan angka
+    let value = input.value.replace(/\D/g, '');
+
+    // Memformat angka dengan menambahkan titik setiap 3 digit
+    let formattedValue = '';
+    for (let i = 0; i < value.length; i++) {
+        // Tambahkan titik setiap 3 digit dari belakang
+        if (i > 0 && (value.length - i) % 3 === 0) {
+            formattedValue += '.';
+        }
+        formattedValue += value[i];
+    }
+
+    // Mengupdate nilai input
+    input.value = formattedValue;
+}
 
 </script>
 
