@@ -24,6 +24,18 @@
             </div>
 
             <div class="mb-3">
+                <input type="hidden" value="0" name="views">
+                <label for="pekerjaan" class="form-label">Pekerjaan</label>
+                <input type="text" autofocus value="" name="pekerjaan" id="pekerjaan" placeholder="Masukkan Pekerjaan" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <input type="hidden" value="0" name="views">
+                <label for="kota" class="form-label">Asal Kota</label>
+                <input type="text" autofocus value="" name="kota" id="kota" placeholder="Masukkan Asal Kota" class="form-control">
+            </div>
+
+            <div class="mb-3">
                 <label for="testimony" class="form-label">Testimony</label>
                     <textarea class="ckeditor form-control" id="content" name="testimony"></textarea>
             </div>

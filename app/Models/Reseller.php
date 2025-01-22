@@ -18,4 +18,8 @@ class Reseller extends Model
         'alamat',
     ];
 
+    public function konsumen()
+    {
+        return $this->hasMany(Konsumen::class);
+    }
 }

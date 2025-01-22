@@ -298,6 +298,7 @@ class LandingController extends Controller
         'perumahan' => 'required',
         'sumber_informasi' => 'required',
         'agent_id' => 'nullable',
+        'reseller_id' => 'nullable',
     ]);
 
         $perumahan = Perumahan::findOrFail($id);
@@ -325,6 +326,7 @@ class LandingController extends Controller
 
         // Filter agents berdasarkan perumahan_id (dengan JSON)
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
+        $reseller = Reseller::all();
 
         // Ambil data rumah berdasarkan perumahan_id
         $rumah = Rumah::where('perumahan_id', $id)->orderBy('no_kavling', 'asc')->get();
@@ -333,9 +335,8 @@ class LandingController extends Controller
         $selectedPerumahan = Perumahan::findOrFail($id);
 
         // Kembalikan data ke view
-        return view('client.page.formPenawaran', compact('allPerumahan', 'agents', 'rumah', 'selectedPerumahan'));
+        return view('client.page.formPenawaran', compact('allPerumahan', 'agents', 'rumah', 'selectedPerumahan', 'reseller'));
     }
-
 
     public function storePenawaranKonsumen(Request $request)
     {
@@ -349,6 +350,7 @@ class LandingController extends Controller
             'sumber_informasi' => 'required',
             'perumahan_id' => 'required',
             'agent_id' => 'nullable',
+            'reseller_id' => 'nullable',
             'payment' => 'required',
             'income' => 'required',
             'dp' => 'required',
@@ -369,6 +371,8 @@ class LandingController extends Controller
     }
 
 
+
+
     //==================== SURVEY ====================
     public function formSurvey($id)
     {
@@ -376,8 +380,9 @@ class LandingController extends Controller
         $selectedPerumahan = Perumahan::findOrFail($id); // Data spesifik berdasarkan ID
         // $agents = Agent::all();
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
+        $reseller = Reseller::all();
 
-        return view('client.page.formSurvey', compact('allPerumahan', 'selectedPerumahan', 'agents'));
+        return view('client.page.formSurvey', compact('allPerumahan', 'selectedPerumahan', 'agents','reseller'));
     }
 
 
@@ -395,6 +400,7 @@ class LandingController extends Controller
             'waktu_janjian' => 'required',
             'sumber_informasi' => 'required',
             'agent_id' => 'nullable',
+            'reseller_id' => 'nullable',
         ]);
 
         // Jika agent_id adalah 'pilih', set ke null

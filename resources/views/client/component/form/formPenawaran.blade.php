@@ -110,6 +110,7 @@
                     <option name="sumber_informasi" value="Spanduk">Spanduk</option>
                     <option name="sumber_informasi" value="Walk in">Walk in Customer</option>
                     <option name="sumber_informasi" value="Agent">Agent</option>
+                    <option name="sumber_informasi" value="Reseller">Reseller</option>
                     <option name="sumber_informasi" value="Dll">Dll</option>
                     @error('sumber_informasi')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -130,6 +131,22 @@
                         @endforeach
                     </select>
                     @error('agent_id')
+                    <span class="text-red-500 text-sm">{{ $message }}</span>
+                @enderror
+                </div>
+            </div>
+
+            <div class="reseller hidden flex w-full gap-4">
+                <div class="w-full">
+                    <label for="reseller_id" class="form-label block mb-2 text-sm font-medium ">Nama Reseller</label>
+                    <select id="reseller_id" name="reseller_id"
+                        class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+                        <option value="">-- Pilih --</option>
+                        @foreach ($reseller as $r)
+                            <option value="{{ $r->id }}">{{ $r->nama }} </option>
+                        @endforeach
+                    </select>
+                    @error('reseller_id')
                     <span class="text-red-500 text-sm">{{ $message }}</span>
                 @enderror
                 </div>

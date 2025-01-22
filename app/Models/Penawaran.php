@@ -44,6 +44,10 @@ class Penawaran extends Model
         return $this->belongsTo(Rumah::class);
     }
 
+    public function reseller()
+    {
+        return $this->belongsTo(Reseller::class);
+    }
     // public function rumah()
     // {
     //     return $this->belongsTo(Rumah::class, 'rumah_id');

@@ -97,11 +97,12 @@
                     <option name="sumber_informasi" value="Instagram Perumahan">Instagram Perumahan</option>
                     <option name="sumber_informasi" value="Walk In">Walk In Customer</option>
                     <option name="sumber_informasi" value="agent">Agent</option>
+                    <option name="sumber_informasi" value="Reseller">Reseller</option>
                     <option name="sumber_informasi" value="Dll">Dll</option>
                 </select>
             </div>
 
-            <div class="agent flex w-full gap-4">
+            <div class="agent flex w-full gap-4 mb-4">
                 <div class="w-full">
                     <label for="agent_id" class="form-label block mb-2 text-sm font-medium">Nama Agent</label>
                     <select id="agent_id" name="agent_id"
@@ -112,6 +113,16 @@
                 </div>
             </div>
 
+            <div class="reseller flex w-full gap-4 mb-4">
+                <div class="w-full">
+                    <label for="reseller_id" class="form-label block mb-2 text-sm font-medium">Nama Reseller</label>
+                    <select id="reseller_id" name="reseller_id"
+                        class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"">
+                        <option value="">-- Pilih --</option>
+                        @foreach ($reseller as $r) <option value="{{ $r->id }}">{{ $r->nama }} </option> @endforeach
+                    </select>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary">Create</button>
             <a class="btn btn-danger" href="{{ route('admin.survey') }}">Back</a>
         </form>
@@ -129,7 +140,9 @@
 <script>
     var selectInput2 = document.getElementById('sumber_informasi');
     var agentDiv2 = document.querySelector('.agent');
+    var resellerDiv2 = document.querySelector('.reseller');
     agentDiv2.style.display = 'none'; // Default tidak ditampilkan
+    resellerDiv2.style.display = 'none'; // Default tidak ditampilkan
 
     selectInput2.addEventListener('change', function() {
         if (this.value === 'agent') {
@@ -138,6 +151,15 @@
             agentDiv2.style.display = 'none';
         }
     });
+
+    selectInput2.addEventListener('change', function() {
+        if (this.value === 'Reseller') {
+            resellerDiv2.style.display = 'block';
+        } else {
+            resellerDiv2.style.display = 'none';
+        }
+    });
+
 
 
 

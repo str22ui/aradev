@@ -127,54 +127,34 @@
         }
     });
 
-//     var infoInput = document.getElementById('info-input');
-
-//     // Mendapatkan elemen div dengan class 'agent'
-//     var agentDiv = document.querySelector('.agent');
-
-//     // Menyembunyikan div dengan class 'agent' secara default
-//     agentDiv.style.display = 'none';
-
-//     // Menambahkan event listener untuk mendeteksi perubahan pada elemen radio
-//     infoInput.addEventListener('change', function() {
-//         // Mencari elemen radio yang dipilih
-//         var selectedRadio = document.querySelector('input[name="sumber_informasi"]:checked');
-
-//         // Jika opsi yang dipilih adalah 'Agent', maka tampilkan div dengan class 'agent', jika tidak, sembunyikan
-//         if (selectedRadio && selectedRadio.value === 'Agent') {
-//             agentDiv.style.display = 'flex'; // Menampilkan div dengan class 'agent'
-//         } else {
-//             agentDiv.style.display = 'none'; // Menyembunyikan div dengan class 'agent'
-//         }
-//     });
-
-//    // Mendapatkan elemen dropdown 'sumber_informasi'
-//     var sumberInformasiDropdown = document.getElementById('sumber_informasi');
-
-//     // Mendapatkan elemen div dengan class 'agent'
-//     var agentDiv = document.querySelector('.agent');
-
-//     // Menyembunyikan div dengan class 'agent' secara default
-//     agentDiv.style.display = 'none';
-
-//     // Menambahkan event listener untuk mendeteksi perubahan pada dropdown
-//     sumberInformasiDropdown.addEventListener('change', function() {
-//         // Jika opsi yang dipilih adalah 'Agent', tampilkan div dengan class 'agent'
-//         if (sumberInformasiDropdown.value === 'Agent') {
-//             agentDiv.classList.remove('hidden'); // Menampilkan elemen
-//         } else {
-//             agentDiv.classList.add('hidden'); // Menyembunyikan elemen
-//         }
-
-//     });
 
         // Mendapatkan elemen
     var radioInputs = document.querySelectorAll('input[name="info_radio"]');
     var dropdownInput = document.getElementById('sumber_informasi');
     var agentDiv = document.querySelector('.agent');
+    var resellerDiv = document.querySelector('.reseller');
 
     // Menyembunyikan form agent secara default
     agentDiv.style.display = 'none';
+
+
+    // Event listener untuk dropdown
+    dropdownInput.addEventListener('change', function() {
+        if (dropdownInput.value === 'Agent') {
+            agentDiv.style.display = 'flex'; // Tampilkan form agent
+        } else {
+            agentDiv.style.display = 'none'; // Sembunyikan form agent
+        }
+    });
+
+    // Event listener untuk dropdown
+    dropdownInput.addEventListener('change', function() {
+        if (dropdownInput.value === 'Reseller') {
+            resellerDiv .style.display = 'flex'; // Tampilkan form agent
+        } else {
+            resellerDiv .style.display = 'none'; // Sembunyikan form agent
+        }
+    });
 
     // Event listener untuk radio button
     radioInputs.forEach(function(radio) {
@@ -187,14 +167,6 @@
         });
     });
 
-    // Event listener untuk dropdown
-    dropdownInput.addEventListener('change', function() {
-        if (dropdownInput.value === 'Agent') {
-            agentDiv.style.display = 'flex'; // Tampilkan form agent
-        } else {
-            agentDiv.style.display = 'none'; // Sembunyikan form agent
-        }
-    });
 
 
     document.getElementById('rumah_id').addEventListener('change', function() {

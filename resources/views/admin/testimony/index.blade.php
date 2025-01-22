@@ -23,6 +23,8 @@
                     <th class="col-sm-1">No</th>
                     <th class="col-md-2">Image</th>
                     <th class="col-md-2">Nama</th>
+                    <th class="col-md-2">Pekerjaan</th>
+                    <th class="col-md-2">Kota</th>
                     <th class="col-md-2">Testimony</th>
                     <th class="col-md-2">Action</th>
 
@@ -40,6 +42,8 @@
                             @endif
                         </td>
                         <td>{{ $t->name }}</td>
+                        <td>{{ $t->pekerjaan }}</td>
+                        <td>{{ $t->kota }}</td>
                         <td class="prose">
                             {!! $t->testimony !!}
                         </td>

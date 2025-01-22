@@ -27,7 +27,7 @@
                         </div>
                     @endif
                     @if ($testimony->image)
-                  
+
                 @endif
             </div>
 
@@ -36,6 +36,26 @@
                 <label for="name" class="form-label">Nama</label>
                 <input type="text" autofocus value="{{  $testimony->name }}" name="name" id="name" placeholder="Masukkan Nama" class="form-control @error('name') is-invalid @enderror">
                 @error('name')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+            <div class="mb-3">
+                <input type="hidden" value="0" name="views">
+                <label for="pekerjaan" class="form-label">Pekerjaan</label>
+                <input type="text" autofocus value="{{  $testimony->pekerjaan }}" name="pekerjaan" id="pekerjaan" placeholder="Masukkan Pekerjaan" class="form-control @error('pekerjaan') is-invalid @enderror">
+                @error('pekerjaan')
+                  <div class="invalid-feedback">
+                    {{ $message }}
+                  </div>
+                @enderror
+              </div>
+              <div class="mb-3">
+                <input type="hidden" value="0" name="views">
+                <label for="kota" class="form-label">Asal Kota</label>
+                <input type="text" autofocus value="{{  $testimony->kota }}" name="kota" id="kota" placeholder="Masukkan Nama" class="form-control @error('kota') is-invalid @enderror">
+                @error('kota')
                   <div class="invalid-feedback">
                     {{ $message }}
                   </div>

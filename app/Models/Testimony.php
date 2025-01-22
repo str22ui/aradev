@@ -10,5 +10,11 @@ class Testimony extends Model
     use HasFactory;
 
     protected $table = 'testimony'; // Nama tabel
-    protected $fillable = ['name', 'image', 'testimony']; // Kolom yang dapat diisi
+    protected $fillable = [
+        'name',
+        'image',
+        'testimony',
+        'pekerjaan',
+        'kota',
+    ]; //
 }

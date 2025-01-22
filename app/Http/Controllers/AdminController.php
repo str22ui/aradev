@@ -1005,40 +1005,42 @@ class AdminController extends Controller
     public function createKonsumen(){
         $perumahan= Perumahan::all();
         $agent = Agent::all();
-        return view('admin.konsumen.createKonsumen', compact('perumahan','agent'));
+        $reseller = Reseller::all();
+        return view('admin.konsumen.createKonsumen', compact('perumahan','agent', 'reseller'));
     }
 
     public function storeKonsumen(Request $request)
-        {
-            $validatedData = $request->validate([
-                'nama_konsumen' => 'required',
-                'no_hp' => 'required',
-                'domisili' => 'nullable',
-                'email' => 'nullable|email',
-                'pekerjaan' => 'nullable',
-                'nama_kantor' => 'nullable',
-                'perumahan' => 'required',
-                'sumber_informasi' => 'required',
-                'agent_id' => 'nullable',
-            ]);
+    {
+        $validatedData = $request->validate([
+            'nama_konsumen' => 'required',
+            'no_hp' => 'required',
+            'domisili' => 'nullable',
+            'email' => 'nullable|email',
+            'pekerjaan' => 'nullable',
+            'nama_kantor' => 'nullable',
+            'perumahan' => 'required',
+            'sumber_informasi' => 'required',
+            'agent_id' => 'nullable',
+            'reseller_id' => 'nullable',
+        ]);
 
-           // Jika agent_id adalah 'pilih', set ke null
-            if ($request->input('agent_id') === 'pilih') {
-                $validatedData['agent_id'] = null;
-            } else {
-                $validatedData['agent_id'] = $request->input('agent_id');
-            }
+       // Jika agent_id adalah 'pilih', set ke null
+        if ($request->input('agent_id') === 'pilih') {
+            $validatedData['agent_id'] = null;
+        } else {
+            $validatedData['agent_id'] = $request->input('agent_id');
+        }
 
-            // Set created_at ke tanggal dari input atau tanggal saat ini jika tidak diisi
-            $validatedData['created_at'] = $request->input('tanggal') ? $request->input('tanggal') : Carbon::now();
+        // Set created_at ke tanggal dari input atau tanggal saat ini jika tidak diisi
+        $validatedData['created_at'] = $request->input('tanggal') ? $request->input('tanggal') : Carbon::now();
 
-            try {
-                Konsumen::create($validatedData);
-                return redirect('/konsumen')->with('success', 'Konsumen berhasil disimpan.');
-            } catch (\Exception $e) {
-                return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
-            }
-}
+        try {
+            Konsumen::create($validatedData);
+            return redirect('/konsumen')->with('success', 'Konsumen berhasil disimpan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
+        }
+    }
 
 
     public function destroyKonsumen(Request $request)
@@ -1060,6 +1062,7 @@ class AdminController extends Controller
         $rumah = Rumah::find($id);
         $perumahan = Perumahan::all();
         $agent = Agent::all();
+        $reseller = Reseller::all();
 
         // Jika konsumen tidak ditemukan, tampilkan pesan error atau redirect
         if (!$konsumen) {
@@ -1071,10 +1074,10 @@ class AdminController extends Controller
             'konsumen' => $konsumen,
             'perumahan' => $perumahan,
             'agent' => $agent,
+            'reseller' => $reseller,
             'rumah' => $rumah,
         ]);
     }
-
 
     public function updateKonsumen(Request $request, $id)
     {
@@ -1091,6 +1094,7 @@ class AdminController extends Controller
         $konsumen->perumahan = $request->input('perumahan');
         $konsumen->sumber_informasi = $request->input('sumber_informasi');
         $konsumen->agent_id = $request->input('agent_id');
+        $konsumen->reseller_id = $request->input('reseller_id');
 
         // Save the changes to the database
         $konsumen->save();
@@ -1113,52 +1117,55 @@ class AdminController extends Controller
       }
 
       public function createSurvey(){
-          $perumahan= Perumahan::all();
-          $agent = Agent::all();
-          return view('admin.survey.createSurvey', compact('perumahan','agent'));
-      }
+        $perumahan= Perumahan::all();
+        $agent = Agent::all();
+        $reseller = Reseller::all();
+        return view('admin.survey.createSurvey', compact('perumahan','agent', 'reseller'));
+    }
 
-      public function storeSurvey(Request $request)
-      {
-          $validatedData = $request->validate([
-              'nama_konsumen' => 'required',
-              'no_hp' => 'required',
-              'domisili' => 'nullable',
-              'email' => 'nullable|email',
-              'pekerjaan' => 'nullable',
-              'nama_kantor' => 'nullable',
-              'perumahan' => 'required',
-              'tanggal_janjian' => 'required|date',
-              'waktu_janjian' => 'required',
-              'sumber_informasi' => 'required',
-              'agent_id' => 'nullable',
-          ]);
 
-          // Jika agent_id adalah 'pilih', set ke null
-          if ($request->input('agent_id') === 'pilih') {
-              $validatedData['agent_id'] = null;
-          } else {
-              $validatedData['agent_id'] = $request->input('agent_id');
-          }
+    public function storeSurvey(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama_konsumen' => 'required',
+            'no_hp' => 'required',
+            'domisili' => 'nullable',
+            'email' => 'nullable|email',
+            'pekerjaan' => 'nullable',
+            'nama_kantor' => 'nullable',
+            'perumahan' => 'required',
+            'tanggal_janjian' => 'required|date',
+            'waktu_janjian' => 'required',
+            'sumber_informasi' => 'required',
+            'agent_id' => 'nullable',
+            'reseller_id' => 'nullable',
+        ]);
 
-          try {
-              // Simpan data ke tabel survey
-              Survey::create($validatedData);
+        // Jika agent_id adalah 'pilih', set ke null
+        if ($request->input('agent_id') === 'pilih') {
+            $validatedData['agent_id'] = null;
+        } else {
+            $validatedData['agent_id'] = $request->input('agent_id');
+        }
 
-              // Persiapkan data untuk tabel konsumen
-              $konsumenData = $validatedData;
-              unset($konsumenData['tanggal_janjian'], $konsumenData['waktu_janjian']); // Hapus kolom yang tidak ada di tabel konsumen
+        try {
+            // Simpan data ke tabel survey
+            Survey::create($validatedData);
 
-              // Simpan data ke tabel konsumen
-              Konsumen::create($konsumenData);
+            // Persiapkan data untuk tabel konsumen
+            $konsumenData = $validatedData;
+            unset($konsumenData['tanggal_janjian'], $konsumenData['waktu_janjian']); // Hapus kolom yang tidak ada di tabel konsumen
 
-              return redirect('/survey')->with('success', 'Survey dan data konsumen berhasil disimpan.');
-          } catch (\Exception $e) {
-              return redirect()
-                  ->back()
-                  ->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
-          }
-      }
+            // Simpan data ke tabel konsumen
+            Konsumen::create($konsumenData);
+
+            return redirect('/survey')->with('success', 'Survey dan data konsumen berhasil disimpan.');
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
+        }
+    }
 
 
 
@@ -1181,6 +1188,7 @@ class AdminController extends Controller
           $rumah = Rumah::find($id);
           $perumahan = Perumahan::all();
           $agent = Agent::all();
+          $reseller = Reseller::all();
 
           // Jika konsumen tidak ditemukan, tampilkan pesan error atau redirect
           if (!$survey) {
@@ -1193,6 +1201,7 @@ class AdminController extends Controller
               'perumahan' => $perumahan,
               'agent' => $agent,
               'rumah' => $rumah,
+              'reseller' => $reseller,
           ]);
       }
 
@@ -1214,6 +1223,7 @@ class AdminController extends Controller
           $survey->waktu_janjian = $request->input('waktu_janjian');
           $survey->sumber_informasi = $request->input('sumber_informasi');
           $survey->agent_id = $request->input('agent_id');
+          $survey->reseller_id = $request->input('reseller_id');
 
           // Save the changes to the database
           $survey->save();

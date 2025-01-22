@@ -26,8 +26,9 @@
                     <th class="col-md-2">Perumahan</th>
                     <th class="col-md-2">No HP</th>
                     <th class="col-md-2">Email</th>
-                    <th class="col-md-2">Agent</th>
-                    <th class="col-md-1">Tanggal</th>
+                    <th class="col-md-1">Agent</th>
+                    <th class="col-md-1">Reseller</th>
+                    <th class="col-md-2">Tanggal</th>
                     <th class="col-md-2">Action</th>
                 </tr>
             </thead>
@@ -40,6 +41,7 @@
                     <td>{{ $k->no_hp }}</td>
                     <td>{{ $k->email }}</td>
                     <td>{{ $k->agent->nama ?? 'No Data'}}</td>
+                    <td>{{ $k->reseller->nama ?? 'No Data'}}</td>
                     <td>{{ $k->created_at->format('d/m/y') }}</td>
                     <td>
                         {{-- <a href='' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}

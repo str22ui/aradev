@@ -32,4 +32,8 @@ class Survey extends Model
     {
         return $this->belongsTo(Agent::class);
     }
+    public function reseller()
+    {
+        return $this->belongsTo(Reseller::class);
+    }
 }
