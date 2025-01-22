@@ -28,6 +28,7 @@
                     <th class="col-md-2">Pekerjaan</th>
                     <th class="col-md-2">Kota</th>
                     <th class="col-md-2">Alamat</th>
+                    <th class="col-md-2">Tanggal</th>
                     <th class="col-md-3">Action</th>
 
                 </tr>
@@ -42,6 +43,7 @@
                         <td>{{ $r->pekerjaan }}</td>
                         <td>{{ $r->kota }}</td>
                         <td>{{ $r->alamat }}</td>
+                        <td>{{ $r->created_at->format('d/m/y') }}</td>
                         <td>
                             <a href="{{ route('admin.editReseller', ['id' => $r->id]) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>

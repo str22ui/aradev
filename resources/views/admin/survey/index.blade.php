@@ -28,6 +28,7 @@
                     <th class="col-md-2">Sumber</th>
                     <th class="col-md-1">Survey</th>
                     <th class="col-md-1">Jam</th>
+                    <th class="col-md-1">Tanggal</th>
                     <th class="col-md-2">Action</th>
                 </tr>
             </thead>
@@ -39,8 +40,10 @@
                     <td>{{ $s->perumahan }}</td>
                     <td>{{ $s->no_hp }}</td>
                     <td>{{ $s->sumber_informasi }}</td>
+              
                     <td>{{ $s->tanggal_janjian }}</td>
                     <td>{{ $s->waktu_janjian }}</td>
+                    <td>{{ $s->created_at->format('d/m/y') }}</td>
                     {{-- <td>{{ $s->agent->nama ?? 'No Data'}}</td> --}}
                     <td>
                         {{-- <a href='' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}

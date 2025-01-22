@@ -194,7 +194,7 @@ Route::middleware('log.visits')->group(function(){
     Route::get('/penawaran/pdf/{id}', function ($id) {
         $penawaran = Penawaran::with(['rumah', 'perumahan'])->findOrFail($id);
 
-        $pdf = Pdf::loadView('admin.Penawaran.pdfPenawaran', compact('penawaran'));
+        $pdf = Pdf::loadView('admin.penawaran.pdfPenawaran', compact('penawaran'));
         return $pdf->download('Surat_Penawaran.pdf'); // Unduh file
         // return $pdf->stream(); // Tampilkan di browser
     });

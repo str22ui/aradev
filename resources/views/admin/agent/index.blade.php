@@ -29,6 +29,7 @@
                     <th class="col-md-2 ">No HP</th>
                     <th class="col-md-2">Alamat</th>
                     <th class="col-md-2">Perumahan</th>
+                    <th class="col-md-2">Tanggal</th>
                     <th class="col-md-3">Action</th>
 
                 </tr>
@@ -64,7 +65,7 @@
                                 <span class="text-muted">N/A</span>
                             @endif
                         </td>
-
+                        <td>{{ $a->created_at->format('d/m/y') }}</td>
                         <td>
                             {{-- <a href='{{ route('admin.showTeacher', ['management' => $m->slug])  }}' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
                             {{-- <a href='#' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
