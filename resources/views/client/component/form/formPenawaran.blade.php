@@ -260,7 +260,7 @@
 
                 <div class="mb-5 relative">
                     <label for="harga_pengajuan" class="form-label block mb-2 text-sm font-medium">
-                        <i class="fa-solid fa-money-bill text-gray-400 mr-2"></i>Harga Pengajuan
+                        <i class="fa-solid fa-money-bill text-gray-400 mr-2"></i>Harga Penawaran
                     </label>
                     <div class="input-with-icon">
                         <input type="text" id="harga_pengajuan" name="harga_pengajuan"

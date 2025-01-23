@@ -145,7 +145,7 @@
                         <td>{{ $penawaran->pekerjaan }}</td>
                     </tr>
                     <tr>
-                        <td>Harga Pengajuan</td>
+                        <td>Harga Penawaran</td>
                         <td>:</td>
                         <td>{{ $penawaran->harga_pengajuan }}</td>
                     </tr>

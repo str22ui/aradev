@@ -1,3 +1,4 @@
+@if (auth()->user()->role !== 'salesAdmin')
 <li class="sidebar-item {{ Request::is('admin/article*') || Request::is('admin/createArticle*') || Request::is('admin/editArticle*') || Request::is('admin/showArticle*') || Request::is('admin/announcement*') || Request::is('admin/createAnnouncement*') || Request::is('admin/editAnnouncement*') || Request::is('admin/showAnnouncement*') ? 'active' : '' }}">
     <a class="sidebar-link" href="#" data-bs-toggle="collapse" data-bs-target="#postLain" aria-expanded="false" aria-controls="postDaa">
         <i class="bi bi-database-fill"></i>
@@ -22,3 +23,4 @@
     </li>
 
 </ul>
+@endif

@@ -32,7 +32,7 @@
                             <td class="text-gray-600">{{ $land->surat }}</td>
                         </tr>
                         <tr>
-                            <td class="font-semibold text-gray-700">LMB/PBG</td>
+                            <td class="font-semibold text-gray-700">IMB/PBG</td>
                             <td class="text-gray-600">{{ $land->lmb_pbg }}</td>
                         </tr>
                         <tr>
