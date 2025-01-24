@@ -57,6 +57,7 @@
                             <a href="{{ route('admin.editInfo', ['id' => $i->id]) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
+                            @if (auth()->user()->role !== 'salesAdmin')
                             <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteInfo') }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -65,6 +66,7 @@
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

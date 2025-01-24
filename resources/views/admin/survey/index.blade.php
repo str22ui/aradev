@@ -40,7 +40,7 @@
                     <td>{{ $s->perumahan }}</td>
                     <td>{{ $s->no_hp }}</td>
                     <td>{{ $s->sumber_informasi }}</td>
-              
+
                     <td>{{ $s->tanggal_janjian }}</td>
                     <td>{{ $s->waktu_janjian }}</td>
                     <td>{{ $s->created_at->format('d/m/y') }}</td>
@@ -51,6 +51,7 @@
                         <a href="{{ route('admin.editSurvey', ['id' => $s->id]) }}" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil-square"></i>
                         </a>
+                        @if (auth()->user()->role !== 'salesAdmin')
                         <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteSurvey') }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -58,6 +59,7 @@
                             <input type="hidden" name="id" value="{{ $s->id }}">
                             <button type="submit" name="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
                         </form>
+                        @endif
                     </td>
                 </tr>
                 @endforeach

@@ -117,7 +117,7 @@ class LandingController extends Controller
 
     public function indexSecondary()
     {
-        $secondary = Secondary::all();
+        $secondary = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc')->get();
         $allPerumahan = Perumahan::all();
         $kotas = Perumahan::select('kota')->distinct()->get();
         return view('client.component.secondary.indexSecondary', compact('secondary', 'allPerumahan','kotas'));

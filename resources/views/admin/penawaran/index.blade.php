@@ -63,7 +63,7 @@
                                 <i class="bi bi-file-earmark-pdf"></i>
                             </a>
 
-
+                            @if (auth()->user()->role !== 'salesAdmin')
                             <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deletePenawaran') }}" method="POST">
                                 @csrf
                                 @method('DELETE')
@@ -71,7 +71,7 @@
                                 <input type="hidden" name="id" value="{{ $p->id }}">
                                 <button type="submit" name="submit" class="btn btn-danger btn-sm"  data-bs-toggle="tooltip" title="Delete"><i class="bi bi-trash-fill"></i></button>
                             </form>
-
+                            @endif
                         </td>
                     </tr>
                 @endforeach

@@ -45,6 +45,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/land/update/{id}', [AdminController::class, 'updateLand'])->name('admin.updateLand');
     Route::delete('/deleteLandImage', [AdminController::class, 'destroyImageLand'])->name('admin.deleteImageLand');
 
+    //Rumah
+    Route::get('/rumah', [AdminController::class, 'indexRumah'])->name('admin.rumah');
+    Route::get('/showRumah', [AdminController::class, 'showRumah'])->name('admin.showRumah');
+    Route::get('/createRumah', [AdminController::class, 'createRumah'])->name('admin.createRumah');
+    Route::post('/storeRumah', [adminController::class, 'storeRumah'])->name('admin.storeRumah');
+    Route::get('/rumah/{id}/', [AdminController::class, 'editRumah'])->name('admin.editRumah');
+    Route::put('/rumah/update/{id}', [AdminController::class, 'updateRumah'])->name('admin.updateRumah');
+    Route::delete('/deleteRumah', [AdminController::class, 'destroyRumah'])->name('admin.deleteRumah');
 
     //Konsumen
     Route::get('/konsumen', [AdminController::class, 'indexKonsumen'])->name('admin.konsumen');
@@ -54,14 +62,52 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/konsumen/update/{id}', [AdminController::class, 'updateKonsumen'])->name('admin.updateKonsumen');
     Route::delete('/deleteKonsumen', [AdminController::class, 'destroyKonsumen'])->name('admin.deleteKonsumen');
 
-   //Survey
-   Route::get('/survey', [AdminController::class, 'indexSurvey'])->name('admin.survey');
-   Route::get('/createSurvey', [AdminController::class, 'createSurvey'])->name('admin.createSurvey');
-   Route::post('/storeSurvey', [adminController::class, 'storeSurvey'])->name('admin.storeSurvey');
-   Route::get('/survey/{id}/', [AdminController::class, 'editSurvey'])->name('admin.editSurvey');
-   Route::put('/survey/update/{id}', [AdminController::class, 'updateSurvey'])->name('admin.updateSurvey');
-   Route::delete('/deleteSurvey', [AdminController::class, 'destroySurvey'])->name('admin.deleteSurvey');
+    //Survey
+    Route::get('/survey', [AdminController::class, 'indexSurvey'])->name('admin.survey');
+    Route::get('/createSurvey', [AdminController::class, 'createSurvey'])->name('admin.createSurvey');
+    Route::post('/storeSurvey', [adminController::class, 'storeSurvey'])->name('admin.storeSurvey');
+    Route::get('/survey/{id}/', [AdminController::class, 'editSurvey'])->name('admin.editSurvey');
+    Route::put('/survey/update/{id}', [AdminController::class, 'updateSurvey'])->name('admin.updateSurvey');
+    Route::delete('/deleteSurvey', [AdminController::class, 'destroySurvey'])->name('admin.deleteSurvey');
 
+    //Agent
+    Route::get('/agent', [AdminController::class, 'indexAgent'])->name('admin.agent');
+    Route::get('/showAgent', [AdminController::class, 'showAgent'])->name('admin.showAgent');
+    Route::get('/createAgent', [AdminController::class, 'createAgent'])->name('admin.createAgent');
+    Route::post('/storeAgent', [adminController::class, 'storeAgent'])->name('admin.storeAgent');
+    Route::get('/agent/{id}/', [AdminController::class, 'editAgent'])->name('admin.editAgent');
+    Route::put('/agent/update/{id}', [AdminController::class, 'updateAgent'])->name('admin.updateAgent');
+    Route::delete('/deleteAgent', [AdminController::class, 'destroyAgent'])->name('admin.deleteAgent');
+
+
+    //Reseller
+    Route::get('/reseller', [AdminController::class, 'indexReseller'])->name('admin.reseller');
+    Route::get('/showReseller', [AdminController::class, 'showReseller'])->name('admin.showReseller');
+    Route::get('/createReseller', [AdminController::class, 'createReseller'])->name('admin.createReseller');
+    Route::post('/storeReseller', [adminController::class, 'storeReseller'])->name('admin.storeReseller');
+    Route::get('/reseller/{id}/', [AdminController::class, 'editReseller'])->name('admin.editReseller');
+    Route::put('/reseller/update/{id}', [AdminController::class, 'updateReseller'])->name('admin.updateReseller');
+    Route::delete('/deleteReseller', [AdminController::class, 'destroyReseller'])->name('admin.deleteReseller');
+
+    //Info
+    Route::get('/info-home', [AdminController::class, 'indexInfo'])->name('admin.info');
+    Route::get('/showInfo', [AdminController::class, 'showInfo'])->name('admin.showInfo');
+    Route::get('/createInfo', [AdminController::class, 'createInfo'])->name('admin.createInfo');
+    Route::post('/storeInfo', [adminController::class, 'storeInfo'])->name('admin.storeInfo');
+    Route::get('/info-home/{id}/', [AdminController::class, 'editInfo'])->name('admin.editInfo');
+    Route::delete('/deleteInfo', [AdminController::class, 'destroyInfo'])->name('admin.deleteInfo');
+    Route::put('/info/update/{id}', [AdminController::class, 'updateInfo'])->name('admin.updateInfo');
+    Route::delete('/deleteInfoImage', [AdminController::class, 'destroyImageInfo'])->name('admin.deleteImageInfo');
+
+    //Testimony
+    Route::get('/testimony-home', [AdminController::class, 'indexTestimony'])->name('admin.testimony');
+    Route::get('/showTestimony', [AdminController::class, 'showTestimony'])->name('admin.showTestimony');
+    Route::get('/createTestimony', [AdminController::class, 'createTestimony'])->name('admin.createTestimony');
+    Route::post('/storeTestimony', [adminController::class, 'storeTestimony'])->name('admin.storeTestimony');
+    Route::get('/testimony/{id}/', [AdminController::class, 'editTestimony'])->name('admin.editTestimony');
+    Route::delete('/deleteTestimony', [AdminController::class, 'destroyTestimony'])->name('admin.deleteTestimony');
+    Route::put('/testimony/update/{id}', [AdminController::class, 'updateTestimony'])->name('admin.updateTestimony');
+    Route::delete('/deleteTestimonyImage', [AdminController::class, 'destroyImageTestimony'])->name('admin.deleteImageTestimony');
 
     //Penawaran
     Route::get('/penawaran', [AdminController::class, 'indexPenawaran'])->name('admin.penawaran');
@@ -100,56 +146,6 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/perumahan/update/{id}', [AdminController::class, 'updatePerumahan'])->name('admin.updatePerumahan');
         Route::delete('/deletePerumahanImage', [AdminController::class, 'destroyImage'])->name('admin.deleteImage');
 
-
-
-
-        //Rumah
-        Route::get('/rumah', [AdminController::class, 'indexRumah'])->name('admin.rumah');
-        Route::get('/showRumah', [AdminController::class, 'showRumah'])->name('admin.showRumah');
-        Route::get('/createRumah', [AdminController::class, 'createRumah'])->name('admin.createRumah');
-        Route::post('/storeRumah', [adminController::class, 'storeRumah'])->name('admin.storeRumah');
-        Route::get('/rumah/{id}/', [AdminController::class, 'editRumah'])->name('admin.editRumah');
-        Route::put('/rumah/update/{id}', [AdminController::class, 'updateRumah'])->name('admin.updateRumah');
-        Route::delete('/deleteRumah', [AdminController::class, 'destroyRumah'])->name('admin.deleteRumah');
-
-           //Agent
-        Route::get('/agent', [AdminController::class, 'indexAgent'])->name('admin.agent');
-        Route::get('/showAgent', [AdminController::class, 'showAgent'])->name('admin.showAgent');
-        Route::get('/createAgent', [AdminController::class, 'createAgent'])->name('admin.createAgent');
-        Route::post('/storeAgent', [adminController::class, 'storeAgent'])->name('admin.storeAgent');
-        Route::get('/agent/{id}/', [AdminController::class, 'editAgent'])->name('admin.editAgent');
-        Route::put('/agent/update/{id}', [AdminController::class, 'updateAgent'])->name('admin.updateAgent');
-        Route::delete('/deleteAgent', [AdminController::class, 'destroyAgent'])->name('admin.deleteAgent');
-
-
-        //Reseller
-        Route::get('/reseller', [AdminController::class, 'indexReseller'])->name('admin.reseller');
-        Route::get('/showReseller', [AdminController::class, 'showReseller'])->name('admin.showReseller');
-        Route::get('/createReseller', [AdminController::class, 'createReseller'])->name('admin.createReseller');
-        Route::post('/storeReseller', [adminController::class, 'storeReseller'])->name('admin.storeReseller');
-        Route::get('/reseller/{id}/', [AdminController::class, 'editReseller'])->name('admin.editReseller');
-        Route::put('/reseller/update/{id}', [AdminController::class, 'updateReseller'])->name('admin.updateReseller');
-        Route::delete('/deleteReseller', [AdminController::class, 'destroyReseller'])->name('admin.deleteReseller');
-
-        //Info
-        Route::get('/info-home', [AdminController::class, 'indexInfo'])->name('admin.info');
-        Route::get('/showInfo', [AdminController::class, 'showInfo'])->name('admin.showInfo');
-        Route::get('/createInfo', [AdminController::class, 'createInfo'])->name('admin.createInfo');
-        Route::post('/storeInfo', [adminController::class, 'storeInfo'])->name('admin.storeInfo');
-        Route::get('/info-home/{id}/', [AdminController::class, 'editInfo'])->name('admin.editInfo');
-        Route::delete('/deleteInfo', [AdminController::class, 'destroyInfo'])->name('admin.deleteInfo');
-        Route::put('/info/update/{id}', [AdminController::class, 'updateInfo'])->name('admin.updateInfo');
-        Route::delete('/deleteInfoImage', [AdminController::class, 'destroyImageInfo'])->name('admin.deleteImageInfo');
-
-        //Testimony
-        Route::get('/testimony-home', [AdminController::class, 'indexTestimony'])->name('admin.testimony');
-        Route::get('/showTestimony', [AdminController::class, 'showTestimony'])->name('admin.showTestimony');
-        Route::get('/createTestimony', [AdminController::class, 'createTestimony'])->name('admin.createTestimony');
-        Route::post('/storeTestimony', [adminController::class, 'storeTestimony'])->name('admin.storeTestimony');
-        Route::get('/testimony/{id}/', [AdminController::class, 'editTestimony'])->name('admin.editTestimony');
-        Route::delete('/deleteTestimony', [AdminController::class, 'destroyTestimony'])->name('admin.deleteTestimony');
-        Route::put('/testimony/update/{id}', [AdminController::class, 'updateTestimony'])->name('admin.updateTestimony');
-        Route::delete('/deleteTestimonyImage', [AdminController::class, 'destroyImageTestimony'])->name('admin.deleteImageTestimony');
     });
 
 });

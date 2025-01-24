@@ -15,14 +15,15 @@
             </a>
         </li>
 
-        <li class="sidebar-item {{ Request::is('admin/rumah*') || Request::is('admin/createRumah*') || Request::is('admin/editRumah*') || Request::is('admin/showRumah*') ? 'active' : '' }}">
-            <a href="{{ route('admin.rumah') }}" class='sidebar-link'>
-                <i class="bi bi bi-house-door"></i>
-                <span>Rumah</span>
-            </a>
-        </li>
-    @endif
 
+    @endif
+    <li class="sidebar-item {{ Request::is('admin/rumah*') || Request::is('admin/createRumah*') || Request::is('admin/editRumah*') || Request::is('admin/showRumah*') ? 'active' : '' }}">
+        <a href="{{ route('admin.rumah') }}" class='sidebar-link'>
+            <i class="bi bi bi-house-door"></i>
+            <span>Rumah</span>
+        </a>
+    </li>
+    
     <li class="sidebar-item {{ Request::is('admin/secondary-home*') || Request::is('admin/createSecondary*') || Request::is('admin/editSecondary*') || Request::is('admin/showSecondary*') ? 'active' : '' }}">
         <a href="{{ route('admin.secondary-home') }}" class='sidebar-link'>
             <i class="bi  bi-houses-fill"></i>

@@ -49,6 +49,7 @@
                         <a href="{{ route('admin.editKonsumen', ['id' => $k->id]) }}" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil-square"></i>
                         </a>
+                        @if (auth()->user()->role !== 'salesAdmin')
                         <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteKonsumen') }}" method="POST">
                             @csrf
                             @method('DELETE')
@@ -56,6 +57,7 @@
                             <input type="hidden" name="id" value="{{ $k->id }}">
                             <button type="submit" name="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
                         </form>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
