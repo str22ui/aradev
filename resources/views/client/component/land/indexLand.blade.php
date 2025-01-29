@@ -4,7 +4,14 @@
 @section('title', 'Land')
 <div class="mx-auto bg-gray-100  px-6 mt-24 pt-12">
     <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Land</h1>
-
+    <form method="GET" action="{{ route('index.land') }}" class="mb-6 flex items-center">
+        <input type="text" name="judul" placeholder="Cari berdasarkan kode listing..."
+            class="border border-gray-300 rounded-md px-4 py-2 w-full md:w-1/3"
+            value="{{ request('kode_listing') }}">
+        <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+            <i class="fa fa-search"></i> Cari
+        </button>
+    </form>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach($land as $l)
             <div class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition duration-300 p-4">

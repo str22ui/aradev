@@ -43,9 +43,17 @@ class LandingController extends Controller
 
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
 
-        // $secondary = Secondary::orderBy('created_at', 'desc')->get();
-        $secondary = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc')->take(6)->get();
 
+        // $secondary = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc')->take(6)->get();
+        $kodeListing = $request->query('kode_listing');
+
+        $secondaryQuery = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc');
+
+        if (!empty($kodeListing)) {
+            $secondaryQuery->where('kode_listing', 'like', "%$kodeListing%");
+        }
+
+        $secondary = $secondaryQuery->take(6)->get();
 
         $perumahanStat = Perumahan::where('status', 'Available')->get();
 
@@ -75,6 +83,16 @@ class LandingController extends Controller
         ]));
     }
 
+    public function search(Request $request)
+    {
+        $kodeListing = $request->query('kode_listing');
+
+        $secondary = Secondary::where('kode_listing', 'like', "%$kodeListing%")
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($secondary);
+    }
 
 
         public function filterPerumahan(Request $request)
@@ -115,9 +133,19 @@ class LandingController extends Controller
 
     // =================== START SECONDARY ===================
 
-    public function indexSecondary()
+    public function indexSecondary(Request $request)
     {
-        $secondary = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc')->get();
+        $kodeListing = $request->query('kode_listing');
+
+        $secondaryQuery = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc');
+
+        if (!empty($kodeListing)) {
+            $secondaryQuery->where('kode_listing', 'like', "%$kodeListing%");
+        }
+
+        $secondary = $secondaryQuery->take(6)->get();
+
+        // $secondary = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc')->get();
         $allPerumahan = Perumahan::all();
         $kotas = Perumahan::select('kota')->distinct()->get();
         return view('client.component.secondary.indexSecondary', compact('secondary', 'allPerumahan','kotas'));
@@ -142,9 +170,19 @@ class LandingController extends Controller
 
 
     // =================== START LAND ===================
-    public function indexLand()
+    public function indexLand(Request $request)
     {
-        $land = Land::all();
+        $kodeListing = $request->query('judul');
+
+        $secondaryQuery = Land::with('imagesLand')->orderBy('created_at', 'desc');
+
+        if (!empty($kodeListing)) {
+            $secondaryQuery->where('judul', 'like', "%$kodeListing%");
+        }
+
+        $land = $secondaryQuery->take(6)->get();
+
+        // $land = Land::all();
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         return view('client.component.land.indexLand', compact('land', 'allPerumahan', 'kotas'));
@@ -186,7 +224,8 @@ class LandingController extends Controller
     // =================== START TESTIMONY ===================
     public function indexTestimony()
     {
-        $testimony = Testimony::all();
+        // $testimony = Testimony::all();
+        $testimony = Testimony::orderBy('created_at', 'desc')->get();
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         return view('client.component.testimony.indexTestimony', compact('testimony', 'allPerumahan', 'kotas'));

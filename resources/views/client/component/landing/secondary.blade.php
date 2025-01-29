@@ -6,6 +6,15 @@
         </h2>
         <hr class="mt-2 w-24 mx-auto border-t-2 border-green-500">
     </div>
+    <form method="GET" action="{{ route('dashboard') }}" class="mb-6 flex items-center">
+        <input type="text" name="kode_listing" placeholder="Cari berdasarkan kode listing..."
+            class="border border-gray-300 rounded-md px-4 py-2 w-full md:w-1/3"
+            value="{{ request('kode_listing') }}">
+        <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+            <i class="fa fa-search"></i> Cari
+        </button>
+    </form>
+
     <div class="grid lg:grid-cols-2 gap-6">
         @if ($secondary->isEmpty())
             <p class="text-center text-gray-500">No properties available for the selected status.</p>
