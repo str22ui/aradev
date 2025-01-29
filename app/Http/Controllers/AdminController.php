@@ -2010,6 +2010,8 @@ class AdminController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required',
+            'kota' => 'required',
+            'pekerjaan' => 'required',
             'image' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
             'testimony' => 'required',
         ]);
@@ -2072,6 +2074,8 @@ class AdminController extends Controller
         // Validasi input
         $request->validate([
             'name' => 'required',
+            'kota' => 'required',
+            'pekerjaan' => 'required',
             'image' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
             'testimony' => 'required',
         ]);
@@ -2092,6 +2096,8 @@ class AdminController extends Controller
 
         // Update data lainnya
         $testimony->name = $request->name;
+        $testimony->kota = $request->kota;
+        $testimony->pekerjaan = $request->pekerjaan;
         $testimony->testimony = $request->testimony;
 
         // Simpan perubahan
