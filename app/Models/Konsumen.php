@@ -18,7 +18,8 @@ class Konsumen extends Model
         'nama_kantor',
         'perumahan',
         'sumber_informasi',
-        'agent_id'
+        'agent_id',
+        'reseller_id'
     ];
 
     public function report(){
@@ -29,7 +30,7 @@ class Konsumen extends Model
     {
         return $this->belongsTo(Agent::class, 'agent_id');
     }
-    
+
     public function reseller()
     {
         return $this->belongsTo(Reseller::class);

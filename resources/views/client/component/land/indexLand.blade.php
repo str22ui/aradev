@@ -8,9 +8,10 @@
         <input type="text" name="judul" placeholder="Cari berdasarkan kode listing..."
             class="border border-gray-300 rounded-md px-4 py-2 w-full md:w-1/3"
             value="{{ request('kode_listing') }}">
-        <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-            <i class="fa fa-search"></i> Cari
-        </button>
+            <button type="submit" class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 flex items-center">
+                <i class="fa fa-search text-lg md:text-xl"></i>
+                <span class="hidden md:inline">Cari</span>
+            </button>
     </form>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         @foreach($land as $l)

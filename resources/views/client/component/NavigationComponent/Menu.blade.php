@@ -2,9 +2,9 @@
 
 <a class=" font-bold  text-[#3E3C3C] text-base"  href="/about">About</a>
 @include('client.component.NavigationComponent.ProjectDropdown')
-{{-- @include('client.component.NavigationComponent.SecondaryDropdown') --}}
+@include('client.component.NavigationComponent.SecondaryDropdown')
 
-<a class=" font-bold text-[#3E3C3C]  text-base"  href="/secondary">Secondary</a>
+{{-- <a class=" font-bold text-[#3E3C3C]  text-base"  href="/secondary">Secondary</a> --}}
 <a class=" font-bold  text-[#3E3C3C] text-base"  href="/land">Land</a>
 <a class=" font-bold text-[#3E3C3C]  text-base"  href="/about">Relation</a>
 <a class=" font-bold text-[#3E3C3C]  text-base"  href="/info">Info & Event</a>

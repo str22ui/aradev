@@ -20,7 +20,7 @@ class Land extends Model
         'judul',        // Judul
         'lt',           // Luas Tanah
         'surat',        // Surat
-        'lmb_pbg',      // LMB/PBG
+        'imb',      // LMB/PBG
         'harga',        // Harga
         'lokasi',       // Lokasi
         'kecamatan',    // Kecamatan

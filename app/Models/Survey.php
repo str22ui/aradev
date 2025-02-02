@@ -23,6 +23,7 @@ class Survey extends Model
         'waktu_janjian',
         'sumber_informasi',
         'agent_id',
+        'reseller_id'
     ];
 
     /**

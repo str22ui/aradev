@@ -139,7 +139,7 @@
                     </div>
                 </div>
 
-                <div class="reseller hidden flex w-full gap-4">
+                <div class="reseller  flex w-full gap-4">
                     <div class="w-full">
                         <label for="reseller_id" class="form-label block mb-2 text-sm font-medium ">Nama Reseller</label>
                         <select id="reseller_id" name="reseller_id"

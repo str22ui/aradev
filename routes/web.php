@@ -171,9 +171,9 @@ Route::middleware('log.visits')->group(function(){
     Route::get('/about', [LandingController::class, 'about'])->name('about');
 
     Route::get('/secondary', [LandingController::class, 'indexSecondary'])->name('index.secondary');
-    Route::get('/secondary/search', [LandingController::class, 'search']);
-  
-    // Route::get('/showSecondary/{kota}', [LandingController::class, 'showSecondary'])->name('showSecondary');
+    // Route::get('/showSecondary/{id}', [LandingController::class, 'showSecondary'])->name('showSecondary');
+    Route::get('/showSecondary/{id}', [LandingController::class, 'showSecondary'])->name('showSecondary');
+    Route::get('/kotaSecondary/{kota}', [LandingController::class, 'kotaSecondary'])->name('kotaSecondary');
 
     Route::get('/land', [LandingController::class, 'indexLand'])->name('index.land');
     Route::get('/showLand/{id}', [LandingController::class, 'showLand'])->name('showLand');
