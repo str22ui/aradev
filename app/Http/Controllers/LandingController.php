@@ -51,6 +51,8 @@ class LandingController extends Controller
 
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
 
+        $kotaLand = Land::select('lokasi')->distinct()->get();
+
         if (!empty($kodeListing)) {
             $secondaryQuery->where('kode_listing', 'like', "%$kodeListing%");
         }
@@ -83,6 +85,7 @@ class LandingController extends Controller
             'perumahanStat',
             'secondary',
             'kotasSecondary',
+            'kotaLand',
         ]));
     }
 
@@ -133,25 +136,6 @@ class LandingController extends Controller
 
     // =================== START SECONDARY ===================
 
-    // public function indexSecondary(Request $request)
-    // {
-    //     $kodeListing = $request->query('kode_listing');
-
-    //     $secondaryQuery = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc');
-
-    //     if (!empty($kodeListing)) {
-    //         $secondaryQuery->where('kode_listing', 'like', "%$kodeListing%");
-    //     }
-
-    //     $secondary = $secondaryQuery->get();
-
-    //     // $secondary = Secondary::with('imagesSecondary')->orderBy('created_at', 'desc')->get();
-    //     $allPerumahan = Perumahan::all();
-    //     $kotas = Perumahan::select('kota')->distinct()->get();
-    //     return view('client.component.secondary.indexSecondary', compact('secondary', 'allPerumahan','kotas'));
-
-    // }
-
 
      public function indexSecondary(Request $request)
     {
@@ -169,8 +153,9 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::all();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
-        return view('client.component.secondary.indexSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary'));
+        return view('client.component.secondary.indexSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary','kotaLand'));
 
     }
 
@@ -186,6 +171,7 @@ class LandingController extends Controller
 
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
         return view('client.component.secondary.kotaSecondary', [
             'secondary' => $secondary, // Kirim data perumahan ke view
@@ -194,6 +180,7 @@ class LandingController extends Controller
             'allSecondary' => $allSecondary,
             'kotas' => $kotas,
             'kotasSecondary' => $kotasSecondary,
+            'kotaLand' => $kotaLand,
         ]);
     }
 
@@ -206,8 +193,9 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::all();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
-        return view('client.component.secondary.showSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary'));
+        return view('client.component.secondary.showSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary','kotaLand'));
 
     }
 
@@ -240,12 +228,17 @@ class LandingController extends Controller
     // =================== START LAND ===================
     public function indexLand(Request $request)
     {
-        $kodeListing = $request->query('judul');
+        $search = $request->query('query');
 
         $secondaryQuery = Land::with('imagesLand')->orderBy('created_at', 'desc');
 
-        if (!empty($kodeListing)) {
-            $secondaryQuery->where('judul', 'like', "%$kodeListing%");
+        if (!empty($search)) {
+            $secondaryQuery->where(function ($query) use($search){
+                $query->where('judul','like',"%$search%")
+                ->orWhere('lokasi','like',"%$search%")
+                ->orWhere('kecamatan','like',"%$search%")
+                ->orWhere('kota','like',"%$search%");
+            });
         }
 
         $land = $secondaryQuery->get();
@@ -254,8 +247,9 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
-        return view('client.component.land.indexLand', compact('land', 'allPerumahan', 'kotas','kotasSecondary'));
+        return view('client.component.land.indexLand', compact('land', 'allPerumahan', 'kotas','kotasSecondary','kotaLand'));
     }
 
 
@@ -266,10 +260,36 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
-        return view('client.component.land.showLand', compact('land','allPerumahan', 'kotas','kotasSecondary'));
+        return view('client.component.land.showLand', compact('land','allPerumahan', 'kotas','kotasSecondary','kotaLand'));
 
     }
+
+    public function kotaLand($lokasi)
+    {
+        $land = Land::where('lokasi', $lokasi)
+        ->with('imagesLand')
+        ->orderBy('created_at', 'desc')
+        ->get(); // Ambil secondary berdasarkan kota dan urutkan dari yang terbaru
+
+        $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get(); // Urutkan semua perumahan dari yang terbaru
+        $allLand = Land::orderBy('created_at', 'desc')->get(); // Urutkan semua secondary dari yang terbaru
+
+        $kotas = Perumahan::select('kota')->distinct()->get();
+        $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
+
+        return view('client.component.land.kotaLand', [
+            'land' => $land, // Kirim data perumahan ke view
+            'lokasi' => $lokasi,
+            'allPerumahan' => $allPerumahan,
+            'kotas' => $kotas,
+            'kotasSecondary' => $kotasSecondary,
+            'kotaLand' => $kotaLand,
+        ]);
+    }
+
     // =================== END LAND ===================
 
     // =================== START INFO ===================
@@ -279,8 +299,9 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
-        return view('client.component.info.indexInfo', compact('info', 'allPerumahan', 'kotas','kotasSecondary'));
+        return view('client.component.info.indexInfo', compact('info', 'allPerumahan', 'kotas','kotasSecondary','kotaLand'));
     }
 
     public function showInfo($id)
@@ -289,8 +310,9 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
-        return view('client.component.info.show', compact('info','allPerumahan','kotas','kotasSecondary'));
+        return view('client.component.info.show', compact('info','allPerumahan','kotas','kotasSecondary','kotaLand'));
     }
 
     // =================== END INFO ===================
@@ -303,8 +325,9 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
-        return view('client.component.testimony.indexTestimony', compact('testimony', 'allPerumahan', 'kotas','kotasSecondary'));
+        return view('client.component.testimony.indexTestimony', compact('testimony', 'allPerumahan', 'kotas','kotasSecondary','kotaLand'));
 
     }
     // =================== END TESTIMONY ===================
@@ -341,6 +364,7 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
         // Logika video jika ada
         $embedUrl = $perumahan->video;
         if (str_contains($perumahan->video, 'youtu.be')) {
@@ -356,6 +380,7 @@ class LandingController extends Controller
             'allPerumahan' => $allPerumahan,
             'kotas' => $kotas,
             'kotasSecondary' => $kotasSecondary,
+            'kotaLand' => $kotaLand,
         ]);
     }
 
@@ -372,6 +397,7 @@ class LandingController extends Controller
 
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
         return view('client.component.project.showProject', [
             'perumahan' => $perumahan, // Kirim data perumahan ke view
@@ -379,6 +405,7 @@ class LandingController extends Controller
             'allPerumahan' => $allPerumahan,
             'kotas' => $kotas,
             'kotasSecondary' => $kotasSecondary,
+            'kotaLand' => $kotaLand,
         ]);
     }
 
@@ -386,17 +413,18 @@ class LandingController extends Controller
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
-
-        return view('client.page.contact', compact('kotas','allPerumahan','kotasSecondary'));
+        return view('client.page.contact', compact('kotas','allPerumahan','kotasSecondary','kotaLand'));
     }
 
     public function about(){
         $allPerumahan = Perumahan::all();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
 
-        return view('client.page.aboutt', compact('kotas','allPerumahan','kotasSecondary'));
+        return view('client.page.aboutt', compact('kotas','allPerumahan','kotasSecondary','kotaLand'));
     }
 
     public function form($id)
@@ -504,7 +532,7 @@ class LandingController extends Controller
     public function formSurvey($id)
     {
         $allPerumahan = Perumahan::all(); // Ambil semua data Perumahan
-        
+
         $selectedPerumahan = Perumahan::findOrFail($id); // Data spesifik berdasarkan ID
         // $agents = Agent::all();
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();

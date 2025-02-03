@@ -7,6 +7,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\ManagementController;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Penawaran;
+use App\Models\Survey;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,6 +70,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/survey/{id}/', [AdminController::class, 'editSurvey'])->name('admin.editSurvey');
     Route::put('/survey/update/{id}', [AdminController::class, 'updateSurvey'])->name('admin.updateSurvey');
     Route::delete('/deleteSurvey', [AdminController::class, 'destroySurvey'])->name('admin.deleteSurvey');
+    Route::get('/survey/pdf/{id}', function ($id) {
+        $survey = Survey::with(['rumah', 'perumahan','agent'])->findOrFail($id);
+
+        $pdf = Pdf::loadView('admin.survey.pdfSurvey', compact('survey'));
+        return $pdf->download('Konsumen_Survey.pdf'); // Unduh file
+        // return $pdf->stream(); // Tampilkan di browser
+    });
 
     //Agent
     Route::get('/agent', [AdminController::class, 'indexAgent'])->name('admin.agent');
@@ -113,9 +121,16 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/penawaran', [AdminController::class, 'indexPenawaran'])->name('admin.penawaran');
     Route::get('/createPenawaran', [AdminController::class, 'createPenawaran'])->name('admin.createPenawaran');
     Route::post('/storePenawaran', [adminController::class, 'storePenawaran'])->name('admin.storePenawaran');
+    Route::get('/penawaran/{id}/', [AdminController::class, 'editPenawaran'])->name('admin.editPenawaran');
+    Route::put('/penawaran/update/{id}', [AdminController::class, 'updatePenawaran'])->name('admin.updatePenawaran');
     Route::delete('/deletePenawaran', [AdminController::class, 'destroyPenawaran'])->name('admin.deletePenawaran');
+    Route::get('/penawaran/pdf/{id}', function ($id) {
+        $penawaran = Penawaran::with(['rumah', 'perumahan'])->findOrFail($id);
 
-
+        $pdf = Pdf::loadView('admin.penawaran.pdfPenawaran', compact('penawaran'));
+        return $pdf->download('Surat_Penawaran.pdf'); // Unduh file
+        // return $pdf->stream(); // Tampilkan di browser
+    });
 
     //Report
     Route::get('/report', [AdminController::class, 'indexReport'])->name('admin.report');
@@ -177,6 +192,7 @@ Route::middleware('log.visits')->group(function(){
 
     Route::get('/land', [LandingController::class, 'indexLand'])->name('index.land');
     Route::get('/showLand/{id}', [LandingController::class, 'showLand'])->name('showLand');
+    Route::get('/kotaLand/{kota}', [LandingController::class, 'kotaLand'])->name('kotaLand');
 
     Route::get('/testimony', [LandingController::class, 'indexTestimony'])->name('index.testimony');
 
@@ -193,13 +209,7 @@ Route::middleware('log.visits')->group(function(){
 
     Route::get('/formPenawaran/{id}', [LandingController::class, 'formPenawaran'])->name('landingpage.formPenawaran');
     Route::post('/storePenawaran', [LandingController::class, 'storePenawaranKonsumen'])->name('form.penawaran');
-    Route::get('/penawaran/pdf/{id}', function ($id) {
-        $penawaran = Penawaran::with(['rumah', 'perumahan'])->findOrFail($id);
 
-        $pdf = Pdf::loadView('admin.penawaran.pdfPenawaran', compact('penawaran'));
-        return $pdf->download('Surat_Penawaran.pdf'); // Unduh file
-        // return $pdf->stream(); // Tampilkan di browser
-    });
 
 
 

@@ -3,7 +3,7 @@
 
 @section('title', 'Land')
 <div class="mx-auto bg-gray-100  px-6 mt-24 pt-12">
-    <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Land</h1>
+    <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">Tanah di {{ $lokasi }}</h1>
     <form method="GET" action="{{ route('index.land') }}" class="mb-6 flex items-center">
         <input type="text" name="query" placeholder="Cari berdasarkan lokasi..."
             class="border border-gray-300 rounded-md px-4 py-2 w-full md:w-1/3"

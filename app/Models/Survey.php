@@ -37,4 +37,14 @@ class Survey extends Model
     {
         return $this->belongsTo(Reseller::class);
     }
+    public function rumah()
+    {
+        return $this->belongsTo(Rumah::class);
+    }
+
+    public function perumahan()
+    {
+        return $this->belongsTo(Perumahan::class);
+    }
+    
 }

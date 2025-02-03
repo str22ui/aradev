@@ -122,7 +122,8 @@
                     <tr>
                         <td>Harga PL</td>
                         <td>:</td>
-                        <td>{{ number_format($penawaran->rumah->harga, 0, ',', '.') }}</td>
+                        {{-- <td>{{ number_format($penawaran->rumah->harga, 0, ',', '.') }}</td> --}}
+                        <td>{{ $penawaran->rumah->harga}}</td>
                     </tr>
                 </table>
             </td>

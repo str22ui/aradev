@@ -45,5 +45,9 @@ class Perumahan extends Model
         return $this->belongsTo(Agent::class);
     }
 
+    public function survey()
+    {
+        return $this->hasMany(Survey::class, 'perumahan_id');
+    }
 
 }

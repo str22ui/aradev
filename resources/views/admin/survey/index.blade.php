@@ -48,16 +48,20 @@
                     <td>
                         {{-- <a href='' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
                         {{-- <a href='{{ route('admin.showEbook', ['ebook' => $e->slug])  }}' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
-                        <a href="{{ route('admin.editSurvey', ['id' => $s->id]) }}" class="btn btn-warning btn-sm">
+                        <a href="{{ route('admin.editSurvey', ['id' => $s->id]) }}" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="Edit">
                             <i class="bi bi-pencil-square"></i>
                         </a>
+                        <a href="{{ url('/survey/pdf/' . $s->id) }}" class="btn btn-primary btn-sm"  data-bs-toggle="tooltip" title="Download PDF">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                        </a>
+
                         @if (auth()->user()->role !== 'salesAdmin')
                         <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteSurvey') }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <!-- Input untuk mengirim ID perumahan yang ingin dihapus -->
                             <input type="hidden" name="id" value="{{ $s->id }}">
-                            <button type="submit" name="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
+                            <button type="submit" name="submit" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Delete"> <i class="bi bi-trash-fill"></i></button>
                         </form>
                         @endif
                     </td>

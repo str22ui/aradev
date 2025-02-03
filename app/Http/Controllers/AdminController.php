@@ -1281,6 +1281,60 @@ class AdminController extends Controller
     }
 
 
+    public function editPenawaran($id)
+    {
+        // Coba temukan data konsumen berdasarkan ID
+        $penawaran = Penawaran::find($id);
+        // $perumahan = Perumahan::find($id);
+        $perumahan = Perumahan::all();
+        $rumah = Rumah::find($id);
+        $agent = Agent::all();
+        $reseller = Reseller::all();
+
+        // Jika konsumen tidak ditemukan, tampilkan pesan error atau redirect
+        if (!$penawaran) {
+            return redirect()->route('admin.penawaran')->with('error', 'Data Konsumen tidak ditemukan');
+        }
+
+        // Jika ditemukan, kirim data ke view
+        return view('admin.penawaran.editPenawaran', [
+            'penawaran' => $penawaran,
+            'perumahan' => $perumahan,
+            'rumah' => $rumah,
+            'agent' => $agent,
+            'reseller' => $reseller,
+        ]);
+    }
+
+
+    public function updatePenawaran(Request $request, $id)
+    {
+        // Find the agent by id
+        $penawaran = Penawaran::find($id);
+
+        // Update the agent's data
+        $penawaran->nama = $request->input('nama');
+        $penawaran->email = $request->input('email');
+        $penawaran->no_hp = $request->input('no_hp');
+        $penawaran->domisili = $request->input('domisili');
+        $penawaran->pekerjaan = $request->input('pekerjaan');
+        $penawaran->nama_kantor = $request->input('nama_kantor');
+        $penawaran->payment = $request->input('payment');
+        $penawaran->income = $request->input('income');
+        $penawaran->dp = $request->input('dp');
+        $penawaran->harga_pengajuan = $request->input('harga_pengajuan');
+        $penawaran->sumber_informasi = $request->input('sumber_informasi');
+        $penawaran->agent_id = $request->input('agent_id');
+        $penawaran->reseller_id = $request->input('reseller_id');
+        // $penawaran->perumahan = $request->input('perumahan');
+
+        // Save the changes to the database
+        $penawaran->save();
+
+        // Redirect back or to any other page
+        return redirect('/penawaran');
+    }
+
     public function destroyPenawaran(Request $request)
     {
         // Ambil ID dari request

@@ -38,4 +38,9 @@ class Rumah extends Model
         return $this->hasMany(Penawaran::class, 'rumah_id');
     }
 
+    public function survey()
+    {
+        return $this->hasMany(Survey::class, 'rumah_id');
+    }
+
 }

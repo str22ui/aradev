@@ -17,7 +17,7 @@
         </div>
 
         <!-- Tombol WhatsApp (Tidak Pernah Hilang) -->
-        <a href="https://wa.me/6281234567890" target="_blank" class="relative block">
+        <a href="https://wa.me/6287854454888" target="_blank" class="relative block">
             <img src="{{ asset('img/asset/logo-wa.png') }}" alt="WhatsApp" class="md:w-14 md:h-14 w-10 h-10">
         </a>
     </div>
