@@ -29,6 +29,7 @@ class Secondary extends Model
         'hadap',        // Hadap
         'posisi',        // Posisi (Hook/Badan)
         'furnish',       // Furnish (Semi furnished/Unfurnished)
+        'lantai',
         'harga',         // Harga
         'lokasi',        // Lokasi
         'kecamatan',     // Kecamatan

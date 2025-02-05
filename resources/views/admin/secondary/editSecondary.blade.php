@@ -169,6 +169,12 @@
             </div>
 
             <div class="mb-3">
+                <label for="lantai" class="form-label">Lantai</label>
+                <input type="text" class="form-control" id="lantai" name="lantai"
+                    value="{{ $secondary->lantai }}">
+            </div>
+
+            <div class="mb-3">
                 <label for="kota" class="form-label">Harga</label>
                 <input type="text" class="form-control" id="harga" name="harga"
                     value="{{ $secondary->harga }}">

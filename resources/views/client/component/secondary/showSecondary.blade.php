@@ -112,6 +112,10 @@
                                 <td class="text-gray-600">{{ $secondary->furnish}}</td>
                             </tr>
                             <tr>
+                                <td class="font-semibold text-gray-700">Lantai</td>
+                                <td class="text-gray-600">{{ $secondary->lantai}}</td>
+                            </tr>
+                            <tr>
                                 <td class="font-semibold text-gray-700">Harga</td>
                                 <td class="text-gray-600">Rp {{ number_format($secondary->harga, 0, ',', '.') }}</td>
                             </tr>

@@ -59,7 +59,9 @@ class LandingController extends Controller
 
         $secondary = $secondaryQuery->take(6)->get();
 
-        $perumahanStat = Perumahan::where('status', 'Available')->get();
+        $perumahanStat = Perumahan::where('status', 'Available')
+        ->orderBy('created_at', 'desc') // Mengurutkan berdasarkan tanggal terbaru
+        ->get();
 
         $kotas = Perumahan::whereIn('id', function ($query) {
             $query->selectRaw('MAX(id)')

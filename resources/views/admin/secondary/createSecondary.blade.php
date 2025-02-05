@@ -162,6 +162,12 @@
                 </select>
             </div>
 
+
+            <div class="mb-3">
+                <label for="lantai" class="form-label">Jumlah Lantai</label>
+                <input type="number" class="form-control" id="lantai" name="lantai" placeholder="Masukkan Jumlah Lantai ">
+            </div>
+
             <div class="mb-3">
                 <label for="lokasi" class="form-label">Harga</label>
                 <input type="number" class="form-control" id="harga" name="harga" placeholder="Masukkan Harga ">
