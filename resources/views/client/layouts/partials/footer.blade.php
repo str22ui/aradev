@@ -1,28 +1,26 @@
-<footer >
+<footer>
     <div class="bg-primary text-white py-6 px-5 mt-8">
-        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
+        <div class="container mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-6 sm:gap-y-4 text-left md:text-left">
             <div>
                 <h3 class="font-bold mb-2">Ara Development Property</h3>
-                <p class="text-sm">Ara Development Property, kami ada bersama anda, melewati berbagai tantangan, belajar, dan berkembang untuk menjadi lebih baik. Hari ini, dengan penuh semangat, kami memperkenalkan identitas baru kami – sebuah langkah maju untuk melayani Anda dengan lebih baik!</p>
+                <p class="text-sm">Ara Development Property, One Stop Property Services – Solusi Lengkap untuk Kebutuhan Properti Anda. Dengan layanan yang lengkap dan profesional, kami siap membantu Anda mewujudkan kebutuhan dan investasi properti impian Anda dengan mudah dan efisien.</p>
             </div>
 
-            <div>
-                <h3 class="font-bold mb-2">Project</h3>
-                <ul class="text-sm list-none">
-                @foreach ($allPerumahan as $p)
-                    <li>{{ $p->perumahan }}</li>
-                @endforeach
+            <div class="md:text-center">
+                <h3 class="font-bold mb-2 ">Project</h3>
+                <ul class="text-sm list-none ">
+                    @foreach ($allPerumahan as $p)
+                        <li>{{ $p->perumahan }}</li>
+                    @endforeach
                 </ul>
             </div>
 
             <div>
                 <h3 class="font-bold mb-2">Location</h3>
                 <p class="text-sm">Sawangan Village Cluster Swarna Asri A-08 Jl. Raya Mokhtar, Kelurahan Bedahan Kecamatan Sawangan Kota Depok 16511</p>
-                {{-- <p class="mt-2"><i class="fas fa-phone-alt"></i> 021 - 77972409 (office)</p> --}}
             </div>
         </div>
     </div>
-
 </footer>
 
 

@@ -15,6 +15,13 @@
         </a>
     </li>
 
+    <li class="sidebar-item {{ Request::is('admin/service*') || Request::is('admin/createService*') || Request::is('admin/editService*') || Request::is('admin/showService*') ? 'active' : '' }}">
+        <a href="{{ route('admin.service') }}" class='sidebar-link'>
+            <i class="bi bi-gear-wide"></i>
+            <span>Services</span>
+        </a>
+    </li>
+
     <li class="sidebar-item {{ Request::is('admin/testimony*') || Request::is('admin/createTestimony*') || Request::is('admin/editTestimony*') || Request::is('admin/showTestimony*') ? 'active' : '' }}">
         <a href="{{ route('admin.testimony') }}" class='sidebar-link'>
             <i class="bi bi-chat-dots-fill"></i>

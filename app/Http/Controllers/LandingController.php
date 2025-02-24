@@ -11,6 +11,7 @@ use App\Models\Perumahan;
 use App\Models\Secondary;
 use App\Models\Land;
 use App\Models\Info;
+use App\Models\Service;
 use App\Models\Testimony;
 use App\Models\Rumah;
 use App\Models\Penawaran;
@@ -293,6 +294,32 @@ class LandingController extends Controller
     }
 
     // =================== END LAND ===================
+
+    // =================== START SERVICES ===================
+
+    public function services(){
+        $allPerumahan = Perumahan::all();
+        $kotas = Perumahan::select('kota')->distinct()->get();
+        $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
+        $service = Service::all();
+        return view('client.page.service', compact('kotas','allPerumahan','kotasSecondary','kotaLand', 'service'));
+    }
+
+    public function showService($id)
+    {
+        // Mengambil data Perumahan beserta gambar
+        $service = Service::with('imagesService')->findOrFail($id);
+        $allPerumahan = Perumahan::all();
+        $kotas = Perumahan::select('kota')->distinct()->get();
+        $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
+
+        return view('client.component.service.showService', compact('service', 'allPerumahan','kotas','kotasSecondary','kotaLand'));
+
+    }
+
+    // =================== END SERVICES ===================
 
     // =================== START INFO ===================
     public function indexInfo()

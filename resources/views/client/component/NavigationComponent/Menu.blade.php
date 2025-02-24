@@ -4,7 +4,7 @@
 @include('client.component.NavigationComponent.ProjectDropdown')
 @include('client.component.NavigationComponent.SecondaryDropdown')
 @include('client.component.NavigationComponent.LandDropdown')
-<a class=" font-bold text-[#3E3C3C]  text-base"  href="/about">Relation</a>
+<a class=" font-bold text-[#3E3C3C]  text-base"  href="/services">Services</a>
 <a class=" font-bold text-[#3E3C3C]  text-base"  href="/info">Info & Event</a>
 <a class=" font-bold text-[#3E3C3C]  text-base"  href="/testimony">Testimony</a>
 {{-- @include('client.component.NavigationComponent.ProfileDropdown') --}}

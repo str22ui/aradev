@@ -107,6 +107,16 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/info/update/{id}', [AdminController::class, 'updateInfo'])->name('admin.updateInfo');
     Route::delete('/deleteInfoImage', [AdminController::class, 'destroyImageInfo'])->name('admin.deleteImageInfo');
 
+    //Services
+    Route::get('/service-home', [AdminController::class, 'indexService'])->name('admin.service');
+    Route::get('/showServices', [AdminController::class, 'showService'])->name('admin.showService');
+    Route::get('/createService', [AdminController::class, 'createService'])->name('admin.createService');
+    Route::post('/storeService', [adminController::class, 'storeService'])->name('admin.storeService');
+    Route::get('/service-home/{id}/', [AdminController::class, 'editService'])->name('admin.editService');
+    Route::delete('/deleteService', [AdminController::class, 'destroyService'])->name('admin.deleteService');
+    Route::put('/service/update/{id}', [AdminController::class, 'updateService'])->name('admin.updateService');
+    Route::delete('/deleteServiceImage', [AdminController::class, 'destroyImageService'])->name('admin.deleteImageService');
+
     //Testimony
     Route::get('/testimony-home', [AdminController::class, 'indexTestimony'])->name('admin.testimony');
     Route::get('/showTestimony', [AdminController::class, 'showTestimony'])->name('admin.showTestimony');
@@ -193,6 +203,9 @@ Route::middleware('log.visits')->group(function(){
     Route::get('/land', [LandingController::class, 'indexLand'])->name('index.land');
     Route::get('/showLand/{id}', [LandingController::class, 'showLand'])->name('showLand');
     Route::get('/kotaLand/{kota}', [LandingController::class, 'kotaLand'])->name('kotaLand');
+
+    Route::get('/services', [LandingController::class, 'services'])->name('services');
+    Route::get('/showService/{id}', [LandingController::class, 'showService'])->name('showService');
 
     Route::get('/testimony', [LandingController::class, 'indexTestimony'])->name('index.testimony');
 

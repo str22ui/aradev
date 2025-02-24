@@ -117,7 +117,7 @@
                             </tr>
                             <tr>
                                 <td class="font-semibold text-gray-700">Harga</td>
-                                <td class="text-gray-600">Rp {{ number_format($secondary->harga, 0, ',', '.') }}</td>
+                                <td class="text-gray-600">Rp {{ number_format($secondary->harga, 0, ',', '.') }}/tahun</td>
                             </tr>
                             <tr>
                                 <td class="font-semibold text-gray-700">Lokasi</td>
