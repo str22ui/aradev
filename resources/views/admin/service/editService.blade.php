@@ -13,9 +13,25 @@
             @method('PUT')
             {{-- Title --}}
 
+            <div class="mb-3">
+                <label for="img" class="form-label">Banner Servie (.jpg, .png, .jpeg)</label>
+                <input type="file" class="form-control" id="img" name="image">
+
+                    <!-- Tampilkan gambar lama -->
+                    @if($service->image)
+                        <div class="mt-3">
+
+                            <img src="{{ Storage::url($service->image) }}" alt="Gambar Lama" class="img-fluid rounded" style="max-width: 200px;">
+
+                        </div>
+                    @endif
+                    @if ($service->image)
+
+                @endif
+            </div>
 
             <div class="mb-3">
-                <label for="img" class="form-label">Gambar info (.jpg, .png, .jpeg)</label>
+                <label for="img" class="form-label">Gambar Service (.jpg, .png, .jpeg)</label>
                 <input type="file" class="form-control" id="img" name="images[]" multiple accept="image/*">
                 <button type="button" class="btn btn-info mb-3 mt-2" data-bs-toggle="modal" data-bs-target="#imageModal">
                     Lihat Gambar Lama

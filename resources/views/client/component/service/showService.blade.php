@@ -14,10 +14,12 @@
             <div class="relative">
                 <!-- Gambar Utama -->
                 <div class="mb-4">
-                    <img id="mainImage" class="w-full h-auto object-cover rounded-lg shadow-lg"
-                         src="{{ asset('storage/' . $service->imagesService->first()->image_path) }}"
-                         alt="Main Image">
+                    <img
+                        class="w-full h-auto object-cover rounded-lg shadow-lg"
+                        src="{{ asset('storage/' . $service->image) }}"
+                        alt="{{ $service->judul }}">
                 </div>
+                
 
                 <!-- Thumbnail Scroll -->
                 <div class="flex overflow-x-auto space-x-2 py-2" id="thumbnailContainer">

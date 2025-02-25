@@ -9,7 +9,11 @@
             <div class="bg-white shadow-lg rounded-lg overflow-hidden h-4/5 transform transition-transform duration-300 hover:scale-105 hover:pointer">
                 <!-- Gambar -->
                 <div class="relative">
-                    <img class="w-full h-full object-cover" src="{{ asset('storage/' . $serv->imagesService->first()->image_path) }}" alt="Perumahan {{ $serv->judul }}">
+                    {{-- <img class="w-full h-full object-cover" src="{{ asset('storage/' . $serv->imagesService->first()->image_path) }}" alt="Perumahan {{ $serv->judul }}"> --}}
+                    <img
+                        class="w-full h-full object-cover"
+                        src="{{ asset('storage/' . $serv->image) }}"
+                        alt="{{ $serv->judul }}">
                     <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
                 </div>
 

@@ -2072,15 +2072,19 @@ class AdminController extends Controller
              'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
              'judul' => ' required',
              'short_desc'  => 'required',
+             'image' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
              'long_desc'  => 'required',
              'no_hp' => 'required',
 
          ]);
 
 
-         // Simpan data perumahan dan ambil objeknya
-         $service = Service::create($validatedData);
+        //  // Simpan data perumahan dan ambil objeknya
+        if ($request->hasFile('image')) {
+            $validatedData['image'] = $request->file('image')->store('banner-service', 'public');
+        }
 
+        $service = Service::create($validatedData);
          // Simpan gambar terkait jika ada
          if ($request->hasFile('images')) {
              foreach ($request->file('images') as $image) {
@@ -2091,8 +2095,8 @@ class AdminController extends Controller
                  ]);
              }
          }
-
-         return redirect('/service-home')->with('success', 'Berhasil Menambahkan Data Tanah');
+        //  Service::create($validatedData);
+         return redirect('/service-home')->with('success', 'Berhasil Menambahkan Data Services');
     }
 
     public function editService($id)
@@ -2146,12 +2150,22 @@ class AdminController extends Controller
             'judul' => 'required',
             'short_desc' => 'required',
             'no_hp' => 'required',
+            'image' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
             'long_desc' => 'required',
          ]);
 
          // Ambil data perumahan
          $service = Service::findOrFail($id);
+         if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($service->image) {
+                Storage::disk('public')->delete($service->image);
+            }
 
+            // Simpan gambar baru
+            $imagePath = $request->file('image')->store('banner-service', 'public');
+            $service->image = $imagePath;
+        }
          // Update data utama
          $service->update([
              'judul' => $request->judul,
@@ -2211,7 +2225,7 @@ class AdminController extends Controller
              $service->delete();
 
              // Redirect dengan pesan sukses
-             return redirect('/service-home')->with('success', 'Berhasil Menghapus Data Info');
+             return redirect('/service-home')->with('success', 'Berhasil Menghapus Data Service');
          }
 
 

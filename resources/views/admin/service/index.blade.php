@@ -34,17 +34,11 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>
-                            @if ($s->imagesService->isNotEmpty())
-                            {{-- Menampilkan gambar pertama --}}
-                            <img class="rounded-t-lg"
-                                 src="{{ asset('storage/' . $s->imagesService->first()->image_path) }}"
-                                 alt="" style="width: 100px;" />
-                        @else
-                            {{-- Fallback jika tidak ada gambar --}}
-                            <img src="https://source.unsplash.com/1417x745/?house"
-                                 class="d-block w-100 rounded-4"
-                                 alt="..." style="width: 100px;">
-                        @endif
+                            @if ($s->image)
+                                <img class="rounded-t-lg" src="{{ asset('storage/' . $s->image) }}" alt="Image not found" style="width: 100px;" />
+                            @else
+                                <img src="https://source.unsplash.com/1417x745/?house" class="d-block w-100 rounded-4" alt="..." style="width: 100px;">
+                            @endif
                         </td>
                         <td>{{ $s->judul }}</td>
                         <td>{{ $s->short_desc }}</td>

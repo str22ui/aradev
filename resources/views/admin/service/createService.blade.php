@@ -13,9 +13,15 @@
             {{-- Title --}}
 
             <div class="mb-3">
+                <label for="img" class="form-label">Banner Service  (.jpg, .png, .jpeg)</label>
+                <input type="file" class="form-control" id="image" name="image" multiple>
+            </div>
+
+            <div class="mb-3">
                 <label for="img" class="form-label">Gambar Informasi (.jpg, .png, .jpeg)</label>
                 <input type="file" class="form-control" id="img" name="images[]" multiple>
             </div>
+
 
             <div class="mb-3">
                 <input type="hidden" value="0" name="views">
