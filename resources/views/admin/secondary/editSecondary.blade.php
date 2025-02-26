@@ -19,7 +19,7 @@
                         {{ $secondary->available === 'Available' ? 'selected' : '' }}>Available</option>
                         <option value="Sold Out" {{ $secondary->available === 'Sold Out' ? 'selected' : '' }}>
                         Sold Out</option>
-                        <option value="Rent" {{ $secondary->available === 'Rent' ? 'selected' : '' }}>
+                        <option value="Rented" {{ $secondary->available === 'Rented' ? 'selected' : '' }}>
                             Rent</option>
 
                     </select>

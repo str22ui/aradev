@@ -18,7 +18,7 @@
                     <option value ="">--- Pilih ---</option>
                     <option value="Available">Available</option>
                     <option value="Sold Out">Sold Out</option>
-                    <option value="Rent">Rent</option>
+                    <option value="Rented">Rented </option>
                 </select>
             </div>
 

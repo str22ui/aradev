@@ -38,8 +38,8 @@
                             <span class="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Available</span>
                         @elseif($s->available === 'Sold Out')
                             <span class="bg-red-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Sold Out</span>
-                        @elseif($s->available === 'Sold Out')
-                            <span class="bg-red-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Sold Out</span>
+                        @elseif($s->available === 'Rent')
+                            <span class="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Rent</span>
 
                         @endif
                     </div>
