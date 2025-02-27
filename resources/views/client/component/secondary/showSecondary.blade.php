@@ -45,9 +45,7 @@
             <div>
                 <h2 class="text-2xl font-semibold text-blue-600 mb-4">{{ $secondary->judul }}</h2>
 
-                <div class="prose text-gray-600 mb-4">
-                    {!! $secondary->deskripsi !!}
-                </div>
+
                 <div class="bg-gray-100 p-4 rounded-lg shadow-md">
                     <table class="table-auto w-full text-sm">
                         <tbody class="divide-y divide-gray-300">
@@ -130,15 +128,34 @@
                                 <td class="font-semibold text-gray-700">Sertifikat</td>
                                 <td class="text-gray-600">{{ $secondary->surat }}</td>
                             </tr>
+
                             <tr>
                                 <td class="font-semibold text-gray-700">IMB</td>
                                 <td class="text-gray-600">{{ $secondary->imb }}</td>
                             </tr>
                         </tbody>
                     </table>
+
                 </div>
+                <div class="prose text-gray-600 mb-4">
+                    {!! $secondary->deskripsi !!}
+                </div>
+
+                @if(isset($embedUrl))
+                <!-- Video -->
+                <h2 class="text-lg font-semibold text-gray-800 mt-6">Ingin tahu lebih lengkap? Yuk, tonton video YouTube kami!</h2>
+                <div class="mt-4">
+                    <iframe
+                        src="{{ $embedUrl }}"
+                        frameborder="0"
+                        allowfullscreen
+                        class="rounded-lg shadow-lg w-full h-64 lg:h-80">
+                    </iframe>
+                </div>
+            @endif
             </div>
         </div>
+
 
         <!-- Tombol -->
         <div class="text-center mt-8">
@@ -148,6 +165,7 @@
             </a>
         </div>
     </div>
+
 
 </div>
 <script>

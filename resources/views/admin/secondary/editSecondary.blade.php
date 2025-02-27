@@ -201,6 +201,12 @@
             </div>
 
             <div class="mb-3">
+                <label for="video" class="form-label">Video</label>
+                <input type="text" class="form-control" id="video" name="video" placeholder="Masukkan URL Video"  value="{{ $secondary->video }}">
+            </div>
+
+
+            <div class="mb-3">
                 <label for="deskripsi" class="form-label">Deskripsi</label>
                 <textarea class="ckeditor form-control" id="content" name="deskripsi" value="">{{ $secondary->deskripsi }}</textarea>
             </div>

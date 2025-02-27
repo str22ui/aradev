@@ -35,6 +35,7 @@ class Secondary extends Model
         'kecamatan',     // Kecamatan
         'kota',          // Kota
         'deskripsi',     // Deskripsi
+        'video',         // video
     ];
 
     protected $hidden = [

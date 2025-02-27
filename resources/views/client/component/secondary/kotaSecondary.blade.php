@@ -42,7 +42,7 @@
 
                         @endif
                     </div>
-                    <p class="text-gray-600">{{ $s->judul }}</p>
+                    <p class="text-gray-600">{{ $s->kode_listing }} - {{ $s->judul }}</p>
                     <p class="text-sm text-gray-500 mt-2">
                         LB: {{ $s->lb }} | LT: {{ $s->lt }} |
                         <i class="fas fa-bed"></i> {{ $s->kt }} |

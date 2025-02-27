@@ -189,6 +189,10 @@
                 <input type="text" class="form-control" id="kota" name="kota" placeholder="Masukkan Kota">
             </div>
 
+            <div class="mb-3">
+                <label for="video" class="form-label">Video</label>
+                <input type="text" class="form-control" id="video" name="video" placeholder="Masukkan URL Video">
+            </div>
 
             <div class =" mb-3">
                 <label for="deskripsi" class="form-label">Deskripsi</label>

@@ -81,8 +81,10 @@
                     value="{{ $land->kota }}">
             </div>
 
-
-
+            <div class="mb-3">
+                <label for="video" class="form-label">Video</label>
+                <input type="text" class="form-control" id="video" name="video" placeholder="Masukkan URL Video" value="{{ $land->video }}">
+            </div>
 
             <div class="mb-3">
                 <label for="deskripsi" class="form-label">Deskripsi</label>

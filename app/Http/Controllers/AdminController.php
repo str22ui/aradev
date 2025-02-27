@@ -450,6 +450,11 @@ class AdminController extends Controller
             'kecamatan' => 'required',
             'kota' => 'required',
             'deskripsi' => 'required',
+            'video' => ['nullable', 'url', function ($attribute, $value, $fail) {
+                if (!str_contains($value, 'youtube.com') && !str_contains($value, 'youtu.be')) {
+                    $fail('URL video harus berasal dari YouTube.');
+                }
+            }],
         ]);
 
         // Tentukan kode status (1 untuk dijual, 2 untuk disewakan)
@@ -472,6 +477,21 @@ class AdminController extends Controller
         // Simpan data perumahan
         $secondary = Secondary::create($validatedData);
 
+         // Jika ada URL video, ubah ke embed URL
+        if ($secondary->video) {
+            $videoUrl = $secondary->video;
+
+            if (str_contains($videoUrl, 'youtu.be')) {
+                $videoId = last(explode('/', parse_url($videoUrl, PHP_URL_PATH)));
+                $embedUrl = "https://www.youtube.com/embed/{$videoId}";
+            } else {
+                $embedUrl = str_replace('watch?v=', 'embed/', $videoUrl);
+            }
+
+            // Update properti video dengan URL embed
+            $secondary->update(['video' => $embedUrl]);
+        }
+
         // Simpan gambar jika ada
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -485,55 +505,6 @@ class AdminController extends Controller
 
         return redirect('/secondary-home')->with('success', 'Berhasil Menambahkan Perumahan');
     }
-
-
-//      public function storeSecondary(Request $request)
-//      {
-//          $validatedData = $request->validate([
-//              'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
-//              'judul' => 'required',
-//              'available' => 'required',
-//              'lt' => 'required',
-//              'lb' => 'required',
-//              'kt' => 'required',
-//              'ktp' => 'required',
-//              'km' => 'required',
-//              'kmp' => 'required',
-//              'carport' => 'required',
-//              'garasi' => 'required',
-//              'listrik' => 'required',
-//              'air' => 'required',
-//              'surat' => 'required',
-//              'imb' => 'required',
-//              'posisi' => 'required',
-//              'furnish' => 'required',
-//              'harga' => 'required',
-//              'lokasi' => 'required',
-//              'kecamatan' => 'required',
-//              'kota' => 'required',
-//              'deskripsi' => 'required',
-
-
-//          ]);
-
-
-//          // Simpan data perumahan dan ambil objeknya
-//          $secondary = Secondary::create($validatedData);
-
-//          // Simpan gambar terkait jika ada
-//          if ($request->hasFile('images')) {
-//             foreach ($request->file('images') as $image) {
-//                 $path = $image->store('foto-secondary', 'public');
-//                 SecondaryImage::create([
-//                     'secondary_id' => $secondary->id,
-//                     'image_path' => $path,
-//                 ]);
-//             }
-//         }
-
-//          return redirect('/secondary-home')->with('success', 'Berhasil Menambahkan Perumahan');
-//  }
-
 
 
      public function editSecondary($id)
@@ -608,6 +579,11 @@ class AdminController extends Controller
              'kecamatan' => 'required',
              'kota' => 'required',
              'deskripsi' => 'required',
+             'video' => ['nullable', 'url', function ($attribute, $value, $fail) {
+                if (!str_contains($value, 'youtube.com') && !str_contains($value, 'youtu.be')) {
+                    $fail('URL video harus berasal dari YouTube.');
+                }
+            }],
          ]);
 
          // Ambil data perumahan
@@ -639,6 +615,7 @@ class AdminController extends Controller
              'kecamatan' => $request->kecamatan,
              'kota' => $request->kota,
              'deskripsi' => $request->deskripsi,
+             'video' => $request->video,
          ]);
 
          // Menangani gambar baru
@@ -741,13 +718,31 @@ class AdminController extends Controller
              'kecamatan' => 'required',
              'kota' => 'required',
              'deskripsi' => 'required',
+             'video' => ['nullable', 'url', function ($attribute, $value, $fail) {
+                if (!str_contains($value, 'youtube.com') && !str_contains($value, 'youtu.be')) {
+                    $fail('URL video harus berasal dari YouTube.');
+                }
+            }],
 
          ]);
 
 
          // Simpan data perumahan dan ambil objeknya
          $land = Land::create($validatedData);
+          // Jika ada URL video, ubah ke embed URL
+        if ($land->video) {
+            $videoUrl = $land->video;
 
+            if (str_contains($videoUrl, 'youtu.be')) {
+                $videoId = last(explode('/', parse_url($videoUrl, PHP_URL_PATH)));
+                $embedUrl = "https://www.youtube.com/embed/{$videoId}";
+            } else {
+                $embedUrl = str_replace('watch?v=', 'embed/', $videoUrl);
+            }
+
+            // Update properti video dengan URL embed
+            $land->update(['video' => $embedUrl]);
+        }
          // Simpan gambar terkait jika ada
          if ($request->hasFile('images')) {
              foreach ($request->file('images') as $image) {
@@ -821,6 +816,11 @@ class AdminController extends Controller
              'kecamatan' => 'required',
              'kota' => 'required',
              'deskripsi' => 'required',
+             'video' => ['nullable', 'url', function ($attribute, $value, $fail) {
+                if (!str_contains($value, 'youtube.com') && !str_contains($value, 'youtu.be')) {
+                    $fail('URL video harus berasal dari YouTube.');
+                }
+            }],
          ]);
 
          // Ambil data perumahan
@@ -837,6 +837,7 @@ class AdminController extends Controller
              'kecamatan' => $request->kecamatan,
              'kota' => $request->kota,
              'deskripsi' => $request->deskripsi,
+             'video' => $request->video,
          ]);
 
          // Menangani gambar baru

@@ -53,9 +53,24 @@
 </div>
 
 <script>
+
+let images = [
+    @foreach ($service->imagesService as $image)
+        "{{ asset('storage/' . $image->image_path) }}",
+    @endforeach
+];
+let currentIndex = 0;
+
 function changeImage(imageSrc) {
     document.getElementById('mainImage').src = imageSrc;
+    currentIndex = images.indexOf(imageSrc); // Update index agar tetap sinkron
 }
+
+// Fungsi untuk mengganti gambar setiap 3 detik
+setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    document.getElementById('mainImage').src = images[currentIndex];
+}, 3000);
 
 // Fungsi untuk membuka modal dengan gambar yang diklik
 function openModal(imageSrc) {
@@ -66,11 +81,10 @@ function openModal(imageSrc) {
 // Fungsi untuk menutup modal saat klik di luar gambar
 function closeModal(event) {
     const modal = document.getElementById('imageModal');
-    const image = document.getElementById('modalImage');
-
-    // Cek apakah yang diklik adalah modal (bukan gambar)
     if (event.target === modal) {
         modal.classList.add('hidden');
     }
 }
 </script>
+
+

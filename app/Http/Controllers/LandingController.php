@@ -197,8 +197,15 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $embedUrl = $secondary->video;
+        if (str_contains($secondary->video, 'youtu.be')) {
+            $videoId = last(explode('/', parse_url($secondary->video, PHP_URL_PATH)));
+            $embedUrl = "https://www.youtube.com/embed/{$videoId}";
+        } elseif (str_contains($secondary->video, 'watch?v=')) {
+            $embedUrl = str_replace('watch?v=', 'embed/', $secondary->video);
+        }
 
-        return view('client.component.secondary.showSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary','kotaLand'));
+        return view('client.component.secondary.showSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary','kotaLand','embedUrl'));
 
     }
 
@@ -264,8 +271,15 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $embedUrl = $land->video;
+        if (str_contains($land->video, 'youtu.be')) {
+            $videoId = last(explode('/', parse_url($land->video, PHP_URL_PATH)));
+            $embedUrl = "https://www.youtube.com/embed/{$videoId}";
+        } elseif (str_contains($land->video, 'watch?v=')) {
+            $embedUrl = str_replace('watch?v=', 'embed/', $land->video);
+        }
 
-        return view('client.component.land.showLand', compact('land','allPerumahan', 'kotas','kotasSecondary','kotaLand'));
+        return view('client.component.land.showLand', compact('land','allPerumahan', 'kotas','kotasSecondary','kotaLand','embedUrl'));
 
     }
 

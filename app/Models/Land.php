@@ -26,6 +26,7 @@ class Land extends Model
         'kecamatan',    // Kecamatan
         'kota',         // Kota
         'deskripsi',    // Deskripsi
+        'video',         // video
     ];
 
     /**
