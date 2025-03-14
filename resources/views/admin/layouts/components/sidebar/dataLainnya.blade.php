@@ -29,5 +29,13 @@
         </a>
     </li>
 
+
+    <li class="sidebar-item {{ Request::is('admin/wishlist*') || Request::is('admin/createWishlist*') || Request::is('admin/editWishlist*') || Request::is('admin/showWishlist*') ? 'active' : '' }}">
+        <a href="{{ route('admin.wishlist') }}" class='sidebar-link'>
+            <i class="bi bi-person-lines-fill"></i>
+            <span>Wishlist<span>
+        </a>
+    </li>
+
 </ul>
 {{-- @endif --}}

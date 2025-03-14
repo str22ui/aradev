@@ -25,6 +25,7 @@ use App\Models\LandImage;
 use App\Models\Info;
 use App\Models\InfoImage;
 use App\Models\Service;
+use App\Models\Wishlist;
 use App\Models\ServiceImage;
 use App\Models\Testimony;
 use App\Models\TestimonyImage;
@@ -429,6 +430,7 @@ class AdminController extends Controller
             'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
             'judul' => 'required',
             'available' => 'required',
+            'kondisi' => 'required',
             'status' => 'required', // Pastikan status dijual/disewakan ada
             'lt' => 'required',
             'lb' => 'required',
@@ -557,6 +559,7 @@ class AdminController extends Controller
             'images.*' => 'image|file|max:5120|mimes:jpeg,png,jpg,webp',
              'judul' => 'required',
              'available' => 'required',
+             'kondisi' => 'required',
              'status' => 'required',
              'lt' => 'required',
              'lb' => 'required',
@@ -594,6 +597,7 @@ class AdminController extends Controller
              'judul' => $request->judul,
              'status' => $request->status,
              'available' => $request->available,
+             'kondisi' => $request->kondisi,
              'lt' => $request->lt,
              'lb' => $request->lb,
              'kt' => $request->kt,
@@ -1567,9 +1571,122 @@ class AdminController extends Controller
         return redirect('/reseller')->with('success', 'Berhasil Menghapus Reseller');
     }
 
-      // ============ END AGENT ================
+      // ============ END RESELLER ================
 
 
+       // ============ START WISHLIST  ================
+
+     public function indexWishlist()
+     {
+         $wishlist = Wishlist::all();
+         $user = Auth::user();
+         return view('admin.wishlist.index', [
+             'wishlist' => $wishlist,
+             // 'user' => $user,
+         ]);
+     }
+
+     public function createWishlist(){
+        $wishlist= Wishlist::all();
+        return view('admin.wishlist.createWishlist', compact('wishlist'));
+    }
+
+    public function storeWishlist(Request $request)
+    {
+        $validatedData = $request->validate([
+
+            'nama' => 'required',
+            'no_hp' => 'required',
+            'domisili' => 'nullable',
+            'permintaan' => 'required',
+            'jenis' => 'required',
+            'lokasi' => 'required',
+            'spesifik_lokasi' => 'required',
+            'harga_budget' => 'required',
+            'keterangan' => 'required',
+            'approval' => 'required',
+            'status' => 'required',
+
+        ]);
+
+        Wishlist::create($validatedData);
+        return redirect('/wishlist')->with('success', 'Berhasil Menambahkan wishlist');
+    }
+
+
+    public function editWishlist($id)
+    {
+        $wishlist = Wishlist::find($id);
+
+        if (!$wishlist) {
+            return redirect()->route('admin.wishlist')->with('error', 'Data wishlist tidak ditemukan');
+        }
+
+        return view('admin.wishlist.editWishlist', [
+            'wishlist' => $wishlist,
+
+        ]);
+    }
+
+
+
+    public function updateWishlist(Request $request, $id)
+    {
+        // Validasi data
+        $request->validate([
+            'nama' => 'required',
+            'no_hp' => 'required',
+            'domisili' => 'nullable',
+            'permintaan' => 'required',
+            'jenis' => 'required',
+            'lokasi' => 'required',
+            'spesifik_lokasi' => 'required',
+            'harga_budget' => 'required',
+            'keterangan' => 'required',
+            'approval' => 'required',
+            'status' => 'required',
+        ]);
+
+        // Temukan agent berdasarkan id
+        $wishlist = Wishlist::find($id);
+
+        // Update agent data
+        $wishlist->update([
+            'nama' => $request->nama,
+            'no_hp' => $request->no_hp,
+            'domisili' => $request->domisili,
+            'permintaan' => $request->permintaan,
+            'jenis' => $request->jenis,
+            'lokasi' => $request->lokasi,
+            'spesifik_lokasi' => $request->spesifik_lokasi,
+            'harga_budget' => $request->harga_budget,
+            'keterangan' => $request->keterangan,
+            'approval' => $request->approval,
+            'status' => $request->status,
+        ]);
+
+        // Simpan perubahan
+        $wishlist->save();
+
+        // Redirect kembali ke halaman agent
+        return redirect('/wishlist');
+    }
+
+
+
+    public function destroyWishlist(Request $request)
+    {
+        // Ambil ID dari request
+        $wishlist = Wishlist::findOrFail($request->id);
+
+        // Hapus data
+        $wishlist->delete();
+
+        // Redirect kembali dengan pesan sukses
+        return redirect('/wishlist')->with('success', 'Berhasil Menghapus Wishlist');
+    }
+
+    // ============ END WISHLISTT ================
       // ============ START REPORT  ================
 
       public function indexReport()

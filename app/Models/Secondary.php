@@ -13,6 +13,7 @@ class Secondary extends Model
         'kode_listing',
         'status',        // Dijual/Disewakan
         'available',
+        'kondisi',
         'judul',         // Judul
         'lt',            // Luas Tanah
         'lb',            // Luas Bangunan

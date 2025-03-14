@@ -45,6 +45,13 @@
                     <div>
                         <div class="flex justify-between items-center">
                             <h3 class="text-lg font-semibold text-gray-800">{{ $s->kota }}</h3>
+                            <div class="flex items-center gap-2">
+                                @if($s->kondisi === 'Baru')
+                                        <span class=" bg-blue-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Baru</span>
+                                    @elseif($s->kondisi === 'Second')
+                                        <span class=" bg-gray-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Second</span>
+                                    @endif
+                                </div>
                             <!-- Status badge yang sejajar dengan kota -->
                             @if($s->status === 'Available')
                                 <span class="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Available</span>

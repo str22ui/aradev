@@ -31,6 +31,18 @@
                     <option value="Disewakan">Disewakan</option>
                 </select>
             </div>
+
+            <div class="mb-3">
+                <label for="kondisi" class="form-label">Kondisi</label>
+                <select id="kondisi" name="kondisi"
+                    class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value ="">--- Pilih ---</option>
+                    <option value="Baru">Baru</option>
+                    <option value="Second">Second</option>
+
+                </select>
+            </div>
+
             <div class="mb-3">
                 <label for="img" class="form-label">Gambar Perumahan (.jpg, .png, .jpeg)</label>
                 <input type="file" class="form-control" id="img" name="images[]" multiple>
@@ -194,7 +206,7 @@
                 <input type="text" class="form-control" id="video" name="video" placeholder="Masukkan URL Video">
             </div>
 
-            <div class =" mb-3">
+            <div class ="mb-3">
                 <label for="deskripsi" class="form-label">Deskripsi</label>
                     <textarea class="ckeditor form-control" id="content" name="deskripsi"></textarea>
             </div>

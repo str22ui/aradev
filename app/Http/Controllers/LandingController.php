@@ -15,6 +15,7 @@ use App\Models\Service;
 use App\Models\Testimony;
 use App\Models\Rumah;
 use App\Models\Penawaran;
+use App\Models\Wishlist;
 use App\Models\Agent;
 use App\Models\Reseller;
 use App\Models\PerumahanImage;
@@ -54,6 +55,8 @@ class LandingController extends Controller
 
         $kotaLand = Land::select('lokasi')->distinct()->get();
 
+        $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
+
         if (!empty($kodeListing)) {
             $secondaryQuery->where('kode_listing', 'like', "%$kodeListing%");
         }
@@ -89,6 +92,7 @@ class LandingController extends Controller
             'secondary',
             'kotasSecondary',
             'kotaLand',
+            'wishlist',
         ]));
     }
 
@@ -209,28 +213,6 @@ class LandingController extends Controller
 
     }
 
-    // public function showSecondary($kota)
-    // {
-    //     $secondary = Secondary::where('kota', $kota)
-    //     ->with('imagesSecondary')
-    //     ->orderBy('created_at', 'desc')
-    //     ->get(); // Ambil secondary berdasarkan kota dan urutkan dari yang terbaru
-
-    //     $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get(); // Urutkan semua perumahan dari yang terbaru
-    //     $allSecondary = Secondary::orderBy('created_at', 'desc')->get(); // Urutkan semua perumahan dari yang terbaru
-
-    //     $kotas = Perumahan::select('kota')->distinct()->get();
-    //     $kotasSecondary = Secondary::select('kota')->distinct()->get();
-
-    //     return view('client.component.secondary.showSecondary', [
-    //         'secondary' => $secondary, // Kirim data perumahan ke view
-    //         'kota' => $kota,
-    //         'allPerumahan' => $allPerumahan,
-    //         'allSecondary' => $allSecondary,
-    //         'kotas' => $kotas,
-    //         'kotasSecondary' => $kotasSecondary,
-    //     ]);
-    // }
 
     // =================== END SECONDARY ===================
 
@@ -569,6 +551,44 @@ class LandingController extends Controller
     }
 
 
+    // =================== START WISHLIST ===================
+
+    public function wishlist(){
+        $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get();
+        $kotas = Perumahan::select('kota')->distinct()->get();
+        $kotasSecondary = Secondary::select('kota')->distinct()->get();
+        $kotaLand = Land::select('lokasi')->distinct()->get();
+        $wishlist = Wishlist::all();
+        return view('client.page.wishlist', compact('kotas','allPerumahan','kotasSecondary','kotaLand','wishlist'));
+    }
+    public function storeWishlist(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'no_hp' => 'required',
+            'domisili' => 'nullable',
+            'permintaan' => 'required',
+            'jenis' => 'required',
+            'lokasi' => 'required',
+            'spesifik_lokasi' => 'required',
+            'harga_budget' => 'required',
+            'keterangan' => 'required',
+        ]);
+
+        // Set default approval "Sembunyikan"
+        $validatedData['approval'] = 'Sembunyikan';
+
+        Wishlist::create($validatedData);
+        return redirect('/')->with('success', 'Berhasil Menambahkan Wishlist');
+    }
+
+
+    public function formWishlist()
+    {
+        $allPerumahan = Perumahan::all();
+        return view('client.page.formWishlist', compact('allPerumahan'));
+    }
+    // =================== END WISHLIST ===================
 
 
     //==================== SURVEY ====================

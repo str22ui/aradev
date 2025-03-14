@@ -127,6 +127,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/testimony/update/{id}', [AdminController::class, 'updateTestimony'])->name('admin.updateTestimony');
     Route::delete('/deleteTestimonyImage', [AdminController::class, 'destroyImageTestimony'])->name('admin.deleteImageTestimony');
 
+
     //Penawaran
     Route::get('/penawaran', [AdminController::class, 'indexPenawaran'])->name('admin.penawaran');
     Route::get('/createPenawaran', [AdminController::class, 'createPenawaran'])->name('admin.createPenawaran');
@@ -153,6 +154,15 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/addReports/{id}', [AdminController::class, 'addReports']);
     Route::post('/reports/add/{id}', [AdminController::class, 'addedReports'])->name('admin.addReport');
     Route::delete('/deleteReport', [AdminController::class, 'destroyReport'])->name('admin.deleteReport');
+
+     //wishlist
+     Route::get('/wishlist', [AdminController::class, 'indexwishlist'])->name('admin.wishlist');
+     Route::get('/showAgent', [AdminController::class, 'showAgent'])->name('admin.showAgent');
+     Route::get('/createWishlist', [AdminController::class, 'createWishlist'])->name('admin.createWishlist');
+     Route::post('/storeWishlist', [adminController::class, 'storeWishlist'])->name('admin.storeWishlist');
+     Route::get('/wishlist/{id}/', [AdminController::class, 'editWishlist'])->name('admin.editWishlist');
+     Route::put('/wishlist/update/{id}', [AdminController::class, 'updateWishlist'])->name('admin.updateWishlist');
+     Route::delete('/deleteWishlist', [AdminController::class, 'destroyWishlist'])->name('admin.deleteWishlist');
 
     // Export Excel
     Route::post('/exportData', [AdminController::class, 'exportToExcel']);
@@ -222,6 +232,10 @@ Route::middleware('log.visits')->group(function(){
 
     Route::get('/formPenawaran/{id}', [LandingController::class, 'formPenawaran'])->name('landingpage.formPenawaran');
     Route::post('/storePenawaran', [LandingController::class, 'storePenawaranKonsumen'])->name('form.penawaran');
+
+    Route::get('/wishlist', [LandingController::class, 'wishlist'])->name('wishlist');
+    Route::get('/formWishlist', [LandingController::class, 'formWishlist'])->name('landingpage.formWishlist');
+    Route::post('/storePenawaran', [LandingController::class, 'storeWishlist'])->name('form.wishlist');
 
 
 

@@ -9,6 +9,7 @@
     @include('client.component.landing.contactHome')
     @include('client.component.landing.secondary')
     @include('client.component.landing.bank')
+    @include('client.component.landing.wishlist')
     <div class="fixed bottom-6 right-6 z-50">
         <!-- Tooltip -->
         <div id="wa-tooltip" class="absolute -top-16 right-0 bg-white p-3 rounded-lg shadow-lg text-gray-800 text-sm w-52 flex justify-between items-center transition-opacity duration-300 opacity-100">

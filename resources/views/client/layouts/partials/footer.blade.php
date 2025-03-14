@@ -10,7 +10,9 @@
                 <h3 class="font-bold mb-2 ">Project</h3>
                 <ul class="text-sm list-none ">
                     @foreach ($allPerumahan as $p)
+                    <a href="/showPerumahan/{{$p->id}}">
                         <li>{{ $p->perumahan }}</li>
+                    </a>
                     @endforeach
                 </ul>
             </div>

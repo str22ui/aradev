@@ -58,6 +58,10 @@
                                 <td class="text-gray-600">{{ $secondary->status }}</td>
                             </tr>
                             <tr>
+                                <td class="font-semibold text-gray-700">Kondisi</td>
+                                <td class="text-gray-600">{{ $secondary->kondisi }}</td>
+                            </tr>
+                            <tr>
                                 <td class="font-semibold text-gray-700">Luas Tanah</td>
                                 <td class="text-gray-600">{{ $secondary->lt }} m²</td>
                             </tr>
@@ -137,7 +141,7 @@
                     </table>
 
                 </div>
-                <div class="prose text-gray-600 mb-4">
+                <div class="prose text-gray-600 my-4">
                     {!! $secondary->deskripsi !!}
                 </div>
 

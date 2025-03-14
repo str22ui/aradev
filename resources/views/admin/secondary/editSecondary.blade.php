@@ -34,9 +34,19 @@
                     Disewakan</option>
 
                 </select>
-
-
             </div>
+
+            <div class="mb-3">
+                <label for="kondisi" class="form-label">Kondisi</label>
+                    <select class="form-select" id="kondisi" name="kondisi">
+                        <option value="Baru"
+                        {{ $secondary->kondisi === 'Baru' ? 'selected' : '' }}>Baru</option>
+                        <option value="Second" {{ $secondary->kondisi === 'Second' ? 'selected' : '' }}>
+                        Second</option>
+
+                    </select>
+
+                </div>
             <div class="mb-3">
                 <label for="img" class="form-label">Gambar Perumahan (.jpg, .png, .jpeg)</label>
                 <input type="file" class="form-control" id="img" name="images[]" multiple accept="image/*">
