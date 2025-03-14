@@ -16,7 +16,8 @@
     <Meta Content='@yield('keyword')' Name='Keywords'/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Aradev @yield('title')</title>
-    <link rel="icon" href="{{ asset('img/logo.png') }}" type = "image/x-icon">
+    {{-- <link rel="icon" href="{{ asset('img/logo.png') }}" type = "image/x-icon"> --}}
+    <link rel="icon" href="@yield('gambar')" type = "image/x-icon">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>

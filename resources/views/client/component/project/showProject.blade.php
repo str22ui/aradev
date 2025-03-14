@@ -1,6 +1,7 @@
 @extends('client.layouts.index')
 
-
+@section('gambar', )
+    
 @section('title', '')
 {{-- @section('desc', $desc)
 @section('keyword', 'al-hasra','smk', 'pendidikan', 'sekolah') --}}
@@ -88,3 +89,5 @@
         @endforeach
     </div>
 </div>
+
+@include('client.component.landing.wishlist')

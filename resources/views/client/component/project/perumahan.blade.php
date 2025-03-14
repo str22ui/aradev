@@ -1,4 +1,5 @@
 {{-- <div class="max-w-6xl mx-auto p-6 bg-gray-100"> --}}
+    
     <div class=" mx-auto bg-gray-100 md:mt-32 ">
         <!-- Carousel dan Judul -->
         <div class="text-center mb-6 md:pt-12">
@@ -11,6 +12,7 @@
             </svg></button>
             <div class="slider" id="slider">
               @foreach ($perumahan->images as $image)
+              @section('gambar', asset('storage/' . $image->image_path))
                 <div class="slide">
                   <img src="{{ asset('storage/' . $image->image_path) }}" alt="Image">
                 </div>

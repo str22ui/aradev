@@ -1,4 +1,4 @@
-<div data-aos="fade-up" data-aos-duration="1000" class="mx-auto mt-24 py-6 ">
+<div data-aos="fade-up" data-aos-duration="1000" class="mx-auto mt-24 py-6 bg-slate-50">
     <div class="container mx-auto px-4">
         <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Wishlist Aradev</h2>
 

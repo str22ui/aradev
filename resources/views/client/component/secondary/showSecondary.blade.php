@@ -24,6 +24,7 @@
                 <div id="slider" class="overflow-hidden w-full max-w-4xl mx-auto">
                     <div id="sliderContent" class="flex transition-transform duration-500">
                         @foreach ($secondary->imagesSecondary as $image)
+                        @section('gambar', asset('storage/' . $image->image_path))
                             <div class="min-w-full">
                                 <div class="aspect-w-4 aspect-h-3">
                                     <img class="w-full h-full object-cover rounded-lg shadow-lg" src="{{ asset('storage/' . $image->image_path) }}" alt="Image">

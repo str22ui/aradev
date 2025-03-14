@@ -17,6 +17,7 @@
             <div class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition duration-300 p-4">
                 <!-- Image Section -->
                 <div class="relative">
+                   
                     <img class="w-full h-56 object-cover" src="{{ asset('storage/' . $s->imagesSecondary->first()->image_path) }}" alt="Perumahan {{ $s->judul }}">
 
                     <!-- Status (Available, Sold Out, Rent) -->
@@ -68,3 +69,4 @@
         @endforeach
     </div>
 </div>
+@include('client.component.landing.wishlist')

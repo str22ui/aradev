@@ -51,3 +51,4 @@
         @endforeach
     </div>
 </div>
+@include('client.component.landing.wishlist')

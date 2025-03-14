@@ -175,7 +175,7 @@ class LandingController extends Controller
 
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get(); // Urutkan semua perumahan dari yang terbaru
         $allSecondary = Secondary::orderBy('created_at', 'desc')->get(); // Urutkan semua secondary dari yang terbaru
-
+        $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
@@ -188,6 +188,7 @@ class LandingController extends Controller
             'kotas' => $kotas,
             'kotasSecondary' => $kotasSecondary,
             'kotaLand' => $kotaLand,
+            'wishlist' => $wishlist,
         ]);
     }
 
@@ -221,7 +222,7 @@ class LandingController extends Controller
     public function indexLand(Request $request)
     {
         $search = $request->query('query');
-
+        
         $secondaryQuery = Land::with('imagesLand')->orderBy('created_at', 'desc');
 
         if (!empty($search)) {
@@ -240,8 +241,9 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
 
-        return view('client.component.land.indexLand', compact('land', 'allPerumahan', 'kotas','kotasSecondary','kotaLand'));
+        return view('client.component.land.indexLand', compact('land', 'allPerumahan', 'kotas','kotasSecondary','kotaLand','wishlist'));
     }
 
 
@@ -274,7 +276,7 @@ class LandingController extends Controller
 
         $allPerumahan = Perumahan::orderBy('created_at', 'desc')->get(); // Urutkan semua perumahan dari yang terbaru
         $allLand = Land::orderBy('created_at', 'desc')->get(); // Urutkan semua secondary dari yang terbaru
-
+        $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
@@ -286,6 +288,7 @@ class LandingController extends Controller
             'kotas' => $kotas,
             'kotasSecondary' => $kotasSecondary,
             'kotaLand' => $kotaLand,
+            'wishlist' => $wishlist,
         ]);
     }
 
@@ -423,6 +426,7 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
 
         return view('client.component.project.showProject', [
             'perumahan' => $perumahan, // Kirim data perumahan ke view
@@ -431,6 +435,7 @@ class LandingController extends Controller
             'kotas' => $kotas,
             'kotasSecondary' => $kotasSecondary,
             'kotaLand' => $kotaLand,
+            'wishlist' => $wishlist,
         ]);
     }
 
