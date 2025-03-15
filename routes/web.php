@@ -156,13 +156,13 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/deleteReport', [AdminController::class, 'destroyReport'])->name('admin.deleteReport');
 
      //wishlist
-     Route::get('/wishlist', [AdminController::class, 'indexwishlist'])->name('admin.wishlist');
-     Route::get('/showAgent', [AdminController::class, 'showAgent'])->name('admin.showAgent');
-     Route::get('/createWishlist', [AdminController::class, 'createWishlist'])->name('admin.createWishlist');
-     Route::post('/storeWishlist', [adminController::class, 'storeWishlist'])->name('admin.storeWishlist');
-     Route::get('/wishlist/{id}/', [AdminController::class, 'editWishlist'])->name('admin.editWishlist');
-     Route::put('/wishlist/update/{id}', [AdminController::class, 'updateWishlist'])->name('admin.updateWishlist');
-     Route::delete('/deleteWishlist', [AdminController::class, 'destroyWishlist'])->name('admin.deleteWishlist');
+    Route::get('/admin-wishlist', [AdminController::class, 'indexWishlist'])->name('admin.wishlist');
+    Route::get('/showAgent', [AdminController::class, 'showAgent'])->name('admin.showAgent');
+    Route::get('/createWishlist', [AdminController::class, 'createWishlist'])->name('admin.createWishlist');
+    Route::post('/storeWishlist', [adminController::class, 'storeWishlist'])->name('admin.storeWishlist');
+    Route::get('/wishlist/{id}/', [AdminController::class, 'editWishlist'])->name('admin.editWishlist');
+    Route::put('/wishlist/update/{id}', [AdminController::class, 'updateWishlist'])->name('admin.updateWishlist');
+    Route::delete('/deleteWishlist', [AdminController::class, 'destroyWishlist'])->name('admin.deleteWishlist');
 
     // Export Excel
     Route::post('/exportData', [AdminController::class, 'exportToExcel']);

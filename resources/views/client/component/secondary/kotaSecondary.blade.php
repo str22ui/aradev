@@ -17,7 +17,7 @@
             <div class="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition duration-300 p-4">
                 <!-- Image Section -->
                 <div class="relative">
-                   
+
                     <img class="w-full h-56 object-cover" src="{{ asset('storage/' . $s->imagesSecondary->first()->image_path) }}" alt="Perumahan {{ $s->judul }}">
 
                     <!-- Status (Available, Sold Out, Rent) -->
@@ -37,7 +37,7 @@
                 <!-- Content Section -->
                 <div class="p-5">
                     <!-- Kota dan Status -->
-                    <div class="flex justify-between items-center">
+                    {{-- <div class="flex justify-between items-center">
                         <h3 class="text-lg font-semibold text-gray-800">{{ $s->kota }}</h3>
                         <div class="flex items-center gap-2">
                         @if($s->kondisi === 'Baru')
@@ -46,6 +46,18 @@
                                 <span class=" bg-gray-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Second</span>
                             @endif
                         </div>
+                    </div> --}}
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-gray-800">{{ $s->kota }}</h3>
+                        <!-- Status badge yang sejajar dengan kota -->
+                        @if($s->available === 'Available')
+                            <span class="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Available</span>
+                        @elseif($s->available === 'Sold Out')
+                            <span class="bg-red-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Sold Out</span>
+                        @elseif($s->available === 'Rent')
+                            <span class="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Rent</span>
+
+                        @endif
                     </div>
                     <p class="text-gray-600">{{ $s->kode_listing }} - {{ $s->judul }}</p>
                     <p class="text-sm text-gray-500 mt-2">

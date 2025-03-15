@@ -2,7 +2,7 @@
     <div class="text-center mb-12">
         <h2 class="flex items-center justify-center text-2xl font-bold text-green-500 hover:text-green-700 transition-colors duration-300">
             <i class="fa fa-home mr-2 text-xl text-green-500" aria-hidden="true"></i>
-            Properti Secondary
+            Properti Listing
         </h2>
         <hr class="mt-2 w-24 mx-auto border-t-2 border-green-500">
     </div>

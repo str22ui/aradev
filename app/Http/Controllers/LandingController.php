@@ -57,6 +57,8 @@ class LandingController extends Controller
 
         $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
 
+        $allService = Service::all();
+
         if (!empty($kodeListing)) {
             $secondaryQuery->where('kode_listing', 'like', "%$kodeListing%");
         }
@@ -93,6 +95,7 @@ class LandingController extends Controller
             'kotasSecondary',
             'kotaLand',
             'wishlist',
+            'allService',
         ]));
     }
 
@@ -161,8 +164,9 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
 
-        return view('client.component.secondary.indexSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary','kotaLand'));
+        return view('client.component.secondary.indexSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary','kotaLand','allService'));
 
     }
 
@@ -179,6 +183,7 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
 
         return view('client.component.secondary.kotaSecondary', [
             'secondary' => $secondary, // Kirim data perumahan ke view
@@ -189,6 +194,7 @@ class LandingController extends Controller
             'kotasSecondary' => $kotasSecondary,
             'kotaLand' => $kotaLand,
             'wishlist' => $wishlist,
+            'allService' => $allService,
         ]);
     }
 
@@ -202,6 +208,7 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
         $embedUrl = $secondary->video;
         if (str_contains($secondary->video, 'youtu.be')) {
             $videoId = last(explode('/', parse_url($secondary->video, PHP_URL_PATH)));
@@ -210,7 +217,7 @@ class LandingController extends Controller
             $embedUrl = str_replace('watch?v=', 'embed/', $secondary->video);
         }
 
-        return view('client.component.secondary.showSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary','kotaLand','embedUrl'));
+        return view('client.component.secondary.showSecondary', compact('secondary', 'allPerumahan','kotas','kotasSecondary','kotaLand','embedUrl','allService'));
 
     }
 
@@ -222,7 +229,7 @@ class LandingController extends Controller
     public function indexLand(Request $request)
     {
         $search = $request->query('query');
-        
+
         $secondaryQuery = Land::with('imagesLand')->orderBy('created_at', 'desc');
 
         if (!empty($search)) {
@@ -242,8 +249,9 @@ class LandingController extends Controller
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
         $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
+        $allService = Service::all();
 
-        return view('client.component.land.indexLand', compact('land', 'allPerumahan', 'kotas','kotasSecondary','kotaLand','wishlist'));
+        return view('client.component.land.indexLand', compact('land', 'allPerumahan', 'kotas','kotasSecondary','kotaLand','wishlist','allService'));
     }
 
 
@@ -255,6 +263,8 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
+
         $embedUrl = $land->video;
         if (str_contains($land->video, 'youtu.be')) {
             $videoId = last(explode('/', parse_url($land->video, PHP_URL_PATH)));
@@ -263,7 +273,7 @@ class LandingController extends Controller
             $embedUrl = str_replace('watch?v=', 'embed/', $land->video);
         }
 
-        return view('client.component.land.showLand', compact('land','allPerumahan', 'kotas','kotasSecondary','kotaLand','embedUrl'));
+        return view('client.component.land.showLand', compact('land','allPerumahan', 'kotas','kotasSecondary','kotaLand','embedUrl','allService'));
 
     }
 
@@ -280,6 +290,7 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
 
         return view('client.component.land.kotaLand', [
             'land' => $land, // Kirim data perumahan ke view
@@ -289,6 +300,7 @@ class LandingController extends Controller
             'kotasSecondary' => $kotasSecondary,
             'kotaLand' => $kotaLand,
             'wishlist' => $wishlist,
+            'allService' => $allService,
         ]);
     }
 
@@ -301,8 +313,10 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
         $service = Service::all();
-        return view('client.page.service', compact('kotas','allPerumahan','kotasSecondary','kotaLand', 'service'));
+
+        return view('client.page.service', compact('kotas','allPerumahan','kotasSecondary','kotaLand', 'allService','service'));
     }
 
     public function showService($id)
@@ -313,8 +327,9 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
 
-        return view('client.component.service.showService', compact('service', 'allPerumahan','kotas','kotasSecondary','kotaLand'));
+        return view('client.component.service.showService', compact('service', 'allPerumahan','kotas','kotasSecondary','kotaLand','allService'));
 
     }
 
@@ -328,8 +343,9 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
 
-        return view('client.component.info.indexInfo', compact('info', 'allPerumahan', 'kotas','kotasSecondary','kotaLand'));
+        return view('client.component.info.indexInfo', compact('info', 'allPerumahan', 'kotas','kotasSecondary','kotaLand','allService'));
     }
 
     public function showInfo($id)
@@ -339,8 +355,9 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
 
-        return view('client.component.info.show', compact('info','allPerumahan','kotas','kotasSecondary','kotaLand'));
+        return view('client.component.info.show', compact('info','allPerumahan','kotas','kotasSecondary','kotaLand','allService'));
     }
 
     // =================== END INFO ===================
@@ -354,8 +371,9 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
 
-        return view('client.component.testimony.indexTestimony', compact('testimony', 'allPerumahan', 'kotas','kotasSecondary','kotaLand'));
+        return view('client.component.testimony.indexTestimony', compact('testimony', 'allPerumahan', 'kotas','kotasSecondary','kotaLand','allService'));
 
     }
     // =================== END TESTIMONY ===================
@@ -393,6 +411,7 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
         // Logika video jika ada
         $embedUrl = $perumahan->video;
         if (str_contains($perumahan->video, 'youtu.be')) {
@@ -409,6 +428,7 @@ class LandingController extends Controller
             'kotas' => $kotas,
             'kotasSecondary' => $kotasSecondary,
             'kotaLand' => $kotaLand,
+            'allService' => $allService,
         ]);
     }
 
@@ -427,6 +447,7 @@ class LandingController extends Controller
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
         $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
+        $allService = Service::all();
 
         return view('client.component.project.showProject', [
             'perumahan' => $perumahan, // Kirim data perumahan ke view
@@ -436,6 +457,7 @@ class LandingController extends Controller
             'kotasSecondary' => $kotasSecondary,
             'kotaLand' => $kotaLand,
             'wishlist' => $wishlist,
+            'allService' => $allService,
         ]);
     }
 
@@ -444,8 +466,9 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
 
-        return view('client.page.contact', compact('kotas','allPerumahan','kotasSecondary','kotaLand'));
+        return view('client.page.contact', compact('kotas','allPerumahan','kotasSecondary','kotaLand','allService'));
     }
 
     public function about(){
@@ -453,8 +476,9 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
+        $allService = Service::all();
 
-        return view('client.page.aboutt', compact('kotas','allPerumahan','kotasSecondary','kotaLand'));
+        return view('client.page.aboutt', compact('kotas','allPerumahan','kotasSecondary','kotaLand','allService'));
     }
 
     public function form($id)
@@ -464,8 +488,9 @@ class LandingController extends Controller
         // $agents = Agent::all();
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
         $reseller = Reseller::all();
+        $allService = Service::all();
 
-        return view('client.page.form', compact('allPerumahan', 'selectedPerumahan', 'agents', 'reseller'));
+        return view('client.page.form', compact('allPerumahan', 'selectedPerumahan', 'agents', 'reseller','allService'));
     }
 
 
@@ -511,6 +536,7 @@ class LandingController extends Controller
         // Filter agents berdasarkan perumahan_id (dengan JSON)
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
         $reseller = Reseller::all();
+        $allService = Service::all();
 
         // Ambil data rumah berdasarkan perumahan_id
         $rumah = Rumah::where('perumahan_id', $id)->orderBy('no_kavling', 'asc')->get();
@@ -519,7 +545,7 @@ class LandingController extends Controller
         $selectedPerumahan = Perumahan::findOrFail($id);
 
         // Kembalikan data ke view
-        return view('client.page.formPenawaran', compact('allPerumahan', 'agents', 'rumah', 'selectedPerumahan', 'reseller', 'kotasSecondary'));
+        return view('client.page.formPenawaran', compact('allPerumahan', 'agents', 'rumah', 'selectedPerumahan', 'reseller', 'kotasSecondary','allService'));
     }
 
     public function storePenawaranKonsumen(Request $request)
@@ -563,8 +589,10 @@ class LandingController extends Controller
         $kotas = Perumahan::select('kota')->distinct()->get();
         $kotasSecondary = Secondary::select('kota')->distinct()->get();
         $kotaLand = Land::select('lokasi')->distinct()->get();
-        $wishlist = Wishlist::all();
-        return view('client.page.wishlist', compact('kotas','allPerumahan','kotasSecondary','kotaLand','wishlist'));
+        $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
+        $allService = Service::all();
+
+        return view('client.page.wishlist', compact('kotas','allPerumahan','kotasSecondary','kotaLand','wishlist','allService'));
     }
     public function storeWishlist(Request $request)
     {
@@ -591,7 +619,9 @@ class LandingController extends Controller
     public function formWishlist()
     {
         $allPerumahan = Perumahan::all();
-        return view('client.page.formWishlist', compact('allPerumahan'));
+        $allService = Service::all();
+
+        return view('client.page.formWishlist', compact('allPerumahan','allService'));
     }
     // =================== END WISHLIST ===================
 
@@ -605,8 +635,9 @@ class LandingController extends Controller
         // $agents = Agent::all();
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
         $reseller = Reseller::all();
+        $allService = Service::all();
 
-        return view('client.page.formSurvey', compact('allPerumahan', 'selectedPerumahan', 'agents','reseller'));
+        return view('client.page.formSurvey', compact('allPerumahan', 'selectedPerumahan', 'agents','reseller','allService'));
     }
 
 

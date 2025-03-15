@@ -32,14 +32,21 @@
             <label class="block text-gray-700 font-medium">Jenis</label>
             <select name="jenis" required class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300">
                 <option value="Rumah">Rumah</option>
-                <option value="Apartemen">Apartemen</option>
+                <option value="Apartment">Apartement</option>
                 <option value="Tanah">Tanah</option>
             </select>
         </div>
 
-        <div>
-            <label class="block text-gray-700 font-medium">Lokasi</label>
-            <input type="text" name="lokasi" required class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300">
+        <div class="mb-3">
+            <label for="lokasi" class="form-label">Lokasi Property</label>
+            <select name="lokasi" required class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300">
+                <option value="Tangerang">Tangerang</option>
+                <option value="Depok">Depok</option>
+                <option value="Bogor">Bogor</option>
+                <option value="Bekasi">Bekasi</option>
+                <option value="Luar Jabodetabek">Luar Jabodetabek</option>
+
+            </select>
         </div>
 
         <div>

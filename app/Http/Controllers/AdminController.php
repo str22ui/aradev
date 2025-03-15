@@ -1610,7 +1610,7 @@ class AdminController extends Controller
         ]);
 
         Wishlist::create($validatedData);
-        return redirect('/wishlist')->with('success', 'Berhasil Menambahkan wishlist');
+        return redirect('/admin-wishlist')->with('success', 'Berhasil Menambahkan wishlist');
     }
 
 
@@ -1669,7 +1669,7 @@ class AdminController extends Controller
         $wishlist->save();
 
         // Redirect kembali ke halaman agent
-        return redirect('/wishlist');
+        return redirect('/admin-wishlist');
     }
 
 
@@ -1683,7 +1683,7 @@ class AdminController extends Controller
         $wishlist->delete();
 
         // Redirect kembali dengan pesan sukses
-        return redirect('/wishlist')->with('success', 'Berhasil Menghapus Wishlist');
+        return redirect('/admin-wishlist')->with('success', 'Berhasil Menghapus Wishlist');
     }
 
     // ============ END WISHLISTT ================

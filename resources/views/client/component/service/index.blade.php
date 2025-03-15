@@ -5,7 +5,8 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             @foreach ($service as $serv)
-            <a href="{{ route('showService', ['id' => $serv->id]) }}" class="block">
+            {{-- <a href="{{ route('showService', ['id' => $serv->id]) }}" class="block"> --}}
+            <a href="/showService/{{$serv->id}}" class="block">
             <div class="bg-white shadow-lg rounded-lg overflow-hidden h-4/5 transform transition-transform duration-300 hover:scale-105 hover:pointer">
                 <!-- Gambar -->
                 <div class="relative">

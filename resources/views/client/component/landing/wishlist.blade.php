@@ -1,6 +1,7 @@
-<div data-aos="fade-up" data-aos-duration="1000" class="mx-auto mt-24 py-6 bg-slate-50">
+<div data-aos="fade-up" data-aos-duration="1000" class="mx-auto mt-24 py-6 ">
     <div class="container mx-auto px-4">
         <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Wishlist Aradev</h2>
+
 
         <div class="grid grid-cols-1 gap-6 max-w-3xl mx-auto">
             @foreach($wishlist as $w)
@@ -37,10 +38,11 @@
                 <i class="fas fa-info-circle"></i> More Detail
             </a>
         </div>
-        <div>
+         <div>
             <a href="/formWishlist" class="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition">
                 <i class="fas fa-list-alt"></i> Form Wishlist
             </a>
         </div>
+
     </div>
 </div>
