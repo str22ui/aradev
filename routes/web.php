@@ -235,7 +235,7 @@ Route::middleware('log.visits')->group(function(){
 
     Route::get('/wishlist', [LandingController::class, 'wishlist'])->name('wishlist');
     Route::get('/formWishlist', [LandingController::class, 'formWishlist'])->name('landingpage.formWishlist');
-    Route::post('/storePenawaran', [LandingController::class, 'storeWishlist'])->name('form.wishlist');
+    Route::post('/storeWishlist', [LandingController::class, 'storeWishlist'])->name('form.wishlist');
 
 
 
