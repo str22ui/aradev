@@ -9,13 +9,14 @@
         <div class="w-full md:w-5/6">
             <h1 class="text-2xl font-bold mb-4">Aradev</h1>
             <p class="text-gray-700 text-justify">
-                Ara Development Property adalah mitra terpercaya Anda dalam mewujudkan kebutuhan properti, baik untuk tempat tinggal maupun investasi jangka panjang. Dengan pengalaman lebih dari 5 tahun, kami berkomitmen untuk memberikan layanan terbaik di bidang properti primary, secondary, dan development.
+                Ara Development Property adalah mitra terpercaya Anda dalam mewujudkan kebutuhan properti, baik untuk tempat tinggal maupun investasi jangka panjang. Dengan pengalaman lebih dari 5 tahun, kami berkomitmen untuk memberikan layanan terbaik kami.
+
 
                 <br><br>
-                Ara Development Property telah tumbuh menjadi salah satu praktisi properti yang dikenal berkat pendekatan inovatif dan integritas kami. Selama lima tahun terakhir, kami telah membantu ratusan pelanggan menemukan properti impian mereka.
+                Ara Development Property telah tumbuh menjadi salah satu praktisi properti yang dikenal berkat pendekatan inovatif dan integritas kami. Selama lima tahun terakhir, kami telah membantu pelanggan kami menemukan properti impian mereka.
 
                 <br><br>
-                Layanan kami adalah memasarkan rumah secondary atau bekas yang berkualitas, menawarkan property-property baru dengan berbagai pilihan yang sesuai kebutuhan, serta mengembangkan property dari awal hingga menghasilkan nilai investasi terbaik.
+                Layanan kami adalah memasarkan Properti Bekas atau Secondary yang berkualitas, menawarkan Property Baru atau Primary dengan berbagai pilihan yang sesuai kebutuhan, serta mengembangkan perumahan atau Development dari awal hingga menghasilkan nilai investasi terbaik.
 
             </p>
         </div>

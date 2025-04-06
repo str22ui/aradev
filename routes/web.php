@@ -168,6 +168,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/exportData', [AdminController::class, 'exportToExcel']);
     Route::post('/exportReport', [AdminController::class, 'exportReport']);
     Route::get('report/export/excel', [AdminController::class, 'exportReport'])->name('report.export.excel');
+    Route::post('/exportKonsumen', [AdminController::class, 'exportKonsumen']);
+    Route::get('konsumen/export/excel', [AdminController::class, 'exportKonsumen'])->name('konsumen.export.excel');
 
     Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
         //Perumahan
@@ -238,8 +240,6 @@ Route::middleware('log.visits')->group(function(){
     Route::post('/storeWishlist', [LandingController::class, 'storeWishlist'])->name('form.wishlist');
 
 
-
-
     Route::get('/formSurvey/{id}', [LandingController::class, 'formSurvey'])->name('landingpage.formSurvey');
     Route::post('/survey/store/{id}', [LandingController::class, 'storeSurvey'])->name('form.survey');
     //
@@ -254,10 +254,5 @@ Route::middleware('log.visits')->group(function(){
     Route::get('/pages/{page}', [LandingController::class, 'show']);
     Route::get('/download/{slug}', [EbookController::class, 'download'])->name('download');
 
-    Route::get('/learner-profile', function() {
-        return view('client.component.landing.menuComponent.profile');
-    });
-    Route::get('/curriculum', function() {
-        return view('client.component.landing.menuComponent.curriculum');
-    });
+
 });

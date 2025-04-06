@@ -7,7 +7,7 @@
                 <li>Untuk Pencari Properti, baik untuk dibeli maupun disewa, mulai dari hunian nyaman hingga properti komersial yang strategis.</li>
                 <li>Untuk Pemilik Properti & Tanah, maksimalkan potensi properti Anda dengan menjangkau calon pembeli atau penyewa yang serius.</li>
             </ul>
-            <p class="my-5">Bersama kami, proses jual-beli dan sewa-menyewa properti menjadi lebih efektif, cepat, dan menguntungkan. Wujudkan tujuan properti Anda sekarang, sampaikan keinginan dengan mengisi form wishlit kami:</p>
+            <p class="my-5">Bersama kami, proses jual-beli dan sewa-menyewa properti menjadi lebih efektif, cepat, dan menguntungkan. Wujudkan tujuan properti Anda sekarang, sampaikan keinginan dengan mengisi form wishlist kami:</p>
         </div>
 
         <div class="flex justify-center gap-6 my-8">

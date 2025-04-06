@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 
 use App\Exports\ExportReport;
+use App\Exports\ExportKonsumen;
 
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -1929,7 +1930,7 @@ class AdminController extends Controller
               return redirect()->back()->with('error', 'Data tidak tersedia untuk bulan dan tahun yang dipilih.');
           }
 
-          return Excel::download(new ExportKonsum($konsumen), "Konsumen.xlsx");
+          return Excel::download(new ExportExcel($konsumen), "Konsumen.xlsx");
       }
       public function exportReport(Request $request)
       {
@@ -1970,6 +1971,47 @@ class AdminController extends Controller
 
           // return $report;
           return Excel::download(new ExportReport($report), "Report.xlsx");
+      }
+
+      public function exportKonsumen(Request $request)
+      {
+          $request->validate([
+              'export_option' => 'required',
+              'month' => 'required_if:export_option,month_year|integer|min:1|max:12',
+              'year' => 'required_if:export_option,month_year|integer|min:2000|max:' . date('Y'),
+          ]);
+
+          $exportOption = $request->input('export_option');
+          $month = $request->input('month');
+          $year = $request->input('year');
+          $fil = null;
+          if ($month < 10) {
+              $fil = $year . '-0' . $month;
+          } else {
+              $fil = $year . '-' . $month;
+          }
+          $konsumen = null; // Initialize $konsumen variable
+
+          if ($exportOption == 'all') {
+              $konsumen = Konsumen::all();
+          } elseif ($exportOption == 'month_year') {
+              $konsumen = Konsumen::where("created_at", "LIKE", "%{$fil}%")->get();
+              // $konsumen = Report::whereYear('tanggal', $year)
+              //     ->whereMonth('tanggal', $month)
+              //     ->get();
+              // $konsumen = Report::where('tanggal', 'LIKE', '%' . $year. '-'. '$month' . '%')->get();
+          } else {
+              return redirect()->back()->with('error', 'Opsi ekspor tidak valid.');
+          }
+
+          if ($konsumen->isEmpty()) {
+              // return $konsumen;
+              return redirect()->back()->with('error', 'Data tidak tersedia untuk bulan dan tahun yang dipilih.');
+          }
+          // var_dump($konsumen);
+
+          // return $konsumen;
+          return Excel::download(new ExportKonsumen($konsumen), "Konsumen.xlsx");
       }
 
       // ============ INFO ================

@@ -29,7 +29,7 @@
         <!-- Left Side (Text) -->
         <div class="order-2 md:order-1 flex flex-col justify-center">
             <p class="text-gray-700 text-justify md:mr-10">
-               <span class="font-bold">Ara Development Property,</span> berangkat dari pemasaran property secondary dan kini telah banyak bekerjasama dengan property primary. Kami memiliki team yang bekerja memasarkan setiap produk yang kami kerjasamakan dan juga pembangunan property. Jika anda pemilik property atau pencari property, kontak kami untuk mendapatkan pelayanan terbaik, karena kami punya fitur-fitur berbeda dengan yang lain.
+               <span class="font-bold">Ara Development Property,</span> memulai dari pemasaran property secondary dan kini telah banyak bekerjasama dengan property primary. Kami memiliki team yang bekerja memasarkan setiap produk yang kami kerjasamakan dan juga pembangunan property. Dan kini kami juga telah memiliki tambahan service lain diluar pemasaran. Jika anda pemilik property atau pencari property, kontak kami untuk mendapatkan pelayanan terbaik, karena kami punya fitur-fitur berbeda dengan yang lain.
             </p>
         </div>
     </div>

@@ -57,6 +57,8 @@ class LandingController extends Controller
 
         $wishlist = Wishlist::where('approval','tampilkan')->take(5)->get();
 
+        $testimony = Testimony::orderBy('created_at', 'desc')->get();
+
         $allService = Service::all();
 
         if (!empty($kodeListing)) {
@@ -96,6 +98,7 @@ class LandingController extends Controller
             'kotaLand',
             'wishlist',
             'allService',
+            'testimony',
         ]));
     }
 
