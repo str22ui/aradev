@@ -1,4 +1,4 @@
-@extends('admin.layouts.index', ['title' => 'Survey', 'page_heading' => 'Data Survey'])
+@extends('admin.layouts.index', ['title' => 'Data Survey', 'page_heading' => 'Data Survey'])
 
 
 @section('content')
@@ -8,74 +8,55 @@
 
 	<div class="my-3 p-3 rounded">
 
-
-        <a href="{{ route('admin.createSurvey') }}" class="btn btn-success me-2 py-2" >
-            + Insert Data
-        </a>
-        @if (session()->has('success'))
-        <div class="alert alert-success" role="alert">
-        {{ session('success') }}
+        @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
         </div>
-        @endif
-		<!-- Table untuk memanggil data dari database -->
-		<table class="table">
-            <thead>
-                <tr>
-                    <th class="col-sm-1">No</th>
-                    <th class="col-md-2">Nama</th>
-                    <th class="col-md-2">Perumahan</th>
-                    <th class="col-md-2">No HP</th>
-                    <th class="col-md-2">Sumber</th>
-                    <th class="col-md-1">Survey</th>
-                    <th class="col-md-1">Jam</th>
-                    <th class="col-md-1">Tanggal</th>
-                    <th class="col-md-2">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($survey as $s)
-                <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $s->nama_konsumen }}</td>
-                    <td>{{ $s->perumahan }}</td>
-                    <td>{{ $s->no_hp }}</td>
-                    <td>{{ $s->sumber_informasi }}</td>
-
-                    <td>{{ $s->tanggal_janjian }}</td>
-                    <td>{{ $s->waktu_janjian }}</td>
-                    <td>{{ $s->created_at->format('d/m/y') }}</td>
-                    {{-- <td>{{ $s->agent->nama ?? 'No Data'}}</td> --}}
-                    <td>
-                        {{-- <a href='' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
-                        {{-- <a href='{{ route('admin.showEbook', ['ebook' => $e->slug])  }}' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
-                        <a href="{{ route('admin.editSurvey', ['id' => $s->id]) }}" class="btn btn-warning btn-sm" data-bs-toggle="tooltip" title="Edit">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
-                        <a href="{{ url('/survey/pdf/' . $s->id) }}" class="btn btn-primary btn-sm"  data-bs-toggle="tooltip" title="Download PDF">
-                            <i class="bi bi-file-earmark-pdf"></i>
-                        </a>
-
-                        @if (auth()->user()->role !== 'salesAdmin')
-                        <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteSurvey') }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <!-- Input untuk mengirim ID perumahan yang ingin dihapus -->
-                            <input type="hidden" name="id" value="{{ $s->id }}">
-                            <button type="submit" name="submit" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" title="Delete"> <i class="bi bi-trash-fill"></i></button>
-                        </form>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-        </tbody>
-		</table>
+    @endif
+    {{-- @if(auth()->user()->role === 'admin'|| Auth::user()->role == 'salesAdmin' || Auth::user()->role == 'sales') --}}
+    <a href="{{ route('admin.createSurvey') }}">
+        <button type="submit" class="btn btn-primary mr-2 mb-2">+Insert Data</button>
+    </a>
+    {{-- @endif --}}
+    {{-- @if(auth()->user()->role === 'admin'|| Auth::user()->role == 'salesAdmin') --}}
+    <form action="{{ url('survey/export/excel') }}" method="GET" class="d-flex justify-content-between align-items-center">
+        <div>
+            <button type="submit" class="btn btn-success">Export Excel</button>
+        </div>
+        <div class="form-group mb-0">
+            <label for="exportOption" class="mr-2">Pilih Eksport:</label>
+            <select id="exportOption" name="export_option" class="form-control mb-4" onchange="toggleMonthYearDropdown()">
+                <option value="all">Semua</option>
+                <option value="month_year">Bulan dan Tahun</option>
+            </select>
+            <div class="form-group mb-0" id="monthYearDropdown" style="display: none;">
+                <div class="form-row">
+                    <div class="col">
+                        <label for="month" class="mr-2">Pilih Bulan:</label>
+                        <select id="month" name="month" class="form-control mb-4">
+                            @for ($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}">{{ date("F", mktime(0, 0, 0, $i, 10)) }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label for="year" class="mr-2">Pilih Tahun:</label>
+                        <select id="year" name="year" class="form-control mb-4">
+                            @for ($i = date('Y'); $i >= 2000; $i--)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {{-- @endif --}}
+    <div class="table-responsive">
+        @include('admin.survey.tableSurvey', ['survey' => $survey])
+    </div>
 
 
-		<div class="d-flex align-items-end flex-column p-2 mb-2">
-
-		</div>
-
-		{{-- {{ $ebook->withQueryString()->links() }} --}}
   </div>
 </div>
 

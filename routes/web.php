@@ -170,6 +170,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('report/export/excel', [AdminController::class, 'exportReport'])->name('report.export.excel');
     Route::post('/exportKonsumen', [AdminController::class, 'exportKonsumen']);
     Route::get('konsumen/export/excel', [AdminController::class, 'exportKonsumen'])->name('konsumen.export.excel');
+    Route::post('/exportSurvey', [AdminController::class, 'exportSurvey']);
+    Route::get('survey/export/excel', [AdminController::class, 'exportSurvey'])->name('survey.export.excel');
+    Route::post('/exportPenawaran', [AdminController::class, 'exportPenawaran']);
+    Route::get('penawaran/export/excel', [AdminController::class, 'exportPenawaran'])->name('penawaran.export.excel');
+    Route::post('/exportAgent', [AdminController::class, 'exportAgent']);
+    Route::get('agent/export/excel', [AdminController::class, 'exportAgent'])->name('agent.export.excel');
+    Route::post('/exportReseller', [AdminController::class, 'exportReseller']);
+    Route::get('reseller/export/excel', [AdminController::class, 'exportReseller'])->name('reseller.export.excel');
 
     Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
         //Perumahan
@@ -183,6 +191,13 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/perumahan/update/{id}', [AdminController::class, 'updatePerumahan'])->name('admin.updatePerumahan');
         Route::delete('/deletePerumahanImage', [AdminController::class, 'destroyImage'])->name('admin.deleteImage');
 
+        //User
+        Route::get('/user-home', [AdminController::class, 'indexUser'])->name('admin.user');
+        Route::get('/createUser', [AdminController::class, 'createUser'])->name('admin.createUser');
+        Route::post('/storeUser', [adminController::class, 'storeUser'])->name('admin.storeUser');
+        Route::get('/user-home/{id}/', [AdminController::class, 'editUser'])->name('admin.editUser');
+        Route::delete('/deleteUser', [AdminController::class, 'destroyUser'])->name('admin.deleteUser');
+        Route::put('/user/update/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
     });
 
 });

@@ -6,11 +6,16 @@ use Carbon\Carbon;
 
 use App\Exports\ExportReport;
 use App\Exports\ExportKonsumen;
+use App\Exports\ExportSurvey;
+use App\Exports\ExportPenawaran;
+use App\Exports\ExportAgent;
+use App\Exports\ExportReseller;
 
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\Visit;
 use App\Models\Perumahan;
+use App\Models\User;
 use App\Models\Secondary;
 use App\Models\Rumah;
 use App\Models\Konsumen;
@@ -35,12 +40,99 @@ use Illuminate\Support\Str;
 use App\Models\CategoryBursa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class AdminController extends Controller
 {
+    public function indexUser()
+    {
+        $user = User::all();
+
+        return view('admin.user.index', [
+            'user' => $user,
+            // 'user' => $user,
+        ]);
+    }
+
+    public function createUser(){
+        return view('admin.user.createUser');
+    }
+
+    public function storeUser(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required',
+
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+
+        User::create($validatedData);
+
+        return redirect('/user-home')->with('success', 'Berhasil Menambahkan Data Tanah');
+   }
+
+   public function editUser($id)
+   {
+       $user = User::find($id);
+
+       return view('admin.user.editUser', [
+           'user' => $user,
+
+       ]);
+   }
+
+
+    public function updateUser(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'nullable',
+            'role' => 'required',
+        ]);
+
+        // Ambil data perumahan
+        $user = User::findOrFail($id);
+
+        // Update data utama
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            // 'password' => Hash::make($request->password),
+            'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
+            'role' => $request->role,
+        ]);
+
+        // Simpan perubahan
+        $user->save();
+
+        return redirect()->route('admin.user')->with('success', 'Data User berhasil diperbarui.');
+    }
+
+    public function destroyUser(Request $request)
+    {
+        // Debug untuk melihat data yang diterima
+        \Log::info($request->id);
+
+        // Ambil data perumahan berdasarkan ID
+        $user = User::findOrFail($request->id);
+
+        // Hapus data
+        $user->delete();
+
+        // Redirect dengan pesan sukses
+        return redirect('/user-home')->with('success', 'Berhasil Menghapus Data User');
+    }
+
+    // ============ END USER ================
     public function indexAdmin()
     {
         $todayDate = Carbon::now()->format('Y-m-d');
@@ -2013,6 +2105,173 @@ class AdminController extends Controller
           // return $konsumen;
           return Excel::download(new ExportKonsumen($konsumen), "Konsumen.xlsx");
       }
+
+      public function exportSurvey(Request $request)
+      {
+          $request->validate([
+              'export_option' => 'required',
+              'month' => 'required_if:export_option,month_year|integer|min:1|max:12',
+              'year' => 'required_if:export_option,month_year|integer|min:2000|max:' . date('Y'),
+          ]);
+
+          $exportOption = $request->input('export_option');
+          $month = $request->input('month');
+          $year = $request->input('year');
+          $fil = null;
+          if ($month < 10) {
+              $fil = $year . '-0' . $month;
+          } else {
+              $fil = $year . '-' . $month;
+          }
+          $survey = null; // Initialize $konsumen variable
+
+          if ($exportOption == 'all') {
+              $survey = Survey::all();
+          } elseif ($exportOption == 'month_year') {
+              $survey = Survey::where("created_at", "LIKE", "%{$fil}%")->get();
+              // $konsumen = Report::whereYear('tanggal', $year)
+              //     ->whereMonth('tanggal', $month)
+              //     ->get();
+              // $konsumen = Report::where('tanggal', 'LIKE', '%' . $year. '-'. '$month' . '%')->get();
+          } else {
+              return redirect()->back()->with('error', 'Opsi ekspor tidak valid.');
+          }
+
+          if ($survey->isEmpty()) {
+              // return $survey;
+              return redirect()->back()->with('error', 'Data tidak tersedia untuk bulan dan tahun yang dipilih.');
+          }
+          // var_dump($konsumen);
+
+          // return $konsumen;
+          return Excel::download(new ExportSurvey($survey), "Survey.xlsx");
+      }
+
+      public function exportPenawaran(Request $request)
+      {
+          $request->validate([
+              'export_option' => 'required',
+              'month' => 'required_if:export_option,month_year|integer|min:1|max:12',
+              'year' => 'required_if:export_option,month_year|integer|min:2000|max:' . date('Y'),
+          ]);
+
+          $exportOption = $request->input('export_option');
+          $month = $request->input('month');
+          $year = $request->input('year');
+          $fil = null;
+          if ($month < 10) {
+              $fil = $year . '-0' . $month;
+          } else {
+              $fil = $year . '-' . $month;
+          }
+          $penawaran = null; // Initialize $penawaran variable
+
+          if ($exportOption == 'all') {
+              $penawaran = Penawaran::all();
+          } elseif ($exportOption == 'month_year') {
+              $penawaran = Penawaran::where("created_at", "LIKE", "%{$fil}%")->get();
+              // $penawaran = Report::whereYear('tanggal', $year)
+              //     ->whereMonth('tanggal', $month)
+              //     ->get();
+              // $penawaran = Report::where('tanggal', 'LIKE', '%' . $year. '-'. '$month' . '%')->get();
+          } else {
+              return redirect()->back()->with('error', 'Opsi ekspor tidak valid.');
+          }
+
+          if ($penawaran->isEmpty()) {
+              // return $penawaran;
+              return redirect()->back()->with('error', 'Data tidak tersedia untuk bulan dan tahun yang dipilih.');
+          }
+          // var_dump($penawaran);
+
+          // return $konsumen;
+          return Excel::download(new ExportPenawaran($penawaran), "Penawaran.xlsx");
+      }
+
+      public function exportAgent(Request $request)
+      {
+          $request->validate([
+              'export_option' => 'required',
+              'month' => 'required_if:export_option,month_year|integer|min:1|max:12',
+              'year' => 'required_if:export_option,month_year|integer|min:2000|max:' . date('Y'),
+          ]);
+
+          $perumahan = Perumahan::all();
+          $exportOption = $request->input('export_option');
+          $month = $request->input('month');
+          $year = $request->input('year');
+          $fil = null;
+          if ($month < 10) {
+              $fil = $year . '-0' . $month;
+          } else {
+              $fil = $year . '-' . $month;
+          }
+          $agents = null; // Initialize $agent variable
+
+          if ($exportOption == 'all') {
+              $agents = Agent::all();
+          } elseif ($exportOption == 'month_year') {
+              $agents = Agent::where("created_at", "LIKE", "%{$fil}%")->get();
+              // $agent = Report::whereYear('tanggal', $year)
+              //     ->whereMonth('tanggal', $month)
+              //     ->get();
+              // $agent = Report::where('tanggal', 'LIKE', '%' . $year. '-'. '$month' . '%')->get();
+          } else {
+              return redirect()->back()->with('error', 'Opsi ekspor tidak valid.');
+          }
+
+          if ($agents->isEmpty()) {
+              // return $agent;
+              return redirect()->back()->with('error', 'Data tidak tersedia untuk bulan dan tahun yang dipilih.');
+          }
+          // var_dump($agent);
+
+          // return $konsumen;
+          return Excel::download(new ExportAgent($agents), "Agent.xlsx");
+      }
+
+      public function exportReseller(Request $request)
+      {
+          $request->validate([
+              'export_option' => 'required',
+              'month' => 'required_if:export_option,month_year|integer|min:1|max:12',
+              'year' => 'required_if:export_option,month_year|integer|min:2000|max:' . date('Y'),
+          ]);
+
+          $exportOption = $request->input('export_option');
+          $month = $request->input('month');
+          $year = $request->input('year');
+          $fil = null;
+          if ($month < 10) {
+              $fil = $year . '-0' . $month;
+          } else {
+              $fil = $year . '-' . $month;
+          }
+          $reseller = null; // Initialize $reseller variable
+
+          if ($exportOption == 'all') {
+              $reseller = Reseller::all();
+          } elseif ($exportOption == 'month_year') {
+              $reseller = Reseller::where("created_at", "LIKE", "%{$fil}%")->get();
+              // $reseller = Report::whereYear('tanggal', $year)
+              //     ->whereMonth('tanggal', $month)
+              //     ->get();
+              // $reseller = Report::where('tanggal', 'LIKE', '%' . $year. '-'. '$month' . '%')->get();
+          } else {
+              return redirect()->back()->with('error', 'Opsi ekspor tidak valid.');
+          }
+
+          if ($reseller->isEmpty()) {
+              // return $reseller;
+              return redirect()->back()->with('error', 'Data tidak tersedia untuk bulan dan tahun yang dipilih.');
+          }
+          // var_dump($reseller);
+
+          // return $konsumen;
+          return Excel::download(new ExportReseller($reseller), "Reseller.xlsx");
+      }
+
+
 
       // ============ INFO ================
 

@@ -9,6 +9,16 @@
     </a>
 </li>
 
+{{-- User --}}
+@if (auth()->user()->role !== 'salesAdmin')
+<li class="sidebar-item {{ Request::is('admin/user*') || Request::is('admin/createUser*') || Request::is('admin/editUser*') || Request::is('admin/showUser*') ? 'active' : '' }}">
+    <a href="{{ route('admin.user') }}" class='sidebar-link'>
+        <i class="bi bi-person-circle"></i>
+        <span>User</span>
+    </a>
+</li>
+@endif
+
 @include('admin.layouts.components.sidebar.masterRumah')
 @include('admin.layouts.components.sidebar.dataKonsumen')
 @include('admin.layouts.components.sidebar.dataAgent')
@@ -16,7 +26,7 @@
 {{-- @include('admin.layouts.components.sidebar.galleryDropdown')
 @include('admin.layouts.components.sidebar.masterDropdown') --}}
 
-{{-- Student --}}
+{{-- Report --}}
 <li class="sidebar-item {{ Request::is('admin/report*') || Request::is('admin/createReport*') || Request::is('admin/editReport*') || Request::is('admin/showReport*') ? 'active' : '' }}">
     <a href="{{ route('admin.report') }}" class='sidebar-link'>
         <i class="bi bi-journal-album"></i>
@@ -24,7 +34,7 @@
     </a>
 </li>
 
-{{-- announce --}}
+{{-- Logout --}}
 @include('admin.layouts.components.sidebar.dataLainnya')
 <li class="sidebar-item">
     <form method="POST" action="/logout" id="logout">
