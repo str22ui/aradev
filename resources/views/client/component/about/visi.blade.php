@@ -25,7 +25,7 @@
         <div class="bg-white p-6 rounded-lg shadow-md border-2 border-gray-500">
             <h2 class="text-lg font-semibold mb-2">Tujuan Kami</h2>
             <ul class="list-disc pl-4">
-                <li>Menjadi salah satu platform pemasaran properti digital terkemuka di wilayah Anda atau bahkan nasional.</li>
+                <li>Menjadi salah satu platform pemasaran properti digital yang diminati baik lokal hingga nasional.</li>
                 <li>Menyediakan layanan tambahan, seperti konsultasi properti, manajemen properti, dan investasi properti</li>
                 <li>Membentuk komunitas properti profesional yang melibatkan agen, reseller, investor, kontraktor, dan developer untuk berbagi peluang.</li>
                 <li>Menjadi bisnis yang memberikan dampak positif, seperti menyediakan properti terjangkau dan mendukung program perumahan untuk masyarakat luas.</li>

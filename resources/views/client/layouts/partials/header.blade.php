@@ -40,17 +40,39 @@
         overflow: hidden; /* Pastikan gambar tidak keluar dari container */
     }
 
+    /* Style tambahan untuk swiper slide */
     .swiper-slide {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         position: relative;
+        display: flex;
+        flex-direction: column;
     }
+
 
     .swiper-slide img {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* Pastikan gambar menutupi area slide */
+        object-fit: cover; /* Memastikan gambar mengisi ruang tanpa distorsi */
+        min-height: 300px; /* Tinggi minimum untuk mobile */
+    }
+
+     /* Untuk desktop - set tinggi yang lebih besar */
+     @media (min-width: 768px) {
+        .swiper-slide img {
+            height: 400px; /* Atur tinggi sesuai kebutuhan */
+        }
+
+        /* Buat grid memiliki tinggi yang sama */
+        .grid.grid-cols-1.md\:grid-cols-2 {
+            align-items: stretch;
+        }
+
+        /* Text container mengisi tinggi penuh */
+        .order-2.md\:order-1 {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
     }
 
     .swiper-slide span {
@@ -61,6 +83,8 @@
         padding: 8px 12px;
         border-radius: 8px;
         font-size: 14px;
+        margin-top: 10px;
+        display: inline-block;
         font-weight: bold;
     }
 
@@ -74,8 +98,10 @@
         text-decoration: none;
         font-weight: bold;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+        display: inline-block;
     }
-    
+
     </style>
 </head>
 

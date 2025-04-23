@@ -1,21 +1,21 @@
 <section data-aos="fade-up" data-aos-duration="1000" class="container mx-auto px-4 py-8 mt-24">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 bg-gray-100 md:p-8 p-4 rounded-lg">
         <!-- Right Side (Image Slider) -->
-        <div class="order-1 md:order-2">
-            <div class="swiper-container">
+        <div class="order-1 md:order-2 h-full">
+            <div class="swiper-container h-full">
                 <div class="swiper-wrapper">
                     @foreach ($perumahanStat as $p)
                         @if ($p->status === 'Available')
                             <div class="swiper-slide">
                                 <!-- Image -->
                                 @if ($p->images->isNotEmpty())
-                                    <img src="{{ asset('storage/' . $p->images->first()->image_path) }}" alt="House Image">
+                                    <img class="w-full h-full" src="{{ asset('storage/' . $p->images->first()->image_path) }}" alt="House Image">
                                 @else
-                                    <img src="https://source.unsplash.com/1417x745/?house" alt="Default House Image">
+                                    <img class="w-full h-full" src="https://source.unsplash.com/1417x745/?house" alt="Default House Image">
                                 @endif
 
                                 <!-- Location Text -->
-                                <span>{{ $p->perumahan }}</span>
+                                <span class="text-lg font-semibold">{{ $p->perumahan }}</span>
 
                                 <!-- Button -->
                                 <a href="/showPerumahan/{{$p->id}}">See details</a>
