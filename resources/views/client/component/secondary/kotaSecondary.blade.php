@@ -36,17 +36,7 @@
 
                 <!-- Content Section -->
                 <div class="p-5">
-                    <!-- Kota dan Status -->
-                    {{-- <div class="flex justify-between items-center">
-                        <h3 class="text-lg font-semibold text-gray-800">{{ $s->kota }}</h3>
-                        <div class="flex items-center gap-2">
-                        @if($s->kondisi === 'Baru')
-                                <span class=" bg-blue-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Baru</span>
-                            @elseif($s->kondisi === 'Second')
-                                <span class=" bg-gray-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Second</span>
-                            @endif
-                        </div>
-                    </div> --}}
+
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-semibold text-gray-800">{{ $s->kota }}</h3>
                         <!-- Status badge yang sejajar dengan kota -->
@@ -59,7 +49,11 @@
 
                         @endif
                     </div>
-                    <p class="text-gray-600">{{ $s->kode_listing }} - {{ $s->judul }}</p>
+                    <p class="inline-block bg-blue-100 text-blue-700 text-sm font-semibold px-3 py-1 rounded mt-2">
+                        Rp {{ number_format($s->harga, 0, ',', '.') }}
+                    </p>
+
+
                     <p class="text-sm text-gray-500 mt-2">
                         LB: {{ $s->lb }} | LT: {{ $s->lt }} |
                         <i class="fas fa-bed"></i> {{ $s->kt }} |
