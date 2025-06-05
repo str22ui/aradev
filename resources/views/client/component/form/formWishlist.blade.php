@@ -40,6 +40,7 @@
         <div class="mb-3">
             <label for="lokasi" class="form-label">Lokasi Property</label>
             <select name="lokasi" required class="w-full px-4 py-2 border rounded-md focus:ring focus:ring-blue-300">
+                <option value="Jakarta">Jakarta</option>
                 <option value="Tangerang">Tangerang</option>
                 <option value="Depok">Depok</option>
                 <option value="Bogor">Bogor</option>

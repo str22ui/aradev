@@ -49,7 +49,7 @@
 
             <br>
             <button type="submit" class="btn btn-primary">Update</button>
-            <a class="btn btn-danger" href="{{ route('admin.Reseller') }}">Back</a>
+            <a class="btn btn-danger" href="{{ route('admin.reseller') }}">Back</a>
         </form>
 
 		{{-- Menampilkan total pemasukan --}}

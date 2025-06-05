@@ -194,6 +194,7 @@ class AdminController extends Controller
             'kota' => 'required',
             'satuan' => 'required',
             'harga' => 'required',
+            'harga_asli' => 'required',
             'status' => 'required',
             'deskripsi' => 'required',
             'brosur' => 'nullable|file|max:20480|mimes:pdf,doc,docx,ppt,pptx',
@@ -361,6 +362,7 @@ class AdminController extends Controller
             'kota' => 'required|max:255',
             'satuan' => 'required|max:255',
             'harga' => 'required|numeric',
+            'harga_asli' => 'required|numeric',
             'status' => 'required|max:255',
             'deskripsi' => 'required',
             'images.*' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -394,6 +396,7 @@ class AdminController extends Controller
             'kota' => $request->kota,
             'satuan' => $request->satuan,
             'harga' => $request->harga,
+            'harga_asli' => $request->harga_asli,
             'status' => $request->status,
             'deskripsi' => $request->deskripsi,
             'maps' => $request->maps,
@@ -1112,6 +1115,7 @@ class AdminController extends Controller
         return view('admin.konsumen.createKonsumen', compact('perumahan','agent', 'reseller'));
     }
 
+
     public function storeKonsumen(Request $request)
     {
         $validatedData = $request->validate([
@@ -1121,29 +1125,25 @@ class AdminController extends Controller
             'email' => 'nullable|email',
             'pekerjaan' => 'nullable',
             'nama_kantor' => 'nullable',
-            'perumahan' => 'required',
-            'sumber_informasi' => 'required',
-            'agent_id' => 'nullable',
-            'reseller_id' => 'nullable',
+            'perumahan' => 'required|not_in:pilih',
+            'sumber_informasi' => 'required|not_in:-- Pilih --',
+            'agent_id' => 'nullable|exists:agents,id',
+            'reseller_id' => 'nullable|exists:resellers,id',
         ]);
 
-       // Jika agent_id adalah 'pilih', set ke null
-        if ($request->input('agent_id') === 'pilih') {
-            $validatedData['agent_id'] = null;
-        } else {
-            $validatedData['agent_id'] = $request->input('agent_id');
-        }
+        // Pastikan nilai 'agent_id' dan 'reseller_id' menjadi null jika tidak dipilih
+        $validatedData['agent_id'] = $request->filled('agent_id') ? $request->input('agent_id') : null;
+        $validatedData['reseller_id'] = $request->filled('reseller_id') ? $request->input('reseller_id') : null;
 
-        // Set created_at ke tanggal dari input atau tanggal saat ini jika tidak diisi
-        $validatedData['created_at'] = $request->input('tanggal') ? $request->input('tanggal') : Carbon::now();
+        // Set created_at dari input atau waktu sekarang
+        $validatedData['created_at'] = $request->input('tanggal') ?? Carbon::now();
 
-        try {
-            Konsumen::create($validatedData);
-            return redirect('/konsumen')->with('success', 'Konsumen berhasil disimpan.');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
-        }
+        Konsumen::create($validatedData);
+
+        return redirect('/konsumen')->with('success', 'Konsumen berhasil disimpan.');
     }
+
+
 
 
     public function destroyKonsumen(Request $request)
@@ -1684,7 +1684,7 @@ class AdminController extends Controller
         return view('admin.wishlist.createWishlist', compact('wishlist'));
     }
 
-    public function storeWishlist(Request $request)
+    public function storeWishlistt(Request $request)
     {
         $validatedData = $request->validate([
 

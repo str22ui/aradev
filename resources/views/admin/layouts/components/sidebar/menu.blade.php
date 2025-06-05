@@ -21,10 +21,11 @@
 
 @include('admin.layouts.components.sidebar.masterRumah')
 @include('admin.layouts.components.sidebar.dataKonsumen')
-@include('admin.layouts.components.sidebar.dataAgent')
 
-{{-- @include('admin.layouts.components.sidebar.galleryDropdown')
-@include('admin.layouts.components.sidebar.masterDropdown') --}}
+@if (auth()->user()->role !== 'salesAdmin')
+@include('admin.layouts.components.sidebar.dataAgent')
+@endif
+
 
 {{-- Report --}}
 <li class="sidebar-item {{ Request::is('admin/report*') || Request::is('admin/createReport*') || Request::is('admin/editReport*') || Request::is('admin/showReport*') ? 'active' : '' }}">
@@ -34,8 +35,10 @@
     </a>
 </li>
 
-{{-- Logout --}}
+@if (auth()->user()->role !== 'salesAdmin')
 @include('admin.layouts.components.sidebar.dataLainnya')
+@endif
+{{-- Logout --}}
 <li class="sidebar-item">
     <form method="POST" action="/logout" id="logout">
         @csrf

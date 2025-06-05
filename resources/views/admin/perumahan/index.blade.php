@@ -10,9 +10,11 @@
 
 
         {{-- <a href="{{ route('admin.createTeacher') }}" class="btn btn-success me-2 py-2" > --}}
+         @if (auth()->user()->role !== 'salesAdmin')
         <a href="{{ route('admin.createPerumahan') }}" class="btn btn-success me-2 py-2" >
             + Insert Data
         </a>
+        @endif
         @if (session()->has('success'))
         <div class="alert alert-success" role="alert">
         {{ session('success') }}

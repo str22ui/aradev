@@ -79,6 +79,10 @@
                 </select>
             </div>
 
+              <div class="mb-3">
+                <label for="harga_asli" class="form-label">Harga Nominal</label>
+                <input type="text" class="form-control" id="harga_asli" name="harga_asli">
+            </div>
             <div id="advantages-container">
                 <label for="keunggulan" class="form-label">Keunggulan</label>
                 <input type="text" name="keunggulan[]" placeholder="Keunggulan" class="form-control mb-2">

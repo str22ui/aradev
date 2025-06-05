@@ -7,7 +7,7 @@
     </a>
 </li>
 <ul id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-    @if (auth()->user()->role !== 'salesAdmin')
+   
         <li class="sidebar-item {{ Request::is('admin/perumahan*') || Request::is('admin/createPerumahan*') || Request::is('admin/editPerumahan*') || Request::is('admin/showPerumahan*') ? 'active' : '' }}">
             <a href="{{ route('admin.perumahan') }}" class='sidebar-link'>
                 <i class="bi bi-house-gear-fill"></i>
@@ -16,14 +16,14 @@
         </li>
 
 
-    @endif
+
     <li class="sidebar-item {{ Request::is('admin/rumah*') || Request::is('admin/createRumah*') || Request::is('admin/editRumah*') || Request::is('admin/showRumah*') ? 'active' : '' }}">
         <a href="{{ route('admin.rumah') }}" class='sidebar-link'>
             <i class="bi bi bi-house-door"></i>
             <span>Rumah</span>
         </a>
     </li>
-    
+
     <li class="sidebar-item {{ Request::is('admin/secondary-home*') || Request::is('admin/createSecondary*') || Request::is('admin/editSecondary*') || Request::is('admin/showSecondary*') ? 'active' : '' }}">
         <a href="{{ route('admin.secondary-home') }}" class='sidebar-link'>
             <i class="bi  bi-houses-fill"></i>

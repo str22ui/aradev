@@ -22,8 +22,8 @@
                         <span class="absolute top-2 left-2 bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Available</span>
                     @elseif($s->available === 'Sold Out')
                         <span class="absolute top-2 left-2 bg-red-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Sold Out</span>
-                    @elseif($s->available === 'Rent')
-                        <span class="absolute top-2 left-2 bg-yellow-400 text-white text-sm font-semibold px-3 py-1 rounded-full">Rent</span>
+                    @elseif($s->available === 'Rented')
+                        <span class="absolute top-2 left-2 bg-yellow-400 text-white text-sm font-semibold px-3 py-1 rounded-full">Rented</span>
 
                     @endif
                 </div>
@@ -33,17 +33,28 @@
                     <!-- Kota dan Status -->
                     <div class="flex justify-between items-center">
                         <h3 class="text-lg font-semibold text-gray-800">{{ $s->kota }}</h3>
+                        <div class="flex items-center gap-2">
+                                @if($s->kondisi === 'Baru')
+                                        <span class=" bg-blue-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Baru</span>
+                                    @elseif($s->kondisi === 'Second')
+                                        <span class=" bg-gray-500 text-white text-sm font-semibold px-3 py-1 rounded-full">Second</span>
+                                    @endif
+                                </div>
                         <!-- Status badge yang sejajar dengan kota -->
                         @if($s->available === 'Available')
                             <span class="bg-green-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Available</span>
                         @elseif($s->available === 'Sold Out')
                             <span class="bg-red-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Sold Out</span>
-                        @elseif($s->available === 'Rent')
-                            <span class="bg-yellow-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Rent</span>
+                        @elseif($s->available === 'Soon')
+                            <span class="bg-blue-500 text-white text-sm font-semibold px-3 py-1 rounded-full lg:hidden">Soon</span>
 
                         @endif
                     </div>
                     <p class="text-gray-600">{{ $s->kode_listing }} - {{ $s->judul }}</p>
+                      <p class="inline-block bg-blue-100 text-blue-700 text-sm font-semibold px-3 py-1 rounded mt-2">
+                        Rp {{ number_format($s->harga, 0, ',', '.') }}
+                    </p>
+
                     <p class="text-sm text-gray-500 mt-2">
                         LB: {{ $s->lb }} | LT: {{ $s->lt }} |
                         <i class="fas fa-bed"></i> {{ $s->kt }} |

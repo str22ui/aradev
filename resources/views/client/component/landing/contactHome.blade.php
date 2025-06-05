@@ -36,6 +36,10 @@
                             <a href="https://www.instagram.com/aradev.property?igsh=d3VodWsxdjl3YTRn"> <p class="text-xl">aradev.property</p></a>
                             <img src="{{ asset('img/asset/logo-instagram.png') }}" alt="Instagram" class="w-8 h-8 ml-2">
                         </div>
+                         <div class="flex items-center justify-center md:justify-end">
+                            <a href="https://youtube.com/@aradev.property"> <p class="text-xl">Aradev Property</p></a>
+                            <img src="{{ asset('img/asset/logo-youtube.png') }}" alt="Instagram" class="w-8 h-6 ml-2">
+                        </div>
                         {{-- <div class="flex items-center justify-center md:justify-end">
                             <a href="https://www.youtube.com/@HomeInsightTV"> <p class="text-xl">Home Insight TV</p></a>
                             <img src="{{ asset('img/asset/logo-youtube.png') }}" alt="X" class="w-8 h-6 ml-2">

@@ -8,7 +8,7 @@
 
 		<!-- Table untuk memanggil data dari database -->
         @include('sweetalert::alert')
-		<form method="post" action="{{ route('admin.storeWishlist') }}" enctype="multipart/form-data">
+		<form method="post" action="{{ route('admin.storeWishlistt  `') }}" enctype="multipart/form-data">
         @csrf
             {{-- Title --}}
 
@@ -62,6 +62,7 @@
                 <label for="lokasi" class="form-label">Lokasi Property</label>
                 <select id="lokasi" name="lokasi"
                     class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option value="Jakarta">Jakarta</option>
                     <option value="Tangerang">Tangerang</option>
                     <option value="Depok">Depok</option>
                     <option value="Bogor">Bogor</option>

@@ -78,14 +78,7 @@ Route::middleware(['auth'])->group(function () {
         // return $pdf->stream(); // Tampilkan di browser
     });
 
-    //Agent
-    Route::get('/agent', [AdminController::class, 'indexAgent'])->name('admin.agent');
-    Route::get('/showAgent', [AdminController::class, 'showAgent'])->name('admin.showAgent');
-    Route::get('/createAgent', [AdminController::class, 'createAgent'])->name('admin.createAgent');
-    Route::post('/storeAgent', [adminController::class, 'storeAgent'])->name('admin.storeAgent');
-    Route::get('/agent/{id}/', [AdminController::class, 'editAgent'])->name('admin.editAgent');
-    Route::put('/agent/update/{id}', [AdminController::class, 'updateAgent'])->name('admin.updateAgent');
-    Route::delete('/deleteAgent', [AdminController::class, 'destroyAgent'])->name('admin.deleteAgent');
+
 
 
     //Reseller
@@ -159,7 +152,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin-wishlist', [AdminController::class, 'indexWishlist'])->name('admin.wishlist');
     Route::get('/showAgent', [AdminController::class, 'showAgent'])->name('admin.showAgent');
     Route::get('/createWishlist', [AdminController::class, 'createWishlist'])->name('admin.createWishlist');
-    Route::post('/storeWishlist', [adminController::class, 'storeWishlist'])->name('admin.storeWishlist');
+    Route::post('/storeWishlistt', [AdminController::class, 'storeWishlistt'])->name('admin.storeWishlistt');
+
     Route::get('/wishlist/{id}/', [AdminController::class, 'editWishlist'])->name('admin.editWishlist');
     Route::put('/wishlist/update/{id}', [AdminController::class, 'updateWishlist'])->name('admin.updateWishlist');
     Route::delete('/deleteWishlist', [AdminController::class, 'destroyWishlist'])->name('admin.deleteWishlist');
@@ -179,10 +173,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/exportReseller', [AdminController::class, 'exportReseller']);
     Route::get('reseller/export/excel', [AdminController::class, 'exportReseller'])->name('reseller.export.excel');
 
+  //Perumahan
+    Route::get('/perumahan', [AdminController::class, 'indexPerumahan'])->name('admin.perumahan');
+    Route::get('/showPerumahan', [AdminController::class, 'showPerumahan'])->name('admin.showPerumahan');
+
     Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
-        //Perumahan
-        Route::get('/perumahan', [AdminController::class, 'indexPerumahan'])->name('admin.perumahan');
-        Route::get('/showPerumahan', [AdminController::class, 'showPerumahan'])->name('admin.showPerumahan');
+
         Route::get('/createPerumahan', [AdminController::class, 'createPerumahan'])->name('admin.createPerumahan');
         Route::post('/storePerumahan', [adminController::class, 'storePerumahan'])->name('admin.storePerumahan');
         Route::get('/perumahan/{id}/', [AdminController::class, 'editPerumahan'])->name('admin.editPerumahan');
@@ -198,6 +194,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/user-home/{id}/', [AdminController::class, 'editUser'])->name('admin.editUser');
         Route::delete('/deleteUser', [AdminController::class, 'destroyUser'])->name('admin.deleteUser');
         Route::put('/user/update/{id}', [AdminController::class, 'updateUser'])->name('admin.updateUser');
+
+         //Agent
+            Route::get('/agent', [AdminController::class, 'indexAgent'])->name('admin.agent');
+            Route::get('/showAgent', [AdminController::class, 'showAgent'])->name('admin.showAgent');
+            Route::get('/createAgent', [AdminController::class, 'createAgent'])->name('admin.createAgent');
+            Route::post('/storeAgent', [adminController::class, 'storeAgent'])->name('admin.storeAgent');
+            Route::get('/agent/{id}/', [AdminController::class, 'editAgent'])->name('admin.editAgent');
+            Route::put('/agent/update/{id}', [AdminController::class, 'updateAgent'])->name('admin.updateAgent');
+            Route::delete('/deleteAgent', [AdminController::class, 'destroyAgent'])->name('admin.deleteAgent');
     });
 
 });

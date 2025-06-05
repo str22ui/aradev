@@ -30,7 +30,7 @@
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email">
+                <input type="email" class="form-control" id="email" name="email">
             </div>
             <div class="mb-3">
                 <label for="tanggal" class="form-label">Tanggal</label>
@@ -82,10 +82,11 @@
             <div class="agent flex w-full gap-4 mb-4">
                 <div class="w-full">
                     <label for="agent_id" class="form-label block mb-2 text-sm font-medium">Nama Agent</label>
-                    <select id="agent_id" name="agent_id"
-                        class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"">
-                        <option value="pilih">-- Pilih --</option>
-                        @foreach ($agent as $item) <option value="{{ $item->id }}">{{ $item->nama }} - {{ $item->kantor }}</option> @endforeach
+                   <select name="agent_id" class="form-select">
+                        <option value="">Pilih Agent</option>
+                        @foreach ($agent as $agent)
+                            <option value="{{ $agent->id }}">{{ $agent->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -93,11 +94,12 @@
             <div class="reseller flex w-full gap-4 mb-4">
                 <div class="w-full">
                     <label for="reseller_id" class="form-label block mb-2 text-sm font-medium">Nama Reseller</label>
-                    <select id="reseller_id" name="reseller_id"
-                        class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"">
-                        <option value="pilih">-- Pilih --</option>
-                        @foreach ($reseller as $r) <option value="{{ $r->id }}">{{ $r->nama }}</option> @endforeach
-                    </select>
+                   <select name="reseller_id" class="form-select">
+                    <option value="">Pilih Reseller</option>
+                    @foreach ($reseller as $reseller)
+                        <option value="{{ $reseller->id }}">{{ $reseller->nama }}</option>
+                    @endforeach
+                </select>
                 </div>
             </div>
 

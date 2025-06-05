@@ -17,6 +17,7 @@ class Perumahan extends Model
         'kota',
         'satuan',
         'harga',
+        'harga_asli',
         'brosur',
         'pricelist',
         'img',

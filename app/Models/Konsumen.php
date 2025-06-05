@@ -10,17 +10,18 @@ class Konsumen extends Model
     use HasFactory;
     protected $table = 'konsumen';
     protected $fillable = [
-        'nama_konsumen',
-        'no_hp',
-        'email',
-        'domisili',
-        'pekerjaan',
-        'nama_kantor',
-        'perumahan',
-        'sumber_informasi',
-        'agent_id',
-        'reseller_id'
-    ];
+    'nama_konsumen',
+    'no_hp',
+    'domisili',
+    'email',
+    'pekerjaan',
+    'nama_kantor',
+    'perumahan',
+    'sumber_informasi',
+    'agent_id',
+    'reseller_id',
+    'created_at',
+];
 
     public function report(){
         return $this->hasMany(Report::class);
