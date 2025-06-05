@@ -27,7 +27,14 @@
                     <td>{{ $loop->iteration }}</td>
 
                     <td>{{ $r->konsumen->nama_konsumen }}</td>
-                    <td>{{ $r->konsumen->no_hp ?? 'N/A' }}</td>
+                   <td>
+                        @if (auth()->user()->role === 'salesAdmin')
+                            {{ strlen($r->no_hp) >= 3 ? substr($r->no_hp, 0, -3) . 'xxx' : 'xxx' }}
+                        @else
+                            {{ $r->no_hp }}
+                        @endif
+                    </td>
+
                     <td>{{ $r->konsumen->perumahan }}</td>
                     <td>{{ $r->konsumen->sumber_informasi }}</td>
                     <td>

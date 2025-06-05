@@ -14,6 +14,11 @@
         @csrf
         @method('PUT')
             {{-- Title --}}
+            <div class="mb-3" hidden>
+                <input type="hidden" value="0" name="views">
+                <label for="user_id" class="form-label">User</label>
+                <input type="text" value="{{$survey->user_id}}" name="user_id" id="user_id"  class="form-control">
+            </div>
 
             <div class="mb-3">
                 <label for="nama_konsumen" class="form-label">Nama Konsumen</label>

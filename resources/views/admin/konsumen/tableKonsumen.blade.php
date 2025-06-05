@@ -9,6 +9,9 @@
             <th class="col-md-1">Agent</th>
             <th class="col-md-1">Reseller</th>
             <th class="col-md-2">Tanggal</th>
+             @if (auth()->user()->role !== 'salesAdmin')
+                    <th class="col-md-2">User</th>
+            @endif
             <th class="col-md-2">Action</th>
 
         </tr>
@@ -21,11 +24,37 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $k->nama_konsumen }}</td>
                     <td>{{ $k->perumahan }}</td>
-                    <td>{{ $k->no_hp }}</td>
+                    <td>
+                @if (auth()->user()->role === 'salesAdmin')
+                    {{ strlen($k->no_hp) >= 3 ? substr($k->no_hp, 0, -3) . 'xxx' : 'xxx' }}
+                @else
+                    {{ $k->no_hp }}
+                @endif
+            </td>
+
                     <td>{{ $k->email }}</td>
                     <td>{{ $k->agent->nama ?? 'No Data'}}</td>
                     <td>{{ $k->reseller->nama ?? 'No Data'}}</td>
                     <td>{{ $k->created_at->format('d/m/y') }}</td>
+                      @if (auth()->user()->role !== 'salesAdmin')
+                        <td>
+                            <div class="d-flex flex-column">
+                                <strong class="mb-1">{{ $k->user ? $k->user->name : '-' }}</strong>
+                                <form action="{{ route('admin.updateUserIdKonsumen', ['id' => $k->id]) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="user_id" onchange="this.form.submit()" class="form-select form-select-sm">
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" {{ $k->user_id == $user->id ? 'selected' : '' }}>
+                                                {{ $user->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
+                            </div>
+                        </td>
+                        @endif
+
                     <td>
                         {{-- <a href='' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
                         {{-- <a href='{{ route('admin.showEbook', ['ebook' => $e->slug])  }}' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}

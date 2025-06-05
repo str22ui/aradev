@@ -27,6 +27,7 @@ class Land extends Model
         'kota',         // Kota
         'deskripsi',    // Deskripsi
         'video',         // video
+        'user_id',         // video
     ];
 
     /**
@@ -43,4 +44,9 @@ class Land extends Model
     {
         return $this->hasMany(LandImage::class, 'land_id'); // Pastikan foreign key benar
     }
+      public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

@@ -37,6 +37,7 @@ class Secondary extends Model
         'kota',          // Kota
         'deskripsi',     // Deskripsi
         'video',         // video
+        'user_id',         // video
     ];
 
     protected $hidden = [
@@ -48,4 +49,11 @@ class Secondary extends Model
     {
         return $this->hasMany(SecondaryImage::class, 'secondary_id'); // Pastikan foreign key benar
     }
+
+   public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+
 }

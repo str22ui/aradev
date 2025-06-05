@@ -26,6 +26,7 @@ class Penawaran extends Model
         'dp',
         'harga_pengajuan',
         'rumah_id',
+        'user_id',
     ];
 
     // Relasi ke tabel Perumahan
@@ -49,9 +50,10 @@ class Penawaran extends Model
     {
         return $this->belongsTo(Reseller::class);
     }
-    // public function rumah()
-    // {
-    //     return $this->belongsTo(Rumah::class, 'rumah_id');
-    // }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
 }

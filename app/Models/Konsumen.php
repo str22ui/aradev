@@ -20,6 +20,7 @@ class Konsumen extends Model
     'sumber_informasi',
     'agent_id',
     'reseller_id',
+    'user_id',
     'created_at',
 ];
 
@@ -35,5 +36,10 @@ class Konsumen extends Model
     public function reseller()
     {
         return $this->belongsTo(Reseller::class);
+    }
+
+      public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

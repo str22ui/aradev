@@ -9,6 +9,9 @@
             <th class="col-md-1">Survey</th>
             <th class="col-md-1">Jam</th>
             <th class="col-md-1">Tanggal</th>
+             @if (auth()->user()->role !== 'salesAdmin')
+                    <th class="col-md-2">User</th>
+            @endif
             <th class="col-md-2">Action</th>
 
         </tr>
@@ -20,12 +23,37 @@
             <td>{{ $loop->iteration }}</td>
             <td>{{ $s->nama_konsumen }}</td>
             <td>{{ $s->perumahan }}</td>
-            <td>{{ $s->no_hp }}</td>
+           <td>
+                @if (auth()->user()->role === 'salesAdmin')
+                    {{ strlen($s->no_hp) >= 3 ? substr($s->no_hp, 0, -3) . 'xxx' : 'xxx' }}
+                @else
+                    {{ $s->no_hp }}
+                @endif
+            </td>
+
             <td>{{ $s->sumber_informasi }}</td>
 
             <td>{{ $s->tanggal_janjian }}</td>
             <td>{{ $s->waktu_janjian }}</td>
             <td>{{ $s->created_at->format('d/m/y') }}</td>
+             @if (auth()->user()->role !== 'salesAdmin')
+                        <td>
+                            <div class="d-flex flex-column">
+                                <strong class="mb-1">{{ $s->user ? $s->user->name : '-' }}</strong>
+                                <form action="{{ route('admin.updateUserIdSurvey', ['id' => $s->id]) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="user_id" onchange="this.form.submit()" class="form-select form-select-sm">
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" {{ $s->user_id == $user->id ? 'selected' : '' }}>
+                                                {{ $user->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
+                            </div>
+                        </td>
+                        @endif
             {{-- <td>{{ $s->agent->nama ?? 'No Data'}}</td> --}}
             <td>
                 {{-- <a href='' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}

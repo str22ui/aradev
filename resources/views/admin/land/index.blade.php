@@ -26,6 +26,9 @@
                     <th class="col-md-2">Harga</th>
                     <th class="col-md-2 ">Lokasi</th>
                     <th class="col-md-2">Kota</th>
+                    @if (auth()->user()->role !== 'salesAdmin')
+                    <th class="col-md-2">User</th>
+                    @endif
                     <th class="col-md-3">Action</th>
 
                 </tr>
@@ -51,6 +54,24 @@
                         <td>{{ $l->harga }}</td>
                         <td>{{ $l->lokasi }}</td>
                         <td>{{ $l->kota }}</td>
+                        @if (auth()->user()->role !== 'salesAdmin')
+                        <td>
+                            <div class="d-flex flex-column">
+                                <strong class="mb-1">{{ $l->user ? $l->user->name : '-' }}</strong>
+                                <form action="{{ route('admin.updateUserIdLand', ['id' => $l->id]) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="user_id" onchange="this.form.submit()" class="form-select form-select-sm">
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" {{ $l->user_id == $user->id ? 'selected' : '' }}>
+                                                {{ $user->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
+                            </div>
+                        </td>
+                        @endif
                         <td>
                             {{-- <a href='#' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
                             <a href="{{ route('admin.editLand', ['id' => $l->id]) }}" class="btn btn-warning btn-sm">

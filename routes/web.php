@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/secondary/update/{id}', [AdminController::class, 'updateSecondary'])->name('admin.updateSecondary');
     Route::delete('/deleteSecondaryImage', [AdminController::class, 'destroyImageSecondary'])->name('admin.deleteImageSecondary');
 
+
+
     //Land
     Route::get('/land-home', [AdminController::class, 'indexLand'])->name('admin.land');
     Route::get('/showLand', [AdminController::class, 'showLand'])->name('admin.showLand');
@@ -203,6 +205,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/agent/{id}/', [AdminController::class, 'editAgent'])->name('admin.editAgent');
             Route::put('/agent/update/{id}', [AdminController::class, 'updateAgent'])->name('admin.updateAgent');
             Route::delete('/deleteAgent', [AdminController::class, 'destroyAgent'])->name('admin.deleteAgent');
+
+        //updateuser
+        Route::put('/admin/secondary/update-user/{id}', [AdminController::class, 'updateUserIdSecondary'])->name('admin.updateUserIdSecondary');
+        Route::put('/admin/land/update-user/{id}', [AdminController::class, 'updateUserIdLand'])->name('admin.updateUserIdLand');
+        Route::put('/admin/konsumen/update-user/{id}', [AdminController::class, 'updateUserIdKonsumen'])->name('admin.updateUserIdKonsumen');
+        Route::put('/admin/penawaran/update-user/{id}', [AdminController::class, 'updateUserIdPenawaran'])->name('admin.updateUserIdPenawaran');
+        Route::put('/admin/survey/update-user/{id}', [AdminController::class, 'updateUserIdSurvey'])->name('admin.updateUserIdSurvey');
     });
 
 });

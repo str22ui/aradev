@@ -11,7 +11,12 @@
 		<form method="post" action="{{ route('admin.storeSurvey') }}" enctype="multipart/form-data">
         @csrf
             {{-- Title --}}
-
+            <div class="mb-3" hidden>
+                <input type="hidden" value="0" name="views">
+                <label for="user_id" class="form-label">User</label>
+                <input type="text" value="{{Auth::check()?Auth::user()->id:""}}" name="user_id" id="user_id"  class="form-control">
+            </div>
+            
             <div class="mb-3">
                 <label for="nama_konsumen" class="form-label">Nama Konsumen</label>
                 <input type="text" class="form-control" id="nama_konsumen" name="nama_konsumen">

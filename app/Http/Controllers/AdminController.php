@@ -490,11 +490,22 @@ class AdminController extends Controller
 
      public function indexSecondary()
      {
-         $secondary = Secondary::with('imagesSecondary')->get(); // Eager loading relasi
          $user = Auth::user();
+        if($user->role === 'salesAdmin'){
+               $secondary = Secondary::with('imagesSecondary','user')
+               ->where('user_id', $user->id)
+               ->get();
+        }else{
+
+            $secondary = Secondary::with('imagesSecondary','user')->get(); // Eager loading relasi
+        }
+
+         $users = User::all();
+
          return view('admin.secondary.index', [
              'secondary' => $secondary,
-             // 'user' => $user,
+             'user' => $user,
+             'users' => $users,
          ]);
      }
 
@@ -548,6 +559,7 @@ class AdminController extends Controller
             'kecamatan' => 'required',
             'kota' => 'required',
             'deskripsi' => 'required',
+            'user_id' => 'required',
             'video' => ['nullable', 'url', function ($attribute, $value, $fail) {
                 if (!str_contains($value, 'youtube.com') && !str_contains($value, 'youtu.be')) {
                     $fail('URL video harus berasal dari YouTube.');
@@ -678,6 +690,7 @@ class AdminController extends Controller
              'kecamatan' => 'required',
              'kota' => 'required',
              'deskripsi' => 'required',
+             'user_id' => 'required',
              'video' => ['nullable', 'url', function ($attribute, $value, $fail) {
                 if (!str_contains($value, 'youtube.com') && !str_contains($value, 'youtu.be')) {
                     $fail('URL video harus berasal dari YouTube.');
@@ -715,6 +728,7 @@ class AdminController extends Controller
              'kecamatan' => $request->kecamatan,
              'kota' => $request->kota,
              'deskripsi' => $request->deskripsi,
+             'user_id' => $request->user_id,
              'video' => $request->video,
          ]);
 
@@ -771,20 +785,44 @@ class AdminController extends Controller
          return redirect('/secondary-home')->with('success', 'Berhasil Menghapus Perumahan');
      }
 
+     public function updateUserIdSecondary(Request $request, $id)
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $secondary = Secondary::findOrFail($id);
+        $secondary->user_id = $request->user_id;
+        $secondary->save();
+
+        return redirect()->back()->with('success', 'User berhasil diperbarui');
+    }
+
     // ============ END SECONDARY ================
 
      // ============ LAND ================
 
      public function indexLand()
      {
-        //  $land = Land::all();
-        $land = Land::with('imagesLand')->get();
          $user = Auth::user();
-         return view('admin.land.index', [
+
+         if($user->role === 'salesAdmin'){
+               $land = Land::with('imagesLand','user')
+               ->where('user_id', $user->id)
+               ->get();
+        }else{
+             $land = Land::with('imagesLand','user')->get();
+        }
+        $users = User::all();
+
+        return view('admin.land.index', [
              'land' => $land,
-             // 'user' => $user,
+             'user' => $user,
+             'users' => $users,
          ]);
      }
+
+
 
      public function imagesLand()
      {
@@ -818,6 +856,7 @@ class AdminController extends Controller
              'kecamatan' => 'required',
              'kota' => 'required',
              'deskripsi' => 'required',
+             'user_id' => 'required',
              'video' => ['nullable', 'url', function ($attribute, $value, $fail) {
                 if (!str_contains($value, 'youtube.com') && !str_contains($value, 'youtu.be')) {
                     $fail('URL video harus berasal dari YouTube.');
@@ -916,6 +955,7 @@ class AdminController extends Controller
              'kecamatan' => 'required',
              'kota' => 'required',
              'deskripsi' => 'required',
+             'user_id' => 'required',
              'video' => ['nullable', 'url', function ($attribute, $value, $fail) {
                 if (!str_contains($value, 'youtube.com') && !str_contains($value, 'youtu.be')) {
                     $fail('URL video harus berasal dari YouTube.');
@@ -994,6 +1034,19 @@ class AdminController extends Controller
          return redirect('/land-home')->with('success', 'Berhasil Menghapus Data Tanah');
      }
 
+    public function updateUserIdLand(Request $request, $id)
+        {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+            ]);
+
+            $land = Land::findOrFail($id);
+            $land->user_id = $request->user_id;
+            $land->save();
+
+            return redirect()->back()->with('success', 'User berhasil diperbarui');
+        }
+
     // ============ END LAND ================
 
     // ============ RUMAH ================
@@ -1009,13 +1062,19 @@ class AdminController extends Controller
     if ($request->has('perumahan_id') && $request->perumahan_id != '') {
         $query->where('perumahan_id', $request->perumahan_id);
     }
+    $rumah = $query->get()->sortBy(function ($item) {
+        $kav = $item->no_kavling;
 
-    $rumah = $query->get();
+        // Jika hanya angka, urutkan secara numerik
+        if (is_numeric($kav)) {
+            return [0, intval($kav)];
+        }
 
-    return view('admin.rumah.index', [
-        'rumah' => $rumah,
-        'listPerumahan' => $listPerumahan,
-    ]);
+        // Jika campuran (bukan hanya angka), taruh setelah angka dan urutkan secara alfabetis
+        return [1, strtolower($kav)];
+    })->values(); // reset indeks collection
+
+    return view('admin.rumah.index', compact('rumah', 'listPerumahan'));
 }
 
      public function createRumah(){
@@ -1096,17 +1155,28 @@ class AdminController extends Controller
 
 
     // ============ END RUMAH ================
+
     // ============ KONSUMEN ================
     public function indexKonsumen()
     {
-        $konsumen = Konsumen::with('agent')->get();
-        // $konsumen = Konsumen::all();
         $user = Auth::user();
+
+        // Jika role-nya salesAdmin, hanya tampilkan data konsumen yang sesuai user_id
+        if ($user->role === 'salesAdmin') {
+            $konsumen = Konsumen::with('agent')
+                ->where('user_id', $user->id)
+                ->get();
+        } else {
+            // Jika admin atau role lainnya, tampilkan semua
+            $konsumen = Konsumen::with('agent')->get();
+        }
+         $users = User::all();
         return view('admin.konsumen.index', [
             'konsumen' => $konsumen,
-            // 'user' => $user,
+            'users' => $users,
         ]);
     }
+
 
     public function createKonsumen(){
         $perumahan= Perumahan::all();
@@ -1129,6 +1199,7 @@ class AdminController extends Controller
             'sumber_informasi' => 'required|not_in:-- Pilih --',
             'agent_id' => 'nullable|exists:agents,id',
             'reseller_id' => 'nullable|exists:resellers,id',
+            'user_id' => 'nullable',
         ]);
 
         // Pastikan nilai 'agent_id' dan 'reseller_id' menjadi null jika tidak dipilih
@@ -1198,6 +1269,7 @@ class AdminController extends Controller
         $konsumen->sumber_informasi = $request->input('sumber_informasi');
         $konsumen->agent_id = $request->input('agent_id');
         $konsumen->reseller_id = $request->input('reseller_id');
+        $konsumen->user_id = $request->input('user_id');
 
         // Save the changes to the database
         $konsumen->save();
@@ -1205,19 +1277,40 @@ class AdminController extends Controller
         // Redirect back or to any other page
         return redirect('/konsumen');
     }
+
+    public function updateUserIdKonsumen(Request $request, $id)
+        {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+            ]);
+
+            $konsumen = Konsumen::findOrFail($id);
+            $konsumen->user_id = $request->user_id;
+            $konsumen->save();
+
+            return redirect()->back()->with('success', 'User berhasil diperbarui');
+        }
     // ============ END KONSUMEN ================
 
     // ============ SURVEY ================
-      public function indexSurvey()
-      {
-          $survey = Survey::with('agent')->get();
-          // $konsumen = Konsumen::all();
-          $user = Auth::user();
-          return view('admin.survey.index', [
-              'survey' => $survey,
-              // 'user' => $user,
-          ]);
-      }
+     public function indexSurvey()
+    {
+        $user = Auth::user();
+
+        if ($user->role === 'salesAdmin') {
+            $survey = Survey::with('agent')
+                ->where('user_id', $user->id)
+                ->get();
+        } else {
+            $survey = Survey::with('agent')->get();
+        }
+
+        $users = User::all();
+        return view('admin.survey.index', [
+            'survey' => $survey,
+            'users' => $users,
+        ]);
+    }
 
       public function createSurvey(){
         $perumahan= Perumahan::all();
@@ -1242,6 +1335,7 @@ class AdminController extends Controller
             'sumber_informasi' => 'required',
             'agent_id' => 'nullable',
             'reseller_id' => 'nullable',
+            'user_id' => 'nullable',
         ]);
 
         // Jika agent_id adalah 'pilih', set ke null
@@ -1327,6 +1421,7 @@ class AdminController extends Controller
           $survey->sumber_informasi = $request->input('sumber_informasi');
           $survey->agent_id = $request->input('agent_id');
           $survey->reseller_id = $request->input('reseller_id');
+          $survey->user_id = $request->input('user_id');
 
           // Save the changes to the database
           $survey->save();
@@ -1334,16 +1429,40 @@ class AdminController extends Controller
           // Redirect back or to any other page
           return redirect('/survey');
       }
+
+    public function updateUserIdSurvey(Request $request, $id)
+        {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+            ]);
+
+            $survey = Survey::findOrFail($id);
+            $survey->user_id = $request->user_id;
+            $survey->save();
+
+            return redirect()->back()->with('success', 'User berhasil diperbarui');
+        }
+
+
       // ============ END SURVEY ================
 
     // ============ PENAWARAN ================
-    public function indexPenawaran()
+   public function indexPenawaran()
     {
-        $penawaran = Penawaran::with(['agent', 'perumahan', 'rumah'])->get();
-        // $konsumen = Konsumen::all();
         $user = Auth::user();
-        return view('admin.penawaran.index', compact('penawaran'));
+
+        if ($user->role === 'salesAdmin') {
+            $penawaran = Penawaran::with(['agent', 'perumahan', 'rumah'])
+                ->where('user_id', $user->id)
+                ->get();
+        } else {
+            $penawaran = Penawaran::with(['agent', 'perumahan', 'rumah'])->get();
+        }
+
+        $users = User::all();
+        return view('admin.penawaran.index', compact('penawaran','users'));
     }
+
 
     public function createPenawaran(){
         $perumahan= Perumahan::all();
@@ -1363,6 +1482,7 @@ class AdminController extends Controller
                 'perumahan' => 'required',
                 'sumber_informasi' => 'required',
                 'agent_id' => 'nullable',
+                'user_id' => 'nullable',
             ]);
 
            // Jika agent_id adalah 'pilih', set ke null
@@ -1429,6 +1549,7 @@ class AdminController extends Controller
         $penawaran->sumber_informasi = $request->input('sumber_informasi');
         $penawaran->agent_id = $request->input('agent_id');
         $penawaran->reseller_id = $request->input('reseller_id');
+        $penawaran->user_id = $request->input('user_id');
         // $penawaran->perumahan = $request->input('perumahan');
 
         // Save the changes to the database
@@ -1449,6 +1570,19 @@ class AdminController extends Controller
         // Redirect kembali dengan pesan sukses
         return redirect('/penawaran')->with('success', 'Berhasil Menghapus Konsumen');
     }
+
+    public function updateUserIdPenawaran(Request $request, $id)
+        {
+            $request->validate([
+                'user_id' => 'required|exists:users,id',
+            ]);
+
+            $penawaran = Penawaran::findOrFail($id);
+            $penawaran->user_id = $request->user_id;
+            $penawaran->save();
+
+            return redirect()->back()->with('success', 'User berhasil diperbarui');
+        }
     // ============ END KONSUMEN ================
 
 

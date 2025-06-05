@@ -11,6 +11,12 @@
 		<form method="post" action="{{ route('admin.storeLand') }}" enctype="multipart/form-data">
         @csrf
             {{-- Title --}}
+              {{-- Title --}}
+            <div class="mb-3" hidden>
+                <input type="hidden" value="0" name="views">
+                <label for="user_id" class="form-label">User</label>
+                <input type="text" value="{{Auth::check()?Auth::user()->id:""}}" name="user_id" id="user_id"  class="form-control">
+            </div>
 
             <div class="mb-3">
                 <label for="img" class="form-label">Gambar Tanah (.jpg, .png, .jpeg)</label>

@@ -13,7 +13,11 @@
             @method('PUT')
             {{-- Title --}}
 
-
+            <div class="mb-3"  >
+                <input type="hidden" value="0" name="views">
+                <label for="user_id" class="form-label">User</label>
+                <input type="text" value="{{$land->user_id}}" name="user_id" id="user_id"  class="form-control">
+            </div>
             <div class="mb-3">
                 <label for="img" class="form-label">Gambar land (.jpg, .png, .jpeg)</label>
                 <input type="file" class="form-control" id="img" name="images[]" multiple accept="image/*">

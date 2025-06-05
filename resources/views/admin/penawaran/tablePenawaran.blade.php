@@ -10,6 +10,9 @@
             <th class="col-md-2">Income</th>
             <th class="col-md-2">DP</th>
             <th class="col-md-2">Tanggal</th>
+             @if (auth()->user()->role !== 'salesAdmin')
+                    <th class="col-md-2">User</th>
+            @endif
             <th class="col-md-2">Action</th>
 
 
@@ -29,6 +32,24 @@
                 <td>{{ $p->income }}</td>
                 <td>{{ $p->dp }}</td>
                 <td>{{ $p->created_at->format('d/m/y') }}</td>
+                 @if (auth()->user()->role !== 'salesAdmin')
+                        <td>
+                            <div class="d-flex flex-column">
+                                <strong class="mb-1">{{ $p->user ? $p->user->name : '-' }}</strong>
+                                <form action="{{ route('admin.updateUserIdPenawaran', ['id' => $p->id]) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <select name="user_id" onchange="this.form.submit()" class="form-select form-select-sm">
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}" {{ $p->user_id == $user->id ? 'selected' : '' }}>
+                                                {{ $user->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
+                            </div>
+                        </td>
+                        @endif
                 <td>
                         <a href="{{ route('admin.editPenawaran', ['id' => $p->id]) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square"></i>

@@ -23,7 +23,8 @@ class Survey extends Model
         'waktu_janjian',
         'sumber_informasi',
         'agent_id',
-        'reseller_id'
+        'reseller_id',
+        'user_id'
     ];
 
     /**
@@ -46,5 +47,9 @@ class Survey extends Model
     {
         return $this->belongsTo(Perumahan::class);
     }
-    
+
+      public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
