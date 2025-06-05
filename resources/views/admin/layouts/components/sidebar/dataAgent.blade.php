@@ -22,5 +22,13 @@
             <span>Reseller</span>
         </a>
     </li>
+    @if (auth()->user()->role === 'admin')
+    <li class="sidebar-item {{ Request::is('admin/sales*') || Request::is('admin/createSales*') || Request::is('admin/editSales*') || Request::is('admin/showSales*') ? 'active' : '' }}">
+        <a href="{{ route('admin.sales') }}" class='sidebar-link'>
+      <i class="bi bi-person-walking"></i>
+            <span>Sales</span>
+        </a>
+    </li>
+    @endif
 </ul>
 {{-- @endif --}}

@@ -53,7 +53,7 @@
                     <a href="{{ route('admin.editAgent', ['id' => $a->id]) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    @if (auth()->user()->role !== 'salesAdmin')
+                    @if (auth()->user()->role === 'admin')
                     <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteAgent') }}" method="POST">
                         @csrf
                         @method('DELETE')

@@ -7,6 +7,7 @@ use App\Models\Article;
 use Carbon\Carbon;
 use App\Models\Ebook;
 use App\Models\Employee;
+use App\Models\User;
 use App\Models\Perumahan;
 use App\Models\Secondary;
 use App\Models\Land;
@@ -491,9 +492,10 @@ class LandingController extends Controller
         // $agents = Agent::all();
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
         $reseller = Reseller::all();
+        $sales = User::where('role', 'sales')->get();
         $allService = Service::all();
 
-        return view('client.page.form', compact('allPerumahan', 'selectedPerumahan', 'agents', 'reseller','allService'));
+        return view('client.page.form', compact('allPerumahan', 'selectedPerumahan', 'agents', 'reseller','allService','sales'));
     }
 
 
@@ -510,6 +512,7 @@ class LandingController extends Controller
         'sumber_informasi' => 'required',
         'agent_id' => 'nullable',
         'reseller_id' => 'nullable',
+        'user_id' => 'nullable',
     ]);
 
         $perumahan = Perumahan::findOrFail($id);
@@ -539,6 +542,7 @@ class LandingController extends Controller
         // Filter agents berdasarkan perumahan_id (dengan JSON)
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
         $reseller = Reseller::all();
+        $sales = User::where('role', 'sales')->get();
         $allService = Service::all();
 
         // Ambil data rumah berdasarkan perumahan_id
@@ -548,7 +552,7 @@ class LandingController extends Controller
         $selectedPerumahan = Perumahan::findOrFail($id);
 
         // Kembalikan data ke view
-        return view('client.page.formPenawaran', compact('allPerumahan', 'agents', 'rumah', 'selectedPerumahan', 'reseller', 'kotasSecondary','allService'));
+        return view('client.page.formPenawaran', compact('allPerumahan', 'agents', 'rumah', 'selectedPerumahan', 'reseller', 'kotasSecondary','allService','sales'));
     }
 
     public function storePenawaranKonsumen(Request $request)
@@ -569,6 +573,7 @@ class LandingController extends Controller
             'dp' => 'required',
             'harga_pengajuan' => 'required',
             'rumah_id' => 'required',
+            'user_id' => 'required',
         ]);
 
         try {
@@ -638,9 +643,10 @@ class LandingController extends Controller
         // $agents = Agent::all();
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
         $reseller = Reseller::all();
+        $sales = User::where('role', 'sales')->get();
         $allService = Service::all();
 
-        return view('client.page.formSurvey', compact('allPerumahan', 'selectedPerumahan', 'agents','reseller','allService'));
+        return view('client.page.formSurvey', compact('allPerumahan', 'selectedPerumahan', 'agents','reseller','allService','sales'));
     }
 
 
@@ -659,6 +665,7 @@ class LandingController extends Controller
             'sumber_informasi' => 'required',
             'agent_id' => 'nullable',
             'reseller_id' => 'nullable',
+            'user_id' => 'nullable',
         ]);
 
         // Jika agent_id adalah 'pilih', set ke null
@@ -714,10 +721,12 @@ class LandingController extends Controller
 
     public function download($id)
     {
+        $allService = Service::all();
         $allPerumahan = Perumahan::all();
         return view('client.page.downloadForm', [
             'perumahan' => Perumahan::findOrFail($id),
-            'allPerumahan' => $allPerumahan
+            'allPerumahan' => $allPerumahan,
+            'allService' => $allService
         ]);
     }
 

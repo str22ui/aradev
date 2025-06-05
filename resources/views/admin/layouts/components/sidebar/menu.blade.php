@@ -10,7 +10,7 @@
 </li>
 
 {{-- User --}}
-@if (auth()->user()->role !== 'salesAdmin')
+@if (auth()->user()->role === 'admin')
 <li class="sidebar-item {{ Request::is('admin/user*') || Request::is('admin/createUser*') || Request::is('admin/editUser*') || Request::is('admin/showUser*') ? 'active' : '' }}">
     <a href="{{ route('admin.user') }}" class='sidebar-link'>
         <i class="bi bi-person-circle"></i>
@@ -22,7 +22,7 @@
 @include('admin.layouts.components.sidebar.masterRumah')
 @include('admin.layouts.components.sidebar.dataKonsumen')
 
-@if (auth()->user()->role !== 'salesAdmin')
+@if (auth()->user()->role !== 'sales')
 @include('admin.layouts.components.sidebar.dataAgent')
 @endif
 
@@ -35,7 +35,7 @@
     </a>
 </li>
 
-@if (auth()->user()->role !== 'salesAdmin')
+@if (auth()->user()->role !== 'sales')
 @include('admin.layouts.components.sidebar.dataLainnya')
 @endif
 {{-- Logout --}}

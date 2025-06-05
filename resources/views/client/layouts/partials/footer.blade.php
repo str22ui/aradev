@@ -143,9 +143,12 @@
     var dropdownInput = document.getElementById('sumber_informasi');
     var agentDiv = document.querySelector('.agent');
     var resellerDiv = document.querySelector('.reseller');
+    var salesDiv = document.querySelector('.sales');
 
     // Menyembunyikan form agent secara default
     agentDiv.style.display = 'none';
+    resellerDiv.style.display = 'none';
+    salesDiv.style.display = 'none';
 
 
     // Event listener untuk dropdown
@@ -163,6 +166,14 @@
             resellerDiv .style.display = 'flex'; // Tampilkan form agent
         } else {
             resellerDiv .style.display = 'none'; // Sembunyikan form agent
+        }
+    });
+
+    dropdownInput.addEventListener('change', function() {
+        if (dropdownInput.value === 'Sales') {
+            salesDiv .style.display = 'flex'; // Tampilkan form agent
+        } else {
+            salesDiv .style.display = 'none'; // Sembunyikan form agent
         }
     });
 

@@ -8,7 +8,7 @@
 
 		<!-- Table untuk memanggil data dari database -->
         @include('sweetalert::alert')
-		<form method="post" action="{{ route('admin.storeSurvey') }}" enctype="multipart/form-data">
+		<form method="post" action="{{ route('admin.storeSurvey') }}">
         @csrf
             {{-- Title --}}
             <div class="mb-3" hidden>
@@ -16,26 +16,28 @@
                 <label for="user_id" class="form-label">User</label>
                 <input type="text" value="{{Auth::check()?Auth::user()->id:""}}" name="user_id" id="user_id"  class="form-control">
             </div>
-            
+
             <div class="mb-3">
                 <label for="nama_konsumen" class="form-label">Nama Konsumen</label>
-                <input type="text" class="form-control" id="nama_konsumen" name="nama_konsumen">
+                <input type="text" class="form-control" id="nama_konsumen" name="nama_konsumen" value="{{ old('nama_konsumen') }}">
             </div>
             <div class="mb-3">
                 <label for="no_hp" class="form-label">Nomor Handphone (Cont : 0812xxxxx)</label>
                 <input type="number" class="form-control" id="no_hp" name="no_hp"
                        pattern="08[0-9]{8,}"
                        title="Nomor harus diawali dengan 08 dan hanya terdiri dari angka"
-                       oninput="validatePhoneNumber()">
+                       oninput="validatePhoneNumber()"
+                       value="{{ old('no_hp') }}"
+                       >
                 <small id="phoneHelp" class="form-text text-danger" style="display: none;">Nomor telepon harus diawali dengan 08 dan hanya terdiri dari angka.</small>
             </div>
             <div class="mb-3">
-                <label for="domisili" class="form-label">domisili</label>
-                <input type="text" class="form-control" id="domisili" name="domisili">
+                <label for="domisili" class="form-label">Domisili</label>
+                <input type="text" class="form-control" id="domisili" name="domisili" value="{{ old('domisili') }}">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" name="email">
+                <input type="text" class="form-control" id="email" name="email" value="{{ old('email') }}">
             </div>
             <div class="mb-3">
                 <label for="tanggal_janjian" class="form-label">Tanggal Survey</label>
@@ -49,11 +51,11 @@
 
             <div class="mb-3">
                 <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                <input type="text" class="form-control" id="pekerjaan" name="pekerjaan">
+                <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" value="{{ old('pekerjaan') }}">
             </div>
             <div class="mb-3">
                 <label for="nama_kantor" class="form-label">Nama Kantor</label>
-                <input type="text" class="form-control" id="nama_kantor" name="nama_kantor">
+                <input type="text" class="form-control" id="nama_kantor" name="nama_kantor" value="{{ old('nama_kantor') }}">
             </div>
 
             <div class="mb-3">
@@ -75,11 +77,11 @@
                     id="sumber_informasi" name="sumber_informasi">
                     <option selected disabled>-- Pilih --</option>
 
-                    <option name="sumber_informasi" value="Instagram Linear">Instagram MMI</option>
+                    <option name="sumber_informasi" value="Instagram Aradev">Instagram Aradev</option>
                     <option name="sumber_informasi" value="Tiktok">Tiktok</option>
                     <option name="sumber_informasi" value="Brosur">Brosur</option>
                     <option name="sumber_informasi" value="Spanduk">Spanduk</option>
-                    <option name="sumber_informasi" value="Youtube Linear">Youtube Linear</option>
+                    <option name="sumber_informasi" value="Youtube Aradev">Youtube Aradev</option>
                     <option name="sumber_informasi" value="Instagram Perumahan">Instagram Perumahan</option>
                     <option name="sumber_informasi" value="Walk In">Walk In Customer</option>
                     <option name="sumber_informasi" value="agent">Agent</option>
@@ -92,10 +94,11 @@
             <div class="agent flex w-full gap-4 mb-4">
                 <div class="w-full">
                     <label for="agent_id" class="form-label block mb-2 text-sm font-medium">Nama Agent</label>
-                    <select id="agent_id" name="agent_id"
-                        class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"">
-                        <option value="pilih">-- Pilih --</option>
-                        @foreach ($agent as $item) <option value="{{ $item->id }}">{{ $item->nama }} - {{ $item->kantor }}</option> @endforeach
+                   <select name="agent_id" class="form-select">
+                        <option value="">Pilih Agent</option>
+                        @foreach ($agent as $agent)
+                            <option value="{{ $agent->id }}">{{ $agent->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -103,15 +106,36 @@
             <div class="reseller flex w-full gap-4 mb-4">
                 <div class="w-full">
                     <label for="reseller_id" class="form-label block mb-2 text-sm font-medium">Nama Reseller</label>
-                    <select id="reseller_id" name="reseller_id"
-                        class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"">
-                        <option value="pilih">-- Pilih --</option>
-                        @foreach ($reseller as $r) <option value="{{ $r->id }}">{{ $r->nama }}</option> @endforeach
-                    </select>
+                   <select name="reseller_id" class="form-select">
+                    <option value="">Pilih Reseller</option>
+                    @foreach ($reseller as $reseller)
+                        <option value="{{ $reseller->id }}">{{ $reseller->nama }}</option>
+                    @endforeach
+                </select>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">Create</button>
+            {{-- <div class="sales flex w-full gap-4 mb-4">
+                <div class="w-full">
+                    <label for="user_id" class="form-label block mb-2 text-sm font-medium">Nama Sales</label>
+                    <select id="user_id" name="user_id"
+                        class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"">
+                        <option value="pilih">-- Pilih --</option>
+                        @foreach ($sales as $s) <option value="{{ $s->id }}">{{ $s->name }}</option> @endforeach
+                    </select>
+                </div>
+            </div> --}}
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+                    <button type="submit" class="btn btn-primary">Create</button>
             <a class="btn btn-danger" href="{{ route('admin.konsumen') }}">Back</a>
         </form>
 
@@ -129,8 +153,10 @@
     var selectInput2 = document.getElementById('sumber_informasi');
     var agentDiv2 = document.querySelector('.agent');
     var resellerDiv2 = document.querySelector('.reseller');
+    // var salesDiv2 = document.querySelector('.sales');
     agentDiv2.style.display = 'none'; // Default tidak ditampilkan
     resellerDiv2.style.display = 'none'; // Default tidak ditampilkan
+    // salesDiv2.style.display = 'none'; // Default tidak ditampilkan
 
     selectInput2.addEventListener('change', function() {
         if (this.value === 'agent') {
@@ -149,6 +175,13 @@
         }
     });
 
+    //  selectInput2.addEventListener('change', function() {
+    //     if (this.value === 'Sales') {
+    //         salesDiv2.style.display = 'block';
+    //     } else {
+    //         salesDiv2.style.display = 'none';
+    //     }
+    // });
     document.getElementById('sumber_informasi').addEventListener('change', function() {
         var kantorInput = document.getElementById('kantor');
         if (this.value === 'perorangan') {

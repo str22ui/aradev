@@ -12,7 +12,7 @@
             @csrf
             @method('PUT')
             {{-- Title --}}
-            <div class="mb-3" >
+            <div class="mb-3" hidden>
                 <input type="hidden" value="0" name="views">
                 <label for="user_id" class="form-label">User</label>
                 <input type="text" value="{{$secondary->user_id}}" name="user_id" id="user_id"  class="form-control">

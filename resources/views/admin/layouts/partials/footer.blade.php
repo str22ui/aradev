@@ -147,54 +147,34 @@
             monthYearDropdown.style.display = 'none';
         }
     }
-//     function removeImage(button, imagePath) {
-//     if (confirm('Yakin ingin menghapus gambar ini?')) {
-//         fetch('/admin/perumahan/remove-image', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-//             },
-//             body: JSON.stringify({ image: imagePath })
-//         })
-//         .then(response => response.json())
-//         .then(data => {
-//             if (data.success) {
-//                 button.parentElement.remove();
-//             } else {
-//                 alert('Gagal menghapus gambar!');
-//             }
-//         })
-//         .catch(error => console.error('Error:', error));
-//     }
+//
+
+// fetch('/admin/perumahan/remove-image', {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json',
+//         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+//     },
+//     body: JSON.stringify({ image: imagePath }),
+// })
+//     .then(response => {
+//         console.log('HTTP Response:', response); // Periksa status HTTP
+//         return response.json();
+//     })
+//     .then(data => {
+//         console.log('Response Data:', data); // Log respon JSON dari server
+//         if (data.success) {
+//             button.parentElement.remove(); // Hapus dari tampilan
+//         } else {
+//             alert(data.message || 'Gagal menghapus gambar!');
+//         }
+//     })
+//     .catch(error => console.error('Error:', error));
+
+
+//     function removeInput(button) {
+//     button.parentElement.remove(); // Menghapus elemen induk (input + tombol)
 // }
-
-fetch('/admin/perumahan/remove-image', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    },
-    body: JSON.stringify({ image: imagePath }),
-})
-    .then(response => {
-        console.log('HTTP Response:', response); // Periksa status HTTP
-        return response.json();
-    })
-    .then(data => {
-        console.log('Response Data:', data); // Log respon JSON dari server
-        if (data.success) {
-            button.parentElement.remove(); // Hapus dari tampilan
-        } else {
-            alert(data.message || 'Gagal menghapus gambar!');
-        }
-    })
-    .catch(error => console.error('Error:', error));
-
-
-    function removeInput(button) {
-    button.parentElement.remove(); // Menghapus elemen induk (input + tombol)
-}
 // function formatHarga(input) {
 //     // Menghapus semua karakter yang bukan angka
 //     let value = input.value.replace(/\D/g, '');

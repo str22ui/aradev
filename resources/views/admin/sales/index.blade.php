@@ -1,4 +1,4 @@
-@extends('admin.layouts.index', ['title' => 'Data User', 'page_heading' => 'Data User'])
+@extends('admin.layouts.index', ['title' => 'Data Sales', 'page_heading' => 'Data Sales'])
 
 
 @section('content')
@@ -30,15 +30,15 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($user as $u)
+                @foreach ($sales as $s)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $u->name }}</td>
-                        <td>{{ $u->email }}</td>
-                        <td>{{ $u->role }}</td>
+                        <td>{{ $s->name }}</td>
+                        <td>{{ $s->email }}</td>
+                        <td>{{ $s->role }}</td>
                          <td>
                             @php
-                                $perumahanIds = json_decode($u->perumahan_id, true); // Decode JSON
+                                $perumahanIds = json_decode($s->perumahan_id, true); // Decode JSON
                                 $perumahans = $perumahan; // Pastikan $perumahan berisi koleksi data perumahan
                             @endphp
 
@@ -58,14 +58,14 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('admin.editUser', ['id' => $u->id]) }}" class="btn btn-warning btn-sm">
+                            <a href="{{ route('admin.editSales', ['id' => $s->id]) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             @if (auth()->user()->role !== 'salesAdmin')
-                            <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteUser') }}" method="POST">
+                            <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteSales') }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="id" value="{{ $u->id }}">
+                                <input type="hidden" name="id" value="{{ $s->id }}">
                                 <button type="submit" class="btn btn-danger btn-sm">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>

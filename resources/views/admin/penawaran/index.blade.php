@@ -14,7 +14,7 @@
         </div>
     @endif
     {{-- @if(auth()->user()->role === 'admin'|| Auth::user()->role == 'salesAdmin' || Auth::user()->role == 'sales') --}}
-    <a href="#">
+    <a href="{{ route('admin.createPenawaran') }}">
         <button type="submit" class="btn btn-primary mr-2 mb-2">+Insert Data</button>
     </a>
     {{-- @endif --}}

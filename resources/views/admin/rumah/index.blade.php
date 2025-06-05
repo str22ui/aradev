@@ -10,11 +10,11 @@
 
 
         <div class="d-flex justify-content-between align-items-center">
-             @if (auth()->user()->role !== 'salesAdmin')
+
             <a href="{{ route('admin.createRumah') }}" class="btn btn-success me-2 py-2">
                 + Insert Data
             </a>
-            @endif
+        
             <form action="{{ route('admin.rumah') }}" method="GET" class="d-flex align-items-center gap-3">
                 <select name="perumahan_id" class="form-select w-auto">
                     <option value="">All Perumahan</option>

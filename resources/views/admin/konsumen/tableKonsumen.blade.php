@@ -9,7 +9,7 @@
             <th class="col-md-1">Agent</th>
             <th class="col-md-1">Reseller</th>
             <th class="col-md-2">Tanggal</th>
-             @if (auth()->user()->role !== 'salesAdmin')
+             @if (auth()->user()->role === 'admin')
                     <th class="col-md-2">User</th>
             @endif
             <th class="col-md-2">Action</th>
@@ -25,7 +25,7 @@
                     <td>{{ $k->nama_konsumen }}</td>
                     <td>{{ $k->perumahan }}</td>
                     <td>
-                @if (auth()->user()->role === 'salesAdmin')
+                @if (auth()->user()->role === 'sales')
                     {{ strlen($k->no_hp) >= 3 ? substr($k->no_hp, 0, -3) . 'xxx' : 'xxx' }}
                 @else
                     {{ $k->no_hp }}
@@ -36,7 +36,7 @@
                     <td>{{ $k->agent->nama ?? 'No Data'}}</td>
                     <td>{{ $k->reseller->nama ?? 'No Data'}}</td>
                     <td>{{ $k->created_at->format('d/m/y') }}</td>
-                      @if (auth()->user()->role !== 'salesAdmin')
+                      @if (auth()->user()->role === 'admin')
                         <td>
                             <div class="d-flex flex-column">
                                 <strong class="mb-1">{{ $k->user ? $k->user->name : '-' }}</strong>
@@ -61,7 +61,7 @@
                         <a href="{{ route('admin.editKonsumen', ['id' => $k->id]) }}" class="btn btn-warning btn-sm">
                             <i class="bi bi-pencil-square"></i>
                         </a>
-                        @if (auth()->user()->role !== 'salesAdmin')
+                        @if (auth()->user()->role === 'admin')
                         <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteKonsumen') }}" method="POST">
                             @csrf
                             @method('DELETE')

@@ -26,7 +26,7 @@
                     <th class="col-md-2">Harga</th>
                     <th class="col-md-2 ">Lokasi</th>
                     <th class="col-md-2">Kota</th>
-                    @if (auth()->user()->role !== 'salesAdmin')
+                    @if (auth()->user()->role === 'admin')
                     <th class="col-md-2">User</th>
                     @endif
                     <th class="col-md-3">Action</th>
@@ -54,7 +54,7 @@
                         <td>{{ $l->harga }}</td>
                         <td>{{ $l->lokasi }}</td>
                         <td>{{ $l->kota }}</td>
-                        @if (auth()->user()->role !== 'salesAdmin')
+                        @if (auth()->user()->role === 'admin')
                         <td>
                             <div class="d-flex flex-column">
                                 <strong class="mb-1">{{ $l->user ? $l->user->name : '-' }}</strong>
@@ -77,7 +77,7 @@
                             <a href="{{ route('admin.editLand', ['id' => $l->id]) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            @if (auth()->user()->role !== 'salesAdmin')
+                            @if (auth()->user()->role === 'admin')
                             <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteLand') }}" method="POST">
                                 @csrf
                                 @method('DELETE')

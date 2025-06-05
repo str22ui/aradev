@@ -9,7 +9,7 @@
             <th class="col-md-1">Survey</th>
             <th class="col-md-1">Jam</th>
             <th class="col-md-1">Tanggal</th>
-             @if (auth()->user()->role !== 'salesAdmin')
+             @if (auth()->user()->role === 'admin')
                     <th class="col-md-2">User</th>
             @endif
             <th class="col-md-2">Action</th>
@@ -24,7 +24,7 @@
             <td>{{ $s->nama_konsumen }}</td>
             <td>{{ $s->perumahan }}</td>
            <td>
-                @if (auth()->user()->role === 'salesAdmin')
+                @if (auth()->user()->role === 'sales')
                     {{ strlen($s->no_hp) >= 3 ? substr($s->no_hp, 0, -3) . 'xxx' : 'xxx' }}
                 @else
                     {{ $s->no_hp }}
@@ -36,7 +36,7 @@
             <td>{{ $s->tanggal_janjian }}</td>
             <td>{{ $s->waktu_janjian }}</td>
             <td>{{ $s->created_at->format('d/m/y') }}</td>
-             @if (auth()->user()->role !== 'salesAdmin')
+             @if (auth()->user()->role === 'admin')
                         <td>
                             <div class="d-flex flex-column">
                                 <strong class="mb-1">{{ $s->user ? $s->user->name : '-' }}</strong>
@@ -65,7 +65,7 @@
                     <i class="bi bi-file-earmark-pdf"></i>
                 </a>
 
-                @if (auth()->user()->role !== 'salesAdmin')
+                @if (auth()->user()->role === 'admin')
                 <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteSurvey') }}" method="POST">
                     @csrf
                     @method('DELETE')

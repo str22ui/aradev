@@ -70,11 +70,11 @@
                     id="sumber_informasi" name="sumber_informasi">
                     <option selected disabled>-- Pilih --</option>
 
-                    <option name="sumber_informasi" value="Instagram Linear">Instagram Aradev</option>
+                    <option name="sumber_informasi" value="Instagram Aradev">Instagram Aradev</option>
                     <option name="sumber_informasi" value="Tiktok">Tiktok</option>
                     <option name="sumber_informasi" value="Brosur">Brosur</option>
                     <option name="sumber_informasi" value="Spanduk">Spanduk</option>
-                    <option name="sumber_informasi" value="Youtube Linear">Youtube Linear</option>
+                    <option name="sumber_informasi" value="Youtube Aradev">Youtube Aradev</option>
                     <option name="sumber_informasi" value="Instagram Perumahan">Instagram Perumahan</option>
                     <option name="sumber_informasi" value="Walk In">Walk In Customer</option>
                     <option name="sumber_informasi" value="agent">Agent</option>

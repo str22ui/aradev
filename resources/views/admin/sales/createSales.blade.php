@@ -1,4 +1,4 @@
-@extends('admin.layouts.index', ['title' => 'Tambah User', 'page_heading' => 'Tambah User'])
+@extends('admin.layouts.index', ['title' => 'Tambah Sales', 'page_heading' => 'Tambah Sales'])
 
 @section('content')
 <section class="row">
@@ -8,7 +8,7 @@
 
 		<!-- Table untuk memanggil data dari database -->
         @include('sweetalert::alert')
-		<form method="post" action="{{ route('admin.storeUser') }}" enctype="multipart/form-data">
+		<form method="post" action="{{ route('admin.storeSales') }}" enctype="multipart/form-data">
         @csrf
             {{-- Title --}}
 
@@ -56,7 +56,7 @@
                <button type="button" onclick="addPerumahan()" class="btn btn-secondary my-3">Tambah Perumahan</button><br>
 
             <button type="submit" class="btn btn-primary">Create</button>
-            <a class="btn btn-danger" href="{{ route('admin.user') }}">Back</a>
+            <a class="btn btn-danger" href="{{ route('admin.sales') }}">Back</a>
         </form>
 
 		{{-- Menampilkan total pemasukan --}}
