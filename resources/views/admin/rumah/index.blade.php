@@ -10,11 +10,11 @@
 
 
         <div class="d-flex justify-content-between align-items-center">
-
+              @if (auth()->user()->role !== 'sales')
             <a href="{{ route('admin.createRumah') }}" class="btn btn-success me-2 py-2">
                 + Insert Data
             </a>
-        
+            @endif
             <form action="{{ route('admin.rumah') }}" method="GET" class="d-flex align-items-center gap-3">
                 <select name="perumahan_id" class="form-select w-auto">
                     <option value="">All Perumahan</option>
@@ -44,7 +44,9 @@
                     <th class="col-md-2">Harga</th>
                     <th class="col-md-2">Status</th>
                     <th class="col-md-2">Perumahan</th>
+                     @if (auth()->user()->role !== 'sales')
                     <th class="col-md-2">Action</th>
+                    @endif
 
                 </tr>
             </thead>
@@ -55,7 +57,11 @@
 
                         <td>{{ $r->no_kavling }}</td>
                         <td>{{ $r->luas_tanah}}/{{ $r->luas_bangunan }}</td>
-                        <td>{{ $r->posisi }}</td>
+                        <td class="fw-bold {{ $r->posisi == 'Hoek' ? 'bg-success text-white' : '' }}">
+                            {{ $r->posisi }}
+                        </td>
+
+
                         <td>Rp {{ $r->harga }}</td>
                         <td>{{ $r->status }}</td>
                         <td>{{ $r->perumahan->perumahan }}</td>
@@ -65,10 +71,12 @@
                             {{-- <a href='{{ route('admin.showTeacher', ['management' => $m->slug])  }}' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
                             {{-- <a href='#' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
                             {{-- <a href="{{ route('admin.editTeacher', ['management' => $m->slug]) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a> --}}
+                             @if (auth()->user()->role !== 'sales')
                             <a href="{{ route('admin.editRumah', ['id' => $r->id]) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            @if (auth()->user()->role !== 'salesAdmin')
+                            @endif
+                            @if (auth()->user()->role === 'admin')
                             <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteRumah') }}" method="POST">
                                 @csrf
                                 @method('DELETE')

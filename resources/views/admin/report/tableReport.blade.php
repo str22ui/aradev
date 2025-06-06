@@ -28,7 +28,7 @@
 
                     <td>{{ $r->konsumen->nama_konsumen }}</td>
                    <td>
-                        @if (auth()->user()->role === 'salesAdmin')
+                        @if (auth()->user()->role === 'sales')
                             {{ strlen($r->no_hp) >= 3 ? substr($r->no_hp, 0, -3) . 'xxx' : 'xxx' }}
                         @else
                             {{ $r->no_hp }}
