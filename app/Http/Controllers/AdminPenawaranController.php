@@ -67,12 +67,12 @@ class AdminPenawaranController extends Controller
     }
 
 
-    public function createPenawaran($id)
+    public function createPenawaran()
     {
         $perumahan= Perumahan::all();
         $agent = Agent::all();
-        $rumah = Rumah::where('perumahan_id', $id)->orderBy('no_kavling', 'asc')->get();
-        return view('admin.penawaran.createPenawaran', compact('perumahan','agent','rumah'));
+        // $rumah = Rumah::where('perumahan_id', $id)->orderBy('no_kavling', 'asc')->get();
+        return view('admin.penawaran.createPenawaran', compact('perumahan','agent'));
     }
 
     public function storePenawaran(Request $request)

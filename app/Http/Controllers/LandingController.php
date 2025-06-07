@@ -507,7 +507,7 @@ class LandingController extends Controller
         'no_hp' => 'required',
         'domisili' => 'required',
         'pekerjaan' => 'required',
-        'nama_kantor' => 'required',
+        'nama_kantor' => 'nullable',
         'perumahan' => 'required',
         'sumber_informasi' => 'required',
         'agent_id' => 'nullable',
@@ -559,11 +559,11 @@ class LandingController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => 'required',
-            'email' => 'nullable',
+            'email' => 'nullable|email',
             'no_hp' => 'required',
             'domisili' => 'required',
             'pekerjaan' => 'required',
-            'nama_kantor' => 'required',
+            'nama_kantor' => 'nullable',
             'sumber_informasi' => 'required',
             'perumahan_id' => 'required',
             'agent_id' => 'nullable',
@@ -573,7 +573,7 @@ class LandingController extends Controller
             'dp' => 'required',
             'harga_pengajuan' => 'required',
             'rumah_id' => 'required',
-            'user_id' => 'required',
+            'user_id' => 'nullable',
         ]);
 
         try {

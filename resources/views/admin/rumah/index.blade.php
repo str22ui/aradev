@@ -57,13 +57,24 @@
 
                         <td>{{ $r->no_kavling }}</td>
                         <td>{{ $r->luas_tanah}}/{{ $r->luas_bangunan }}</td>
-                        <td class="fw-bold {{ $r->posisi == 'Hoek' ? 'bg-success text-white' : '' }}">
+                      <td class="fw-bold {{ $r->posisi == 'Hoek' ? 'bg-success text-white' : '' }}">
                             {{ $r->posisi }}
                         </td>
+                     @php
+                        $statusClass = [
+                            'Available' => 'bg-success',
+                            'Dp' => 'bg-warning text-dark',
+                            'Sold' => 'bg-danger'
+                        ][$r->status] ?? '';
+                    @endphp
+
+                    <td>
+                        <span class="badge fs-6 {{ $statusClass }}">
+                            {{ $r->status }}
+                        </span>
+                    </td>
 
 
-                        <td>Rp {{ $r->harga }}</td>
-                        <td>{{ $r->status }}</td>
                         <td>{{ $r->perumahan->perumahan }}</td>
 
 

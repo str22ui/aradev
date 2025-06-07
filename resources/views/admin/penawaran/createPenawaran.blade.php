@@ -73,7 +73,7 @@
 
                 {{-- Data Lama + Properti --}}
                  <div class="flex w-full gap-4 mb-5">
-                <div class="w-full">
+                {{-- <div class="w-full">
                     <label for="rumah_id" class="form-label block mb-2 text-sm font-medium"><i class="fas fa-home text-gray-400 mr-2"></i>No Kavling</label>
                     <select id="rumah_id" name="rumah_id"
                         class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -93,7 +93,7 @@
                     @error('rumah_id')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
-                </div>
+                </div> --}}
             </div>
 
                 <div class="mb-3">

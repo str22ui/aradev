@@ -11,7 +11,7 @@
 
     </div>
     <form method="post"  action="{{ route('form.penawaran') }}"
-        class="px-5 py-5 grid grid-cols-1 md:grid-cols-2 gap-4 text-col rounded-md" enctype="multipart/form-data">
+        class="px-5 py-5 grid grid-cols-1 md:grid-cols-2 gap-4 text-col rounded-md" >
         @csrf
         <!-- Bagian kiri form -->
         <div class="text-blue-700 mx-5  ">
@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <div class="mb-5 relative">
+            {{-- <div class="mb-5 relative">
                 <label for="email" class="form-label block mb-2 text-sm font-medium "> <i class="fas fa-envelope text-gray-400 mr-2"></i>Email</label>
                 <div class="input-with-icon">
                     <input type="email" id="email-input" name="email"
@@ -37,7 +37,7 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
-            </div>
+            </div> --}}
             <div class="mb-5 relative">
                 <label for="no_hp" class="form-label block mb-2 text-sm font-medium"><i class="fas fa-phone text-gray-400 mr-2"></i>Nomor
                     Telepon</label>
@@ -77,18 +77,18 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
             </div>
-            <div class="mb-5 relative">
+            {{-- <div class="mb-5 relative">
                 <label for="nama_kantor" class="form-label block mb-2 text-sm font-medium"><i class="fas fa-building text-gray-400 mr-2"></i>Nama Kantor
                 </label>
                 <div class="input-with-icon">
                     <input type="text" id="city-input" name="nama_kantor"
                         class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  "
-                        placeholder="Masukkan nama kantor" value="{{ old('nama_kantor') }}"  required>
+                        placeholder="Masukkan nama kantor" value="{{ old('nama_kantor') }}"  >
                         @error('nama_kantor')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
-            </div>
+            </div> --}}
             <div class="mb-5 hidden">
 
                 <input type="text" id="perumahan_id" name="perumahan_id" value=" {{ $selectedPerumahan->id }}"

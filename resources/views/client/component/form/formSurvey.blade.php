@@ -26,7 +26,7 @@
                 </div>
             </div>
 
-            <div class="mb-5 relative">
+            {{-- <div class="mb-5 relative">
                 <label for="email" class="form-label block mb-2 text-sm font-medium "> <i class="fas fa-envelope text-gray-400 mr-2"></i>Email</label>
                 <div class="input-with-icon">
                     <input type="email" id="email-input" name="email"
@@ -36,7 +36,7 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                     </div>
-            </div>
+            </div> --}}
             <div class="mb-5 relative">
                 <label for="no_hp" class="form-label block mb-2 text-sm font-medium"><i class="fas fa-phone text-gray-400 mr-2"></i>Nomor
                     Telepon</label>
@@ -84,7 +84,7 @@
 
 
             {{-- ===== Perlu Ditambah ====== --}}
-            <div class="mb-5 relative">
+            {{-- <div class="mb-5 relative">
                 <label for="nama_kantor" class="form-label block mb-2 text-sm font-medium"><i class="fas fa-briefcase text-gray-400 mr-2"></i>Nama Kantor
                 </label>
                 <div class="input-with-icon">
@@ -96,7 +96,7 @@
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
-            </div>
+            </div> --}}
 
 
             <div class="mb-5 relative">
@@ -133,7 +133,7 @@
                 <select id="sumber_informasi" name="sumber_informasi"
                     class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option value="">-- Pilih Sumber Informasi --</option>
-                    <option name="sumber_informasi" value="Instagram MMI">Instagram MMI</option>
+                    <option name="sumber_informasi" value="Instagram Aradev">Instagram Aradev</option>
                     <option name="sumber_informasi" value="Instagram Perumahan">Instagram Perumahan</option>
                     <option name="sumber_informasi" value="Youtube">Youtube</option>
                     <option name="sumber_informasi" value="Tiktok">Tiktok</option>
