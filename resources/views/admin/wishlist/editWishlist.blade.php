@@ -121,6 +121,10 @@
                     <option value="Removed" {{ $wishlist->status === 'Removed' ? 'selected' : '' }}>
                         Removed</option>
                     </select>
+
+                    <option value="Hold" {{ $wishlist->status === 'Hold' ? 'selected' : '' }}>
+                        Hold</option>
+                    </select>
             </div>
 
 

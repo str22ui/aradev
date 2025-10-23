@@ -11,6 +11,9 @@ use App\Exports\ExportPenawaran;
 use App\Exports\ExportAgent;
 use App\Exports\ExportReseller;
 
+use Illuminate\Support\Facades\Log;
+
+
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\Visit;
@@ -49,54 +52,67 @@ class AdminController extends Controller
 {
     public function indexUser()
     {
-          $perumahan = Perumahan::all();
-        $user = User::all();
+
+        $user = User::with('perumahans')->get();
+        $perumahan = Perumahan::all();
+
 
         return view('admin.user.index', [
-            'user' => $user,
+            // 'users' => $users,  // Changed variable name to plural for clarity
             'perumahan' => $perumahan,
-            // 'user' => $user,
+            'user' => $user,
         ]);
     }
-
     public function createUser(){
         $perumahan= Perumahan::all();
         return view('admin.user.createUser', compact('perumahan'));
     }
 
+
     public function storeUser(Request $request)
     {
         $validatedData = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users,email', // tambahkan validasi email unik
             'password' => 'required',
             'role' => 'required',
             'perumahan_id' => 'nullable|array',
-            'perumahan_id.*' => 'string|max:255',
-
+            'perumahan_id.*' => 'exists:perumahan,id', // validasi bahwa ID perumahan valid
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-         if ($request->has('perumahan_id')) {
-        $validatedData['perumahan_id'] = json_encode($request->perumahan_id);
+        // Buat user dulu
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => $validatedData['password'],
+            'role' => $validatedData['role'],
+        ]);
+
+        // Attach relasi ke tabel pivot jika ada data perumahan
+        if ($request->has('perumahan_id')) {
+            $user->perumahans()->attach($validatedData['perumahan_id']);
         }
 
-        User::create($validatedData);
-
         return redirect('/user-home')->with('success', 'Berhasil Menambahkan Data User');
-   }
+    }
 
-   public function editUser($id)
-   {
-       $user = User::find($id);
 
-       return view('admin.user.editUser', [
-           'user' => $user,
+    public function editUser($id)
+    {
+        $user = User::with('perumahans')->find($id);
+        $perumahan = Perumahan::all(); // This should return a collection
 
-       ]);
-   }
+        if (!$user) {
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
+        }
 
+        return view('admin.user.editUser', [
+            'user' => $user,
+            'perumahan' => $perumahan,
+        ]);
+    }
 
     public function updateUser(Request $request, $id)
     {
@@ -106,6 +122,7 @@ class AdminController extends Controller
             'email' => 'required',
             'password' => 'nullable',
             'role' => 'required',
+            'perumahan_id' => 'nullable|array',
         ]);
 
         // Ambil data perumahan
@@ -115,13 +132,12 @@ class AdminController extends Controller
         $user->update([
             'name' => $request->name,
             'email' => $request->email,
-            // 'password' => Hash::make($request->password),
             'password' => $request->filled('password') ? Hash::make($request->password) : $user->password,
             'role' => $request->role,
         ]);
 
         // Simpan perubahan
-        $user->save();
+        $user->perumahans()->sync($request->perumahan_id ?? []);
 
         return redirect()->route('admin.user')->with('success', 'Data User berhasil diperbarui.');
     }
@@ -129,7 +145,7 @@ class AdminController extends Controller
     public function destroyUser(Request $request)
     {
         // Debug untuk melihat data yang diterima
-        \Log::info($request->id);
+        Log::info($request->id);
 
         // Ambil data perumahan berdasarkan ID
         $user = User::findOrFail($request->id);

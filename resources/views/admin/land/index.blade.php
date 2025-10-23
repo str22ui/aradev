@@ -98,8 +98,6 @@
 		<div class="d-flex align-items-end flex-column p-2 mb-2">
 
 		</div>
-
-		{{-- {{ $management->withQueryString()->links() }} --}}
   </div>
 </div>
 

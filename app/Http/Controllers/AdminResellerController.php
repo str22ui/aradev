@@ -2,80 +2,73 @@
 
 namespace App\Http\Controllers;
 
-
-use Carbon\Carbon;
-
-use App\Exports\ExportReport;
-use App\Exports\ExportKonsumen;
-use App\Exports\ExportSurvey;
-use App\Exports\ExportPenawaran;
-use App\Exports\ExportAgent;
-use App\Exports\ExportReseller;
-
-use Maatwebsite\Excel\Facades\Excel;
-
-use App\Models\Visit;
 use App\Models\Perumahan;
-use App\Models\User;
-use App\Models\Secondary;
-use App\Models\Rumah;
-use App\Models\Konsumen;
-use App\Models\Survey;
-use App\Models\Land;
-use App\Models\Agent;
 use App\Models\Reseller;
-use App\Models\Report;
-use App\Models\Penawaran;
-use App\Models\PerumahanImage;
-use App\Models\SecondaryImage;
-use App\Models\LandImage;
-use App\Models\Info;
-use App\Models\InfoImage;
-use App\Models\Service;
-use App\Models\Wishlist;
-use App\Models\ServiceImage;
-use App\Models\Testimony;
-use App\Models\TestimonyImage;
-use App\Models\Announcement;
-use Illuminate\Support\Str;
-use App\Models\CategoryBursa;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Cviebrock\EloquentSluggable\Services\SlugService;
+
 class AdminResellerController extends Controller
 {
     // ============ START Reseller ===========
 
      public function indexReseller()
      {
-
          $reseller = Reseller::all();
+         $perumahan = Perumahan::all();
          $user = Auth::user();
          return view('admin.reseller.index', [
              'reseller' => $reseller,
+             'user' => $user,
+             'perumahan' => $perumahan,
          ]);
      }
 
      public function createReseller(){
-        // $perumahan= Perumahan::all();
+        $perumahan= Perumahan::all();
         // return view('admin.agent.createAgent', compact('perumahan'));
-        return view('admin.reseller.createReseller');
+        return view('admin.reseller.createReseller', compact('perumahan'));
     }
 
     public function storeReseller(Request $request)
     {
         $validatedData = $request->validate([
 
-            'nama' => 'required',
+            'name' => 'required',
             'no_hp' => 'required',
             'pekerjaan' => 'required',
             'kota' => 'required',
             'alamat' => 'required',
+            'referral_code' => 'required',
+            'perumahan_id' => 'nullable|array',
+            'perumahan_id.*' => 'exists:perumahan,id',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
         ]);
-        Reseller::create($validatedData);
+
+        // 1️⃣ Buat user login dulu
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'role' => 'reseller',
+        ]);
+
+        // 2️⃣ Buat profil agent
+        $resellerData = [
+            'name' => $validatedData['name'],
+            'no_hp' => $validatedData['no_hp'],
+            'pekerjaan' => $validatedData['pekerjaan'],
+            'kota' => $validatedData['kota'],
+            'alamat' => $validatedData['alamat'],
+            'referral_code' => $validatedData['referral_code'],
+            'user_id' => $user->id,
+        ];
+         if (isset($validatedData['perumahan_id'])) {
+            $resellerData['perumahan_id'] = json_encode($validatedData['perumahan_id']);
+        }
+        Reseller::create($resellerData);
         return redirect('/reseller')->with('success', 'Berhasil Menambahkan Reseller');
     }
 
@@ -85,19 +78,18 @@ class AdminResellerController extends Controller
         $reseller = Reseller::find($id);
 
         if (!$reseller) {
-            return redirect()->route('admin.reseller')->with('error', 'Data Agent tidak ditemukan');
+            return redirect()->route('admin.reseller')->with('error', 'Data Reseller tidak ditemukan');
         }
 
-        // Decode JSON perumahan_id
-        // $agent->perumahan_id = json_decode($agent->perumahan_id, true);
+         // Decode JSON perumahan_id
+        $reseller->perumahan_id = json_decode($reseller->perumahan_id, true);
 
-        // // Ambil data perumahan berdasarkan ID yang ada di perumahan_id
-        //  $perumahan = Perumahan::all();
-
+        // Ambil data perumahan berdasarkan ID yang ada di perumahan_id
+         $perumahan = Perumahan::all();
 
         return view('admin.reseller.editReseller', [
             'reseller' => $reseller,
-            // 'perumahan' => $perumahan,
+            'perumahan' => $perumahan,
         ]);
     }
 
@@ -107,11 +99,14 @@ class AdminResellerController extends Controller
     {
         // Validasi data
         $request->validate([
-            'nama' => 'required|max:255',
+            'name' => 'required|max:255',
             'no_hp' => 'required|max:255',
             'pekerjaan' => 'required|max:255',
             'kota' => 'required|max:255',
             'alamat' => 'required|max:255',
+            'perumahan_id' => 'required|array',
+            'perumahan_id.*' => 'string|max:255',
+            'referral_code' => 'required|max:255',
         ]);
 
         // Temukan agent berdasarkan id
@@ -119,18 +114,20 @@ class AdminResellerController extends Controller
 
         // Update agent data
         $reseller->update([
-            'nama' => $request->nama,
+            'name' => $request->name,
             'no_hp' => $request->no_hp,
             'pekerjaan' => $request->pekerjaan,
             'kota' => $request->kota,
             'alamat' => $request->alamat,
+            'perumahan_id' => json_encode($request->perumahan_id),
+            'referral_code' => $request->referral_code,
         ]);
 
         // Simpan perubahan
         $reseller->save();
 
         // Redirect kembali ke halaman agent
-        return redirect('/reseller');
+        return redirect('/reseller')->with('success', 'Reseller berhasil diperbarui!');
     }
 
 

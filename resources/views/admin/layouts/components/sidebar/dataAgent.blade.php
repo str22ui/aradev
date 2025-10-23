@@ -30,5 +30,12 @@
         </a>
     </li>
     @endif
+
+    <li class="sidebar-item {{ Request::is('admin/affiliate*') || Request::is('admin/createAffiliate*') || Request::is('admin/editAffiliate*') || Request::is('admin/showAffiliate*') ? 'active' : '' }}">
+        <a href="{{ route('admin.affiliate') }}" class='sidebar-link'>
+      <i class="bi bi-person-up"></i>
+            <span>Affiliate</span>
+        </a>
+    </li>
 </ul>
 {{-- @endif --}}

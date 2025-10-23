@@ -9,12 +9,13 @@ class Agent extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'nama',
+        'name',
         'kantor',
         'tipe',
         'no_hp',
         'alamat',
-        'perumahan_id'
+        'perumahan_id',
+        'referral_code'
     ];
 
     public function konsumen()
@@ -35,6 +36,10 @@ class Agent extends Model
     public function surveys()
     {
         return $this->hasMany(Survey::class, 'agent_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }

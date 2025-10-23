@@ -2,30 +2,30 @@
     <thead>
         <tr>
             <th class="col-sm-1">No</th>
-            <th class="col-md-1">Kode Referral </th>
             <th class="col-md-1">Nama </th>
-            <th class="col-md-1">Kantor</th>
-            <th class="col-md-1">Tipe</th>
-            <th class="col-md-2 ">No HP</th>
-            <th class="col-md-2">Alamat</th>
+            <th class="col-md-2">Phone</th>
+            <th class="col-md-2 ">referreed_by_id</th>
+            <th class="col-md-2">total_sales</th>
+            <th class="col-md-2">total_commission</th>
+            <th class="col-md-2">Tanggal Join</th>
             <th class="col-md-2">Perumahan</th>
-            <th class="col-md-2">Tanggal</th>
             <th class="col-md-3">Action</th>
 
         </tr>
     </thead>
 
     <tbody>
-        @foreach ($agents as $a)
+        @foreach ($affiliate as $a)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $a->referral_code }}</td>
                 <td>{{ $a->name }}</td>
-                <td>{{ $a->kantor }}</td>
-                <td>{{ $a->tipe }}</td>
-                <td>{{ $a->no_hp }}</td>
-                <td>{{ $a->alamat }}</td>
-                <td>
+                <td>{{ $a->phone }}</td>
+                <td>{{ $a->referred_by_name ?? '-' }}</td>
+                <td>{{ $a->total_sales }}</td>
+                <td>{{ $a->total_commission }}</td>
+              <td>{{ \Carbon\Carbon::parse($a->joined_at)->format('d/m/y') }}</td>
+                
+                 <td>
                     @php
                         $perumahanIds = json_decode($a->perumahan_id, true); // Decode JSON
                         $perumahans = $perumahan; // Pastikan $perumahan berisi koleksi data perumahan
@@ -46,21 +46,19 @@
                         <span class="text-muted">N/A</span>
                     @endif
                 </td>
-                <td>{{ $a->created_at->format('d/m/y') }}</td>
-                <td>
-                    
-                    <a href="{{ route('admin.editAgent', ['id' => $a->id]) }}" class="btn btn-warning btn-sm">
+                 <td>
+
+                    <a href="{{ route('admin.editAffiliate', ['id' => $a->id]) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square"></i>
                     </a>
-                    @if (auth()->user()->role === 'admin')
-                    <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteAgent') }}" method="POST">
+                    <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteAffiliate') }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <!-- Input untuk mengirim ID perumahan yang ingin dihapus -->
                         <input type="hidden" name="id" value="{{ $a->id }}">
                         <button type="submit" name="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
                     </form>
-                    @endif
+
 
                 </td>
             </tr>

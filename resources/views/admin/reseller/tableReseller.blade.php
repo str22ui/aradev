@@ -2,13 +2,15 @@
     <thead>
         <tr>
             <th class="col-sm-1">No</th>
-                    <th class="col-md-2">Nama </th>
-                    <th class="col-md-2">No HP</th>
-                    <th class="col-md-2">Pekerjaan</th>
-                    <th class="col-md-2">Kota</th>
-                    <th class="col-md-2">Alamat</th>
-                    <th class="col-md-2">Tanggal</th>
-                    <th class="col-md-3">Action</th>
+            <th class="col-md-1">Kode Referral </th>
+            <th class="col-md-1">Nama </th>
+            <th class="col-md-1">No HP</th>
+            <th class="col-md-1">Pekerjaan</th>
+            <th class="col-md-1">Kota</th>
+            <th class="col-md-2">Alamat</th>
+            <th class="col-md-2">Tanggal</th>
+            <th class="col-md-2">Perumahan</th>
+            <th class="col-md-3">Action</th>
 
         </tr>
     </thead>
@@ -18,12 +20,34 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
 
-                <td>{{ $r->nama }}</td>
+                <td>{{ $r->referral_code }}</td>
+                <td>{{ $r->name }}</td>
                 <td>{{ $r->no_hp }}</td>
                 <td>{{ $r->pekerjaan }}</td>
                 <td>{{ $r->kota }}</td>
                 <td>{{ $r->alamat }}</td>
                 <td>{{ $r->created_at->format('d/m/y') }}</td>
+                 <td>
+                    @php
+                        $perumahanIds = json_decode($r->perumahan_id, true); // Decode JSON
+                        $perumahans = $perumahan; // Pastikan $perumahan berisi koleksi data perumahan
+                    @endphp
+
+                    @if (is_array($perumahanIds) && $perumahans)
+                        @foreach ($perumahanIds as $id)
+                            @php
+                                $perumahan = $perumahans->firstWhere('id', $id); // Cari perumahan berdasarkan ID
+                            @endphp
+                            @if ($perumahan)
+                                <span class="badge bg-info text-dark">{{ $perumahan->perumahan }}</span>
+                            @else
+                                <span class="badge bg-danger text-white">Perumahan Tidak Ditemukan</span>
+                            @endif
+                        @endforeach
+                    @else
+                        <span class="text-muted">N/A</span>
+                    @endif
+                </td>
                 <td>
                     <a href="{{ route('admin.editReseller', ['id' => $r->id]) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square"></i>

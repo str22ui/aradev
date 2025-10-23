@@ -83,7 +83,7 @@
                                 data-lt="{{ $r->luas_tanah }}"
                                 data-lb="{{ $r->luas_bangunan }}"
                                 data-posisi="{{ $r->posisi }}"
-                                data-harga="Rp {{ $r->harga }}"
+                                data-harga="Rp {{ $r->harga }}
                                 {{ $r->status !== 'Available' ? 'disabled' : '' }}>
                                 {{ $r->no_kavling }}
                                 {{ $r->status !== 'Available' ? '(' . $r->status . ')' : '' }}

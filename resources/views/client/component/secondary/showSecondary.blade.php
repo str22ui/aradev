@@ -174,7 +174,7 @@
 
 </div>
 
-@if ($secondary->available !== 'Sold Out')
+@if ($secondary->available === 'Available' && $secondary->status === 'Dijual')
 <div class="bg-white rounded-xl p-6 shadow-lg mt-10 max-w-2xl mx-auto">
     <h2 class="text-2xl font-bold text-gray-800 mb-2">Simulasi Cicilan KPR</h2>
     <p class="text-sm text-gray-600 mb-6">Hitung estimasi cicilan berdasarkan harga rumah yang dipilih</p>

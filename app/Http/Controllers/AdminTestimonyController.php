@@ -45,6 +45,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Log;
 
 class AdminTestimonyController extends Controller
 {
@@ -73,14 +74,6 @@ class AdminTestimonyController extends Controller
         return view('admin.testimony.createTestimony');
     }
 
-    public function showTestimony(Testimony $testimony)
-    {
-        $info = Info::with('position')->findOrFail($management->id);
-        $perumahan->keunggulan = json_decode($perumahan->keunggulan);
-        return view('admin.teacher.showTeacher', compact([
-            'management',
-        ]));
-    }
 
     public function storeTestimony(Request $request)
     {
@@ -186,8 +179,8 @@ class AdminTestimonyController extends Controller
     public function destroyImageTestimony(Request $request)
     {
         // Debugging
-        \Log::info($request->all());
-        \Log::info('Request ID: ' . $request->image_id);
+        Log::info($request->all());
+        Log::info('Request ID: ' . $request->image_id);
         // Temukan gambar berdasarkan ID
         $image = TestimonyImage::findOrFail($request->image_id);
 
@@ -207,7 +200,7 @@ class AdminTestimonyController extends Controller
     public function destroyTestimony(Request $request)
     {
         // Debug untuk melihat data yang diterima
-        \Log::info($request->id);
+        Log::info($request->id);
 
         // Ambil data perumahan berdasarkan ID
         $testimony = Testimony::findOrFail($request->id);

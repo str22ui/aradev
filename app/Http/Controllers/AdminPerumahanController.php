@@ -45,6 +45,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Log;
+
 
 class AdminPerumahanController extends Controller
 {
@@ -70,14 +72,7 @@ class AdminPerumahanController extends Controller
         return view('admin.perumahan.createPerumahan');
     }
 
-    public function showPerumahan(Perumahan $perumahan)
-    {
-        $perumahan = Perumahan::with('position')->findOrFail($management->id);
-        $perumahan->keunggulan = json_decode($perumahan->keunggulan);
-        return view('admin.teacher.showTeacher', compact([
-            'management',
-        ]));
-    }
+
 
     public function storePerumahan(Request $request)
     {
@@ -345,8 +340,8 @@ class AdminPerumahanController extends Controller
     public function destroyImage(Request $request)
     {
         // Debugging
-        \Log::info($request->all());
-        \Log::info('Request ID: ' . $request->image_id);
+        Log::info($request->all());
+        Log::info('Request ID: ' . $request->image_id);
         // Temukan gambar berdasarkan ID
         $image = PerumahanImage::findOrFail($request->image_id);
 
@@ -366,7 +361,7 @@ class AdminPerumahanController extends Controller
     public function destroyPerumahan(Request $request)
     {
         // Debug untuk melihat data yang diterima
-        \Log::info($request->id);
+        Log::info($request->id);
 
         // Ambil data perumahan berdasarkan ID
         $perumahan = Perumahan::findOrFail($request->id);

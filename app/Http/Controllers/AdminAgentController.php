@@ -2,49 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
-use Carbon\Carbon;
-
-use App\Exports\ExportReport;
-use App\Exports\ExportKonsumen;
-use App\Exports\ExportSurvey;
-use App\Exports\ExportPenawaran;
-use App\Exports\ExportAgent;
-use App\Exports\ExportReseller;
-
-use Maatwebsite\Excel\Facades\Excel;
-
-use App\Models\Visit;
 use App\Models\Perumahan;
-use App\Models\User;
-use App\Models\Secondary;
-use App\Models\Rumah;
-use App\Models\Konsumen;
-use App\Models\Survey;
-use App\Models\Land;
 use App\Models\Agent;
-use App\Models\Reseller;
-use App\Models\Report;
-use App\Models\Penawaran;
-use App\Models\PerumahanImage;
-use App\Models\SecondaryImage;
-use App\Models\LandImage;
-use App\Models\Info;
-use App\Models\InfoImage;
-use App\Models\Service;
-use App\Models\Wishlist;
-use App\Models\ServiceImage;
-use App\Models\Testimony;
-use App\Models\TestimonyImage;
-use App\Models\Announcement;
-use Illuminate\Support\Str;
-use App\Models\CategoryBursa;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Auth;
 class AdminAgentController extends Controller
 {
 
@@ -70,21 +33,45 @@ class AdminAgentController extends Controller
 
     public function storeAgent(Request $request)
     {
-        $validatedData = $request->validate([
+    $validatedData = $request->validate([
+        'name' => 'required',
+        'kantor' => 'nullable',
+        'tipe' => 'required',
+        'no_hp' => 'required',
+        'alamat' => 'required',
+        'referral_code' => 'required',
+        'perumahan_id' => 'nullable|array',
+        'perumahan_id.*' => 'exists:perumahan,id',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:6',
+    ]);
 
-            'nama' => 'required',
-            'kantor' => 'nullable',
-            'tipe' => 'required',
-            'no_hp' => 'required',
-            'alamat' => 'required',
-            'perumahan_id' => 'nullable|array',
-            'perumahan_id.*' => 'string|max:255',
+        // 1️⃣ Buat user login dulu
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'role' => 'agent',
         ]);
-        if ($request->has('perumahan_id')) {
-            $validatedData['perumahan_id'] = json_encode($request->perumahan_id);
+
+        // 2️⃣ Buat profil agent
+        $agentData = [
+            'name' => $validatedData['name'],
+            'kantor' => $validatedData['kantor'],
+            'tipe' => $validatedData['tipe'],
+            'no_hp' => $validatedData['no_hp'],
+            'alamat' => $validatedData['alamat'],
+            'referral_code' => $validatedData['referral_code'],
+            'user_id' => $user->id,
+        ];
+
+        if (isset($validatedData['perumahan_id'])) {
+            $agentData['perumahan_id'] = json_encode($validatedData['perumahan_id']);
         }
-        Agent::create($validatedData);
-        return redirect('/agent')->with('success', 'Berhasil Menambahkan Agent');
+
+        Agent::create($agentData);
+
+        return redirect('/agent')->with('success', 'Berhasil menambahkan Agent & User login');
     }
 
 
@@ -115,13 +102,14 @@ class AdminAgentController extends Controller
     {
         // Validasi data
         $request->validate([
-            'nama' => 'required|max:255',
+            'name' => 'required|max:255',
             'tipe' => 'required|string  ',
             'kantor' => 'required|string    ',
             'no_hp' => 'required|max:255',
             'alamat' => 'required|max:255',
             'perumahan_id' => 'required|array',
             'perumahan_id.*' => 'string|max:255',
+            'referral_code' => 'required',
         ]);
 
         // Temukan agent berdasarkan id
@@ -129,12 +117,13 @@ class AdminAgentController extends Controller
 
         // Update agent data
         $agent->update([
-            'nama' => $request->nama,
+            'name' => $request->name,
             'tipe' => $request->tipe,
             'kantor' => $request->kantor,
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
             'perumahan_id' => json_encode($request->perumahan_id),
+            'referral_code' => $request->referral_code,
         ]);
 
         // Simpan perubahan

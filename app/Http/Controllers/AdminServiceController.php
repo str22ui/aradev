@@ -45,6 +45,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Log;
+
 
 class AdminServiceController extends Controller
 {
@@ -71,15 +73,6 @@ class AdminServiceController extends Controller
 
      public function createService(){
          return view('admin.service.createService');
-     }
-
-     public function showServices(Service $service)
-     {
-         $service = Info::all();
-         $perumahan->keunggulan = json_decode($perumahan->keunggulan);
-         return view('admin.teacher.showTeacher', compact([
-             'management',
-         ]));
      }
 
      public function storeService(Request $request)

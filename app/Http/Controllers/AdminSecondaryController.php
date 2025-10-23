@@ -45,6 +45,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Log;
 
 class AdminSecondaryController extends Controller
 {
@@ -84,14 +85,6 @@ class AdminSecondaryController extends Controller
          return view('admin.secondary.createSecondary');
      }
 
-     public function showSecondary(Secondary $secondary)
-     {
-         $secondary = Secondary::with('position')->findOrFail($management->id);
-         $perumahan->keunggulan = json_decode($perumahan->keunggulan);
-         return view('admin.teacher.showTeacher', compact([
-             'management',
-         ]));
-     }
 
      public function storeSecondary(Request $request)
     {
@@ -314,8 +307,8 @@ class AdminSecondaryController extends Controller
      public function destroyImageSecondary(Request $request)
      {
          // Debugging
-         \Log::info($request->all());
-         \Log::info('Request ID: ' . $request->image_id);
+         Log::info($request->all());
+         Log::info('Request ID: ' . $request->image_id);
          // Temukan gambar berdasarkan ID
          $image = SecondaryImage::findOrFail($request->image_id);
 
@@ -335,7 +328,7 @@ class AdminSecondaryController extends Controller
      public function destroySecondary(Request $request)
      {
          // Debug untuk melihat data yang diterima
-         \Log::info($request->id);
+         Log::info($request->id);
 
          // Ambil data perumahan berdasarkan ID
          $secondary = Secondary::findOrFail($request->id);

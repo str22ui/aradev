@@ -36,28 +36,17 @@
                         <td>{{ $u->name }}</td>
                         <td>{{ $u->email }}</td>
                         <td>{{ $u->role }}</td>
-                         <td>
-                            @php
-                                $perumahanIds = json_decode($u->perumahan_id, true); // Decode JSON
-                                $perumahans = $perumahan; // Pastikan $perumahan berisi koleksi data perumahan
-                            @endphp
-
-                            @if (is_array($perumahanIds) && $perumahans)
-                                @foreach ($perumahanIds as $id)
-                                    @php
-                                        $perumahan = $perumahans->firstWhere('id', $id); // Cari perumahan berdasarkan ID
-                                    @endphp
-                                    @if ($perumahan)
-                                        <span class="badge bg-info text-dark">{{ $perumahan->perumahan }}</span>
-                                    @else
-                                        <span class="badge bg-danger text-white">Perumahan Tidak Ditemukan</span>
-                                    @endif
+                       <td>
+                            @if ($u->perumahans->count())
+                                @foreach ($u->perumahans as $perumahan)
+                                    <span class="badge bg-info text-dark">{{ $perumahan->perumahan }}</span>
                                 @endforeach
                             @else
-                                <span class="text-muted">N/A</span>
+                                <span class="text-muted">Tidak ada perumahan</span>
                             @endif
                         </td>
-                        <td>
+
+                                                <td>
                             <a href="{{ route('admin.editUser', ['id' => $u->id]) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
@@ -83,7 +72,6 @@
 
 		</div>
 
-		{{-- {{ $management->withQueryString()->links() }} --}}
   </div>
 </div>
 

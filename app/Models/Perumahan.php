@@ -46,9 +46,26 @@ class Perumahan extends Model
         return $this->belongsTo(Agent::class);
     }
 
+    public function affiliates()
+    {
+        return $this->hasMany(Affiliate::class, 'perumahan_id');
+    }
+
+    public function reseller()
+    {
+        return $this->belongsTo(Reseller::class);
+    }
+
+
     public function survey()
     {
         return $this->hasMany(Survey::class, 'perumahan_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
 
 }

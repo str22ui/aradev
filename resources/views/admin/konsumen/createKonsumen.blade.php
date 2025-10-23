@@ -33,10 +33,7 @@
                 <label for="domisili" class="form-label">domisili</label>
                 <input type="text" class="form-control" id="domisili" name="domisili">
             </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email">
-            </div>
+         
             <div class="mb-3">
                 <label for="tanggal" class="form-label">Tanggal</label>
                 <input type="date" class="form-control" id="tanggal" name="tanggal">
@@ -46,23 +43,19 @@
                 <label for="pekerjaan" class="form-label">Pekerjaan</label>
                 <input type="text" class="form-control" id="pekerjaan" name="pekerjaan">
             </div>
-            <div class="mb-3">
-                <label for="nama_kantor" class="form-label">Nama Kantor</label>
-                <input type="text" class="form-control" id="nama_kantor" name="nama_kantor">
-            </div>
 
-            <div class="mb-3">
-                <label for="perumahan" class="form-label block mb-2 text-sm font-medium ">Perumahan</label>
+
+           <div class="mb-3">
+                <label for="perumahan" class="form-label block mb-2 text-sm font-medium">Perumahan</label>
                 <select id="perumahan" name="perumahan"
-                    class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-                    <option value="pilih">-- Pilih --</option>
+                    class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="">-- Pilih --</option>
                     @foreach ($perumahan as $item)
-                        {{-- <option value="{{ $item->id }}">{{ $item->nama_perumahan }}</option> --}}
-                        <option value="{{ $item->perumahan }}">{{ $item->perumahan }}</option>
+                        <option value="{{ $item->id }}">{{ $item->perumahan }}</option>
                     @endforeach
                 </select>
-
             </div>
+
 
             <div class="mb-3">
                 <label for="sumber_informasi" class="form-label">Sumber Informasi</label><br>

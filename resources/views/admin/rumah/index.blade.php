@@ -79,9 +79,7 @@
 
 
                         <td>
-                            {{-- <a href='{{ route('admin.showTeacher', ['management' => $m->slug])  }}' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
-                            {{-- <a href='#' class="btn btn-primary btn-sm"><i class="bi bi-eye-fill"></i></a> --}}
-                            {{-- <a href="{{ route('admin.editTeacher', ['management' => $m->slug]) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a> --}}
+
                              @if (auth()->user()->role !== 'sales')
                             <a href="{{ route('admin.editRumah', ['id' => $r->id]) }}" class="btn btn-warning btn-sm">
                                 <i class="bi bi-pencil-square"></i>
@@ -107,8 +105,7 @@
 
 		</div>
 
-		{{-- {{ $management->withQueryString()->links() }} --}}
-  </div>
+
 </div>
 
 </section>

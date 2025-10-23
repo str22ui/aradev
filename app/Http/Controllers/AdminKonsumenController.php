@@ -69,13 +69,24 @@ class AdminKonsumenController extends Controller
         ]);
     }
 
+  public function createKonsumen()
+    {
+        $user = Auth::user();
 
-    public function createKonsumen(){
-        $perumahan= Perumahan::all();
+        if ($user->role === 'sales') {
+            // Ambil hanya perumahan yang di-assign lewat pivot ke user
+            $perumahan = $user->perumahans;
+        } else {
+            // Admin dan lainnya bisa lihat semua
+            $perumahan = Perumahan::all();
+        }
+
         $agent = Agent::all();
         $reseller = Reseller::all();
-        return view('admin.konsumen.createKonsumen', compact('perumahan','agent', 'reseller'));
+
+        return view('admin.konsumen.createKonsumen', compact('perumahan', 'agent', 'reseller'));
     }
+
 
 
     public function storeKonsumen(Request $request)

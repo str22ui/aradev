@@ -55,7 +55,7 @@
                     </div>
                     <!-- Forgot Password -->
                     <div class="mt-4 text-center">
-                        <a href="#" class="text-sm text-blue-500 hover:underline">Forgot your password?</a>
+                        <a href="/registerUser" class="text-sm text-blue-500 hover:underline">Affiliate baru? Daftar Disini</a>
                     </div>
                 </form>
             </div>

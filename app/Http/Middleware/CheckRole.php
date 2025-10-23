@@ -16,19 +16,19 @@ class CheckRole
      * @param  string  $role
      * @return mixed
      */
-   public function handle($request, Closure $next, ...$roles)
+   public function handle(Request $request, Closure $next, ...$roles)
     {
         if (!Auth::check()) {
-            return redirect('/login');
+            return redirect('/loginUser');
         }
 
-        $user = Auth::user();
+        $userRole = Auth::user()->role;
 
-        if (in_array($user->role, $roles)) {
-            return $next($request);
+        if (!in_array($userRole, $roles)) {
+            abort(403, 'Unauthorized access');
         }
 
-        return abort(403, 'Unauthorized');
+        return $next($request);
     }
 
 }

@@ -3,48 +3,14 @@
 namespace App\Http\Controllers;
 
 
-use Carbon\Carbon;
-
-use App\Exports\ExportReport;
-use App\Exports\ExportKonsumen;
-use App\Exports\ExportSurvey;
-use App\Exports\ExportPenawaran;
-use App\Exports\ExportAgent;
-use App\Exports\ExportReseller;
-
-use Maatwebsite\Excel\Facades\Excel;
-
-use App\Models\Visit;
-use App\Models\Perumahan;
 use App\Models\User;
-use App\Models\Secondary;
-use App\Models\Rumah;
-use App\Models\Konsumen;
-use App\Models\Survey;
 use App\Models\Land;
-use App\Models\Agent;
-use App\Models\Reseller;
-use App\Models\Report;
-use App\Models\Penawaran;
-use App\Models\PerumahanImage;
-use App\Models\SecondaryImage;
 use App\Models\LandImage;
-use App\Models\Info;
-use App\Models\InfoImage;
-use App\Models\Service;
-use App\Models\Wishlist;
-use App\Models\ServiceImage;
-use App\Models\Testimony;
-use App\Models\TestimonyImage;
-use App\Models\Announcement;
-use Illuminate\Support\Str;
-use App\Models\CategoryBursa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Cviebrock\EloquentSluggable\Services\SlugService;
+
+use Illuminate\Support\Facades\Log;
+
 
 class AdminLandController extends Controller
 {
@@ -80,15 +46,6 @@ class AdminLandController extends Controller
 
      public function createLand(){
          return view('admin.land.createLand');
-     }
-
-     public function showLand(Land $land)
-     {
-         $land = Land::with('position')->findOrFail($management->id);
-         $perumahan->keunggulan = json_decode($perumahan->keunggulan);
-         return view('admin.teacher.showTeacher', compact([
-             'management',
-         ]));
      }
 
      public function storeLand(Request $request)
@@ -249,8 +206,8 @@ class AdminLandController extends Controller
      public function destroyImageLand(Request $request)
      {
          // Debugging
-         \Log::info($request->all());
-         \Log::info('Request ID: ' . $request->image_id);
+         Log::info($request->all());
+         Log::info('Request ID: ' . $request->image_id);
          // Temukan gambar berdasarkan ID
          $image = LandImage::findOrFail($request->image_id);
 
@@ -270,7 +227,7 @@ class AdminLandController extends Controller
      public function destroyLand(Request $request)
      {
          // Debug untuk melihat data yang diterima
-         \Log::info($request->id);
+         Log::info($request->id);
 
          // Ambil data perumahan berdasarkan ID
          $land = Land::findOrFail($request->id);

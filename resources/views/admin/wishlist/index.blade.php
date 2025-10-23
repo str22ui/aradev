@@ -71,7 +71,7 @@
 
 		</div>
 
-		{{-- {{ $management->withQueryString()->links() }} --}}
+
   </div>
 </div>
 

@@ -42,6 +42,9 @@
                 <select class="form-select" id="role" name="role">
                     <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                     <option value="salesAdmin" {{ $user->role === 'salesAdmin' ? 'selected' : '' }}>Sales Admin</option>
+                    <option value="agent" {{ $user->role === 'agent' ? 'selected' : '' }}>Agent</option>
+                    <option value="reseller" {{ $user->role === 'reseller' ? 'selected' : '' }}>Reseller</option>
+                    <option value="affiliate" {{ $user->role === 'affiliate' ? 'selected' : '' }}>Affiliate</option>
                 </select>
             </div>
 

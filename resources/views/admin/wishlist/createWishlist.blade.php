@@ -8,7 +8,7 @@
 
 		<!-- Table untuk memanggil data dari database -->
         @include('sweetalert::alert')
-		<form method="post" action="{{ route('admin.storeWishlistt  `') }}" enctype="multipart/form-data">
+		<form method="post" action="{{ route('admin.storeWishlistt') }}" enctype="multipart/form-data">
         @csrf
             {{-- Title --}}
 
@@ -96,6 +96,7 @@
                     <option value="Available">Available</option>
                     <option value="Closed">Closed</option>
                     <option value="Removed">Removed</option>
+                    <option value="Hold">Hold</option>
 
                 </select>
             </div>

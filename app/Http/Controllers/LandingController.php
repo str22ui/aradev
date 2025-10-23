@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Announcement;
-use App\Models\Article;
+use Illuminate\Support\Facades\Log;
+
 use Carbon\Carbon;
-use App\Models\Ebook;
-use App\Models\Employee;
 use App\Models\User;
 use App\Models\Perumahan;
 use App\Models\Secondary;
@@ -27,6 +25,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
+
+
 
 class LandingController extends Controller
 {
@@ -129,13 +129,13 @@ class LandingController extends Controller
     public function boot()
     {
         View::composer('client.component.NavigationComponent.ProjectDropdown', function ($view) {
-            \Log::info('View composer for ProjectDropdown executed');
+            Log::info('View composer for ProjectDropdown executed');
             $kotas = Perumahan::select('kota')->distinct()->get();
             $view->with('kotas', $kotas);
         });
 
         View::composer('client.component.NavigationComponent.secondaryDropdown', function ($view) {
-            \Log::info('View composer for ProjectDropdown executed');
+            Log::info('View composer for ProjectDropdown executed');
             $kotasSecondary = Secondary::select('kota')->distinct()->get();
             $view->with('kotasSecondary', $kotasSecondary);
         });
@@ -728,26 +728,6 @@ class LandingController extends Controller
             'allPerumahan' => $allPerumahan,
             'allService' => $allService
         ]);
-    }
-
-    public function show($page)
-    {
-        // // Logika untuk menentukan halaman
-        // $content = view("pages.$page")->render();
-        // return response()->json(['content' => $content]);
-
-        // Validasi halaman agar hanya mengizinkan halaman tertentu
-        $validPages = ['learnerProfile', 'curriculum', 'achievement', 'activities', 'download'];
-        if (!in_array($page, $validPages)) {
-            abort(404); // Halaman tidak ditemukan
-        }
-
-        if ($page === 'download') {
-            $ebook = Ebook::latest()->get();
-            return view('client.component.landing.menuComponent.download', compact('ebook'));
-        }
-
-        return view("client.component.landing.menuComponent.$page");
     }
 
 

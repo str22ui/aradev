@@ -7,7 +7,7 @@
 	<div class="col card px-3 py-3">
 
 	<div class="my-3 p-3 rounded">
-        {{-- <a href="{{ route('admin.createTeacher') }}" class="btn btn-success me-2 py-2" > --}}
+
         <a href="{{ route('admin.createUser') }}" class="btn btn-success me-2 py-2" >
             + Insert Data
         </a>
@@ -83,7 +83,6 @@
 
 		</div>
 
-		{{-- {{ $management->withQueryString()->links() }} --}}
   </div>
 </div>
 

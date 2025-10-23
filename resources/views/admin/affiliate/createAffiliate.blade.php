@@ -1,4 +1,4 @@
-@extends('admin.layouts.index', ['title' => 'Tambah Data Agent', 'page_heading' => 'Tambah Data Agent'])
+@extends('admin.layouts.index', ['title' => 'Tambah Data Affiliate', 'page_heading' => 'Tambah Data Affiliate'])
 
 @section('content')
 <section class="row">
@@ -8,46 +8,53 @@
 
 		<!-- Table untuk memanggil data dari database -->
         @include('sweetalert::alert')
-		<form method="post" action="{{ route('admin.storeAgent') }}" enctype="multipart/form-data">
+		<form method="post" action="{{ route('admin.storeAffiliate') }}" enctype="multipart/form-data">
         @csrf
             {{-- Title --}}
 
+            <div class="mb-3">
+            <label for="referral_code">Kode Referral (Agent / Reseller)</label>
+            <input type="text" name="referral_code" id="referral_code" placeholder="Masukkan kode referral dari Agent/Reseller" class="form-control">
+
+            </div>
+
 
             <div class="mb-3">
-              <input type="hidden" value="0" name="views">
-              <label for="name" class="form-label">Nama Agent</label>
-              <input type="text" autofocus value="" name="name" id="name" placeholder="Masukkan Nama Agent" class="form-control">
+              <label for="name" class="form-label">Nama Affiliate</label>
+              <input type="text" autofocus value="" name="name" id="name" placeholder="Masukkan Nama Affiliate" class="form-control">
+            </div>
+
+
+            <div class="mb-3">
+              <label for="phone" class="form-label">No Handphone</label>
+              <input type="text" value="" name="phone" id="phone" placeholder="Masukkan Nomor hp" class="form-control">
             </div>
 
             <div class="mb-3">
-                <label for="tipe" class="form-label">Tipe Agent</label>
-                <select id="tipe" name="tipe"
-                    class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="Korporat">Korporat</option>
-                    <option value="Perorangan">Perorangan</option>
-
-                </select>
+              <label for="address" class="form-label">Alamat</label>
+              <input type="text" value="" name="address" id="address" placeholder="Masukkan Alamat" class="form-control">
             </div>
 
             <div class="mb-3">
-                <input type="hidden" value="0" name="views">
-                <label for="kantor" class="form-label">Kantor Agent</label>
-                <input type="text" autofocus value="" name="kantor" id="kantor" placeholder="Masukkan Nama Kantor" class="form-control">
-              </div>
+              <label for="commision_rate" class="form-label">Komisi </label>
+              <input type="text" value="" name="commission_rate" id="commission_rate" placeholder="Masukkan Komisi" class="form-control">
+            </div>
 
-              <div class="mb-3">
-                <input type="hidden" value="0" name="views">
-                <label for="no_hp" class="form-label">No Telepon</label>
-                <input type="text" autofocus value="" name="no_hp" id="no_hp" placeholder="Masukkan Nomor Telepon" class="form-control">
-              </div>
+            <div class="mb-3">
+              <label for="total_sales" class="form-label">Total Sales</label>
+              <input type="text" value="" name="total_sales" id="total_sales" placeholder="Masukkan Total Sales" class="form-control">
+            </div>
 
-              <div class="mb-3">
-                <input type="hidden" value="0" name="views">
-                <label for="alamat" class="form-label">Alamat</label>
-                <input type="text" autofocus value="" name="alamat" id="alamat" placeholder="Masukkan Alamat" class="form-control">
-              </div>
+            <div class="mb-3">
+              <label for="total_commission" class="form-label">Total Komisi</label>
+              <input type="text" value="" name="total_commission" id="total_commission" placeholder="Masukkan Total Komisi" class="form-control">
+            </div>
 
-              <div id="perumahan-container">
+            <div class="mb-3">
+              <label for="joined_at" class="form-label">Tanggal Join</label>
+              <input type="date" name="joined_at" id="joined_at" class="form-control">
+            </div>
+            <div id="perumahan-container">
                 <label for="perumahan_id" class="form-label block mb-2 text-sm font-medium">Perumahan</label>
                 <select id="perumahan_id" name="perumahan_id[]"
                     class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -58,15 +65,9 @@
                 </select>
             </div>
             <button type="button" onclick="addPerumahan()" class="btn btn-secondary my-3">Tambah Perumahan</button><br>
-
         <div class="mb-3">
-              <label for="referral_code" class="form-label">Kode Referral</label>
-              <input type="text" name="referral_code" id="referral_code" placeholder="Masukkan Kode Referral" class="form-control">
-        </div>
-
-        <div class="mb-3">
-            <label for="email" class="form-label">Email Agent</label>
-            <input type="email" name="email" id="email" placeholder="Masukkan Email Agent" class="form-control" required>
+            <label for="email" class="form-label">Email Affiliate</label>
+            <input type="email" name="email" id="email" placeholder="Masukkan Email Affiliate" class="form-control" required>
         </div>
 
         <!-- Tambahkan password -->
@@ -76,10 +77,11 @@
         </div>
 
         <!-- Role bisa hidden karena otomatis agent -->
-        <input type="hidden" name="role" value="agent">
+        <input type="hidden" name="role" value="affiliate">
+
 
             <button type="submit" class="btn btn-primary">Create</button>
-            <a class="btn btn-danger" href="{{ route('admin.agent') }}">Back</a>
+            <a class="btn btn-danger" href="{{ route('admin.affiliate') }}">Back</a>
         </form>
 
 		{{-- Menampilkan total pemasukan --}}
@@ -93,19 +95,7 @@
 </section>
 
 <script>
-document.getElementById('tipe').addEventListener('change', function() {
-            var kantorInput = document.getElementById('kantor');
-            if (this.value === 'Perorangan') {
-                kantorInput.value = 'N/A';
-                kantorInput.readOnly = true;
-            } else {
-                kantorInput.value = '';
-                kantorInput.readOnly = false;
-            }
-        });
-
-
-    function addPerumahan() {
+function addPerumahan() {
         const container = document.getElementById('perumahan-container');
 
         // Buat elemen <select> baru
@@ -145,7 +135,6 @@ document.getElementById('tipe').addEventListener('change', function() {
         // Tambahkan elemen <select> ke dalam container
         container.appendChild(newSelect);
     }
-
 
 </script>
 

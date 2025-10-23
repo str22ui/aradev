@@ -11,15 +11,27 @@ class Reseller extends Model
     protected $table = 'reseller';
 
     protected $fillable = [
-        'nama',
+        'name',
         'no_hp',
         'pekerjaan',
         'kota',
         'alamat',
+        'referral_code',
+        'perumahan_id'
     ];
 
     public function konsumen()
     {
         return $this->hasMany(Konsumen::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function perumahan()
+    {
+        return $this->belongsTo(Perumahan::class);
+    }
+
 }

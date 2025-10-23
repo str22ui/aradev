@@ -31,5 +31,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function perumahans()
+    {
+        return $this->belongsToMany(Perumahan::class);
+    }
+
+    public function agent()
+    {
+        return $this->hasOne(Agent::class);
+    }
+
+    public function reseller()
+    {
+        return $this->hasOne(Reseller::class);
+    }
+
+    public function affiliate()
+    {
+        return $this->hasOne(Affiliate::class);
+    }
+
+
+
 }
 

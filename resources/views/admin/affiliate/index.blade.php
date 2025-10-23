@@ -1,4 +1,4 @@
-@extends('admin.layouts.index', ['title' => 'Data Report', 'page_heading' => 'Data Report'])
+@extends('admin.layouts.index', ['title' => 'Data Affiliate', 'page_heading' => 'Data Affiliate'])
 
 
 @section('content')
@@ -14,12 +14,12 @@
         </div>
     @endif
     {{-- @if(auth()->user()->role === 'admin'|| Auth::user()->role == 'salesAdmin' || Auth::user()->role == 'sales') --}}
-    <a href="{{ route('admin.createReport') }}">
+    <a href="{{ route('admin.createAffiliate') }}">
         <button type="submit" class="btn btn-primary mr-2 mb-2">+Insert Data</button>
     </a>
     {{-- @endif --}}
     {{-- @if(auth()->user()->role === 'admin'|| Auth::user()->role == 'salesAdmin') --}}
-    <form action="{{ url('report/export/excel') }}" method="GET" class="d-flex justify-content-between align-items-center">
+    <form action="{{ url('agent/export/excel') }}" method="GET" class="d-flex justify-content-between align-items-center">
         <div>
             <button type="submit" class="btn btn-success">Export Excel</button>
         </div>
@@ -53,8 +53,9 @@
     </form>
     {{-- @endif --}}
     <div class="table-responsive">
-        @include('admin.report.tableReport', ['report' => $report])
+        @include('admin.affiliate.tableAffiliate', ['affiliate' => $affiliate])
     </div>
+
 
   </div>
 </div>
