@@ -11,7 +11,7 @@
         <form method="post" action="{{ route('admin.updateAgent', ['id' => $agent->id]) }}" enctype="multipart/form-data">
             @method('PUT')
         @csrf
-        
+
             <div class="mb-3">
               <input type="hidden" value="0" name="views">
               <label for="name" class="form-label">Nama Agent</label>
@@ -74,11 +74,7 @@
 
             <br>
 
-            <div class="mb-3">
-              <label for="referral_code" class="form-label">Kode Referral</label>
-              <input type="text" value="{{ $agent->referral_code }}" name="referral_code" id="referral_code" placeholder="Masukkan Nama Agent" class="form-control">
-
-            </div>
+            
             <br>
             <button type="submit" class="btn btn-primary">Update</button>
             <a class="btn btn-danger" href="{{ route('admin.agent') }}">Back</a>

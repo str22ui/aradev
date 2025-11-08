@@ -39,7 +39,6 @@ class AdminAgentController extends Controller
         'tipe' => 'required',
         'no_hp' => 'required',
         'alamat' => 'required',
-        'referral_code' => 'required',
         'perumahan_id' => 'nullable|array',
         'perumahan_id.*' => 'exists:perumahan,id',
         'email' => 'required|email|unique:users,email',
@@ -61,7 +60,6 @@ class AdminAgentController extends Controller
             'tipe' => $validatedData['tipe'],
             'no_hp' => $validatedData['no_hp'],
             'alamat' => $validatedData['alamat'],
-            'referral_code' => $validatedData['referral_code'],
             'user_id' => $user->id,
         ];
 
@@ -109,7 +107,6 @@ class AdminAgentController extends Controller
             'alamat' => 'required|max:255',
             'perumahan_id' => 'required|array',
             'perumahan_id.*' => 'string|max:255',
-            'referral_code' => 'required',
         ]);
 
         // Temukan agent berdasarkan id
@@ -123,7 +120,6 @@ class AdminAgentController extends Controller
             'no_hp' => $request->no_hp,
             'alamat' => $request->alamat,
             'perumahan_id' => json_encode($request->perumahan_id),
-            'referral_code' => $request->referral_code,
         ]);
 
         // Simpan perubahan

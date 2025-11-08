@@ -16,7 +16,6 @@ class Reseller extends Model
         'pekerjaan',
         'kota',
         'alamat',
-        'referral_code',
         'perumahan_id'
     ];
 

@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th class="col-sm-1">No</th>
-            <th class="col-md-1">Kode Referral </th>
             <th class="col-md-1">Nama </th>
             <th class="col-md-1">No HP</th>
             <th class="col-md-1">Pekerjaan</th>
@@ -19,8 +18,6 @@
         @foreach ($reseller as $r)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-
-                <td>{{ $r->referral_code }}</td>
                 <td>{{ $r->name }}</td>
                 <td>{{ $r->no_hp }}</td>
                 <td>{{ $r->pekerjaan }}</td>

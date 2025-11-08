@@ -15,7 +15,6 @@ class Agent extends Model
         'no_hp',
         'alamat',
         'perumahan_id',
-        'referral_code'
     ];
 
     public function konsumen()

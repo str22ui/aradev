@@ -2,7 +2,6 @@
     <thead>
         <tr>
             <th class="col-sm-1">No</th>
-            <th class="col-md-1">Kode Referral </th>
             <th class="col-md-1">Nama </th>
             <th class="col-md-1">Kantor</th>
             <th class="col-md-1">Tipe</th>
@@ -19,7 +18,6 @@
         @foreach ($agents as $a)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $a->referral_code }}</td>
                 <td>{{ $a->name }}</td>
                 <td>{{ $a->kantor }}</td>
                 <td>{{ $a->tipe }}</td>
@@ -48,7 +46,7 @@
                 </td>
                 <td>{{ $a->created_at->format('d/m/y') }}</td>
                 <td>
-                    
+
                     <a href="{{ route('admin.editAgent', ['id' => $a->id]) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square"></i>
                     </a>

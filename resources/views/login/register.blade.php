@@ -61,16 +61,7 @@
                 placeholder="Masukkan email Anda...">
             </div>
 
-            <div id="perumahan-container">
-                <label for="perumahan_id" class="form-label block mb-2 text-sm font-medium">Perumahan</label>
-                <select id="perumahan_id" name="perumahan_id[]"
-                    class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-                    <option value="pilih">-- Pilih --</option>
-                    @foreach ($perumahan as $item)
-                        <option value="{{ $item->id }}">{{ $item->perumahan }}</option>
-                    @endforeach
-                </select>
-            </div>
+
             <div>
               <label for="password" class="block text-gray-700 font-medium mb-2">Password</label>
               <input type="password" id="password" name="password"
@@ -85,12 +76,6 @@
                 placeholder="Konfirmasi password...">
             </div>
 
-             <div>
-              <label for="referral_code" class="block text-gray-700 font-medium mb-2">Kode Referral (Agent/Reseller)</label>
-              <input type="text" id="referral_code" name="referral_code"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500"
-                placeholder="Masukkan kode referral">
-            </div>
           </div>
 
           @if ($errors->any())

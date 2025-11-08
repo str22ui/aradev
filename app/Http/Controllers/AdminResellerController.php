@@ -40,7 +40,6 @@ class AdminResellerController extends Controller
             'pekerjaan' => 'required',
             'kota' => 'required',
             'alamat' => 'required',
-            'referral_code' => 'required',
             'perumahan_id' => 'nullable|array',
             'perumahan_id.*' => 'exists:perumahan,id',
             'email' => 'required|email|unique:users,email',
@@ -62,7 +61,6 @@ class AdminResellerController extends Controller
             'pekerjaan' => $validatedData['pekerjaan'],
             'kota' => $validatedData['kota'],
             'alamat' => $validatedData['alamat'],
-            'referral_code' => $validatedData['referral_code'],
             'user_id' => $user->id,
         ];
          if (isset($validatedData['perumahan_id'])) {
@@ -106,7 +104,7 @@ class AdminResellerController extends Controller
             'alamat' => 'required|max:255',
             'perumahan_id' => 'required|array',
             'perumahan_id.*' => 'string|max:255',
-            'referral_code' => 'required|max:255',
+
         ]);
 
         // Temukan agent berdasarkan id
@@ -120,7 +118,6 @@ class AdminResellerController extends Controller
             'kota' => $request->kota,
             'alamat' => $request->alamat,
             'perumahan_id' => json_encode($request->perumahan_id),
-            'referral_code' => $request->referral_code,
         ]);
 
         // Simpan perubahan

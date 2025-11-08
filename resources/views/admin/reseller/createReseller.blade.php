@@ -61,12 +61,6 @@
             </div>
             <button type="button" onclick="addPerumahan()" class="btn btn-secondary my-3">Tambah Perumahan</button><br>
 
-            <div class="mb-3">
-              <label for="referral_code" class="form-label">Kode Referral</label>
-              <input type="text" name="referral_code" id="referral_code" placeholder="Masukkan Kode Referral" class="form-control">
-             </div>
-
-
             <!-- Tambahkan password -->
             <div class="mb-3">
                 <label for="password" class="form-label">Password Login</label>
