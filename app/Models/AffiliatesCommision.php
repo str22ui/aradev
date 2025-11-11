@@ -13,6 +13,7 @@ class AffiliatesCommision extends Model
 
     protected $fillable = [
         'affiliate_id',
+        'perumahan_id',
         'bulan',
         'harga_pricelist',
         'biaya_legalitas',
@@ -27,4 +28,9 @@ class AffiliatesCommision extends Model
     {
         return $this->belongsTo(Affiliate::class);
     }
+
+   public function perumahan()
+{
+    return $this->belongsTo(Perumahan::class, 'perumahan_id');
+}
 }

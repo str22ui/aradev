@@ -46,10 +46,16 @@ class Perumahan extends Model
         return $this->belongsTo(Agent::class);
     }
 
-    public function affiliates()
-    {
-        return $this->hasMany(Affiliate::class, 'perumahan_id');
-    }
+  public function affiliates()
+{
+    return $this->belongsToMany(
+        Affiliate::class,
+        'affiliate_perumahan',
+        'perumahan_id',
+        'affiliate_id'
+    );
+}
+
 
     public function reseller()
     {
@@ -67,5 +73,16 @@ class Perumahan extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function commissions()
+    {
+        return $this->hasManyThrough(
+            AffiliatesCommision::class,
+            Affiliate::class,
+            'perumahan_id',
+            'affiliate_id',
+            'id',
+            'id'
+        );
+    }
 
 }

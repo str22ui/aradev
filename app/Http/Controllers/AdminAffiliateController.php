@@ -7,6 +7,7 @@ use App\Models\Agent;
 use App\Models\Reseller;
 use App\Models\Sales;
 use App\Models\Affiliate;
+use App\Models\AffiliatesCommision;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -182,5 +183,67 @@ class AdminAffiliateController extends Controller
         return redirect('/affiliate')->with('success', 'Berhasil Menghapus Affiliate');
     }
 
-    // ============ END AGENT ================
+
+    public function createCommission($id)
+    {
+        $affiliate = Affiliate::findOrFail($id);
+        $perumahan = Perumahan::all();
+
+        // Ambil data komisi yang sudah ada untuk affiliate ini
+        $commissions = AffiliatesCommision::where('affiliate_id', $id)
+            ->with('perumahan')
+            ->orderBy('bulan', 'desc')
+            ->get();
+
+        return view('admin.affiliate.commision_create', compact('affiliate', 'perumahan', 'commissions'));
+    }
+
+
+
+    public function storeCommission(Request $request, $id)
+    {
+        $request->validate([
+            'bulan' => 'required|date',
+            'harga_pricelist' => 'required|numeric',
+            'biaya_legalitas' => 'required|numeric',
+            'net_price' => 'required|numeric',
+            'fee_2_5' => 'required|numeric',
+            'fee_affiliate_30' => 'required|numeric',
+            'sub_total_bulanan' => 'required|numeric',
+            'total' => 'required|numeric',
+            'perumahan_id' => 'required|exists:perumahan,id',
+        ]);
+
+        AffiliatesCommision::create([
+    'affiliate_id' => $id,
+    'user_id' => Affiliate::find($id)->user_id, // ambil user_id dari affiliate
+    'perumahan_id' => $request->perumahan_id,
+    'bulan' => $request->bulan,
+    'harga_pricelist' => $request->harga_pricelist,
+    'biaya_legalitas' => $request->biaya_legalitas,
+    'net_price' => $request->net_price,
+    'fee_2_5' => $request->fee_2_5,
+    'fee_affiliate_30' => $request->fee_affiliate_30,
+    'sub_total_bulanan' => $request->sub_total_bulanan,
+    'total' => $request->total,
+
+
+    ]);
+
+
+        return redirect()->route('admin.affiliate')->with('success', 'Data komisi berhasil disimpan!');
+    }
+public function deleteCommission($id)
+{
+    $commission = AffiliatesCommision::findOrFail($id);
+    $affiliateId = $commission->affiliate_id;
+    $commission->delete();
+
+    return redirect()
+        ->route('admin.createCommission', $affiliateId)
+        ->with('success', 'Komisi berhasil dihapus');
+}
+
+
+
 }

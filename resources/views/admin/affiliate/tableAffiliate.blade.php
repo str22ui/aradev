@@ -2,9 +2,10 @@
     <thead>
         <tr>
             <th class="col-sm-1">No</th>
+            <th class="col-md-1">Kode</th>
             <th class="col-md-1">Nama </th>
             <th class="col-md-2">Phone</th>
-            <th class="col-md-2 ">referreed_by_id</th>
+
             <th class="col-md-2">total_sales</th>
             <th class="col-md-2">total_commission</th>
             <th class="col-md-2">Tanggal Join</th>
@@ -18,13 +19,14 @@
         @foreach ($affiliate as $a)
             <tr>
                 <td>{{ $loop->iteration }}</td>
+                <td>{{ $a->code }}</td>
                 <td>{{ $a->name }}</td>
                 <td>{{ $a->phone }}</td>
-                <td>{{ $a->referred_by_name ?? '-' }}</td>
+
                 <td>{{ $a->total_sales }}</td>
                 <td>{{ $a->total_commission }}</td>
               <td>{{ \Carbon\Carbon::parse($a->joined_at)->format('d/m/y') }}</td>
-                
+
                  <td>
                     @php
                         $perumahanIds = json_decode($a->perumahan_id, true); // Decode JSON
@@ -47,6 +49,11 @@
                     @endif
                 </td>
                  <td>
+                  <a href="{{ route('admin.createCommission', ['id' => $a->id]) }}" class="btn btn-primary btn-sm">
+                    <i class="bi bi-plus-slash-minus"></i> Tambah Komisi
+                </a>
+
+
 
                     <a href="{{ route('admin.editAffiliate', ['id' => $a->id]) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square"></i>

@@ -46,6 +46,20 @@ public function perumahans()
     return Perumahan::whereIn('id', json_decode($this->perumahan_id ?? '[]'))->get();
 }
 
+public function commissions()
+{
+    return $this->hasMany(AffiliatesCommision::class,'affiliate_id');
+}
+
+public function perumahan()
+{
+    return $this->belongsToMany(
+        Perumahan::class,
+        'affiliate_perumahan',
+        'affiliate_id',
+        'perumahan_id'
+    );
+}
 
 
 }
