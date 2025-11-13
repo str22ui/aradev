@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\AffiliatesCommision;
 
 class Perumahan extends Model
 {
@@ -75,14 +76,7 @@ class Perumahan extends Model
 
     public function commissions()
     {
-        return $this->hasManyThrough(
-            AffiliatesCommision::class,
-            Affiliate::class,
-            'perumahan_id',
-            'affiliate_id',
-            'id',
-            'id'
-        );
+        return $this->hasMany(AffiliatesCommision::class);
     }
 
 }

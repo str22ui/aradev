@@ -46,7 +46,6 @@ class AdminAffiliateController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'address' => 'required',
-            'referral_code' => 'required',
             'perumahan_id' => 'nullable|array',
             'perumahan_id.*' => 'exists:perumahan,id',
             'email' => 'required|email|unique:users,email',
@@ -61,21 +60,6 @@ class AdminAffiliateController extends Controller
             'role' => 'affiliate',
         ]);
 
-        // 2️⃣ Cari pemilik kode referral (agent/reseller)
-        $referrerAgent = Agent::where('referral_code', $request->referral_code)->first();
-        $referrerReseller = Reseller::where('referral_code', $request->referral_code)->first();
-
-        if ($referrerAgent) {
-            $referrerUserId = $referrerAgent->user_id;
-            $referrerName = $referrerAgent->name;
-        } elseif ($referrerReseller) {
-            $referrerUserId = $referrerReseller->user_id;
-            $referrerName = $referrerReseller->name;
-        } else {
-            $referrerUserId = null;
-            $referrerName = null;
-        }
-
         // 3️⃣ Buat affiliate baru dan hubungkan dengan referrer
         $affiliate = Affiliate::create([
             'user_id' => $user->id,
@@ -83,10 +67,6 @@ class AdminAffiliateController extends Controller
             'phone' => $validatedData['phone'],
             'address' => $validatedData['address'],
             'code' => strtoupper(Str::random(6)),
-            'referred_by_name' => $referrerName,
-            'referred_by_user_id' => $referrerUserId,
-            'referred_by_code' => $request->referral_code,
-            'commission_rate' => 0, // default, bisa diisi nanti
             'joined_at' => now(),
         ]);
 
@@ -94,9 +74,6 @@ class AdminAffiliateController extends Controller
             $affiliate->perumahan_id = json_encode($validatedData['perumahan_id']);
             $affiliate->save();
         }
-
-
-
 
         return redirect('/affiliate')->with('success', 'Affiliate berhasil dibuat dan otomatis terhubung ke referrer!');
     }
@@ -132,7 +109,6 @@ class AdminAffiliateController extends Controller
             'name' => 'required',
             'phone' => 'required',
             'address' => 'required',
-            'referral_code' => 'nullable',
             'perumahan_id' => 'required|array',
             'perumahan_id.*' => 'string|max:255',
         ]);
@@ -140,29 +116,11 @@ class AdminAffiliateController extends Controller
         // 2️⃣ Cari affiliate
         $affiliate = Affiliate::findOrFail($id);
 
-        // 3️⃣ Cari referrer baru jika referral_code diisi
-        $referrerAgent = Agent::where('referral_code', $request->referral_code)->first();
-        $referrerReseller = Reseller::where('referral_code', $request->referral_code)->first();
-
-        if ($referrerAgent) {
-            $referrerUserId = $referrerAgent->user_id;
-            $referrerName = $referrerAgent->name;
-        } elseif ($referrerReseller) {
-            $referrerUserId = $referrerReseller->user_id;
-            $referrerName = $referrerReseller->name;
-        } else {
-            $referrerUserId = $affiliate->referred_by_user_id; // biarkan default
-            $referrerName = $affiliate->referred_by_name;
-        }
-
         // 4️⃣ Update affiliate
         $affiliate->update([
             'name' => $validatedData['name'],
             'phone' => $validatedData['phone'],
             'address' => $validatedData['address'],
-            'referred_by_name' => $referrerName,
-            'referred_by_user_id' => $referrerUserId,
-            'referred_by_code' => $request->referral_code ?? $affiliate->referred_by_code,
             'perumahan_id' => json_encode($request->perumahan_id),
         ]);
 
@@ -215,17 +173,17 @@ class AdminAffiliateController extends Controller
         ]);
 
         AffiliatesCommision::create([
-    'affiliate_id' => $id,
-    'user_id' => Affiliate::find($id)->user_id, // ambil user_id dari affiliate
-    'perumahan_id' => $request->perumahan_id,
-    'bulan' => $request->bulan,
-    'harga_pricelist' => $request->harga_pricelist,
-    'biaya_legalitas' => $request->biaya_legalitas,
-    'net_price' => $request->net_price,
-    'fee_2_5' => $request->fee_2_5,
-    'fee_affiliate_30' => $request->fee_affiliate_30,
-    'sub_total_bulanan' => $request->sub_total_bulanan,
-    'total' => $request->total,
+        'affiliate_id' => $id,
+        'user_id' => Affiliate::find($id)->user_id, // ambil user_id dari affiliate
+        'perumahan_id' => $request->perumahan_id,
+        'bulan' => $request->bulan,
+        'harga_pricelist' => $request->harga_pricelist,
+        'biaya_legalitas' => $request->biaya_legalitas,
+        'net_price' => $request->net_price,
+        'fee_2_5' => $request->fee_2_5,
+        'fee_affiliate_30' => $request->fee_affiliate_30,
+        'sub_total_bulanan' => $request->sub_total_bulanan,
+        'total' => $request->total,
 
 
     ]);
@@ -233,17 +191,14 @@ class AdminAffiliateController extends Controller
 
         return redirect()->route('admin.affiliate')->with('success', 'Data komisi berhasil disimpan!');
     }
-public function deleteCommission($id)
-{
-    $commission = AffiliatesCommision::findOrFail($id);
-    $affiliateId = $commission->affiliate_id;
-    $commission->delete();
+        public function deleteCommission($id)
+        {
+            $commission = AffiliatesCommision::findOrFail($id);
+            $affiliateId = $commission->affiliate_id;
+            $commission->delete();
 
-    return redirect()
-        ->route('admin.createCommission', $affiliateId)
-        ->with('success', 'Komisi berhasil dihapus');
-}
-
-
-
-}
+            return redirect()
+                ->route('admin.createCommission', $affiliateId)
+                ->with('success', 'Komisi berhasil dihapus');
+        }
+    }

@@ -8,7 +8,7 @@
 
 	<div class="my-3 p-3 rounded">
 
-        <a href="{{ route('admin.createUser') }}" class="btn btn-success me-2 py-2" >
+        <a href="{{ route('admin.createSales') }}" class="btn btn-success me-2 py-2" >
             + Insert Data
         </a>
         @if (session()->has('success'))
@@ -21,6 +21,7 @@
             <thead>
                 <tr>
                     <th class="col-sm-1">No</th>
+                    <th class="col-md-2">Code</th>
                     <th class="col-md-2">Nama</th>
                     <th class="col-md-2">Email</th>
                     <th class="col-md-2">Role</th>
@@ -33,6 +34,7 @@
                 @foreach ($sales as $s)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
+                        <td>{{ $s->code }}</td>
                         <td>{{ $s->name }}</td>
                         <td>{{ $s->email }}</td>
                         <td>{{ $s->role }}</td>

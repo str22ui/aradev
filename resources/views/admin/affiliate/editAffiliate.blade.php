@@ -13,10 +13,6 @@
         @csrf
             {{-- Title --}}
 
-            <div class="mb-3">
-              <label for="referral_code" class="form-label">Kode Referral</label>
-              <input type="text" value="{{ $affiliate->referred_by_code }}" name="referral_code" id="referral_code"  class="form-control">
-            </div>
 
             <div class="mb-3">
               <label for="name" class="form-label">Nama Affiliate</label>
@@ -31,22 +27,6 @@
              <div class="mb-3">
               <label for="address" class="form-label">Alamat</label>
               <input type="text" value="{{ $affiliate->address }}" name="address" id="address"  class="form-control">
-            </div>
-
-
-            <div class="mb-3">
-              <label for="commission_rate" class="form-label">Komisi</label>
-              <input type="text" value="{{ $affiliate->commission_rate }}" name="commission_rate" id="commission_rate"  class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label for="total_sales" class="form-label">Total Sales</label>
-              <input type="text" value="{{ $affiliate->total_sales }}" name="total_sales" id="total_sales"  class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label for="total_commission" class="form-label">Total Komisi</label>
-              <input type="text" value="{{ $affiliate->total_commission }}" name="total_commission" id="total_commission"  class="form-control">
             </div>
 
              <div class="mb-3">
@@ -91,7 +71,7 @@
 
 </section>
 
-<script>
+{{-- <script>
       function addPerumahan() {
         const container = document.getElementById('perumahan-container');
 
@@ -145,7 +125,7 @@
     hiddenInput.value = index;
     container.appendChild(hiddenInput);
 }
-</script>
+</script> --}}
 @endsection
 
 

@@ -93,9 +93,6 @@ class AuthController extends Controller
             'name' => $validated['name'],
             'phone' => $validated['phone'],
             'address' => $validated['address'],
-            'commission_rate' => 0,
-            'total_sales' => 0,
-            'total_commission' => 0,
             'joined_at' => now(),
         ]);
 

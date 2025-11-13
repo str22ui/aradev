@@ -72,7 +72,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/viewAffiliate', [DataViewController::class, 'dataViewAffiliate'])->name('dataview.affiliate');
     });
 
-    
+
 
     // ============================================
     // ADMIN & SALES ADMIN ROUTES
@@ -135,7 +135,7 @@ Route::middleware(['auth'])->group(function () {
         // Sales
         Route::get('/sales-home', [AdminSalesController::class, 'indexSales'])->name('admin.sales');
         Route::get('/createSales', [AdminSalesController::class, 'createSales'])->name('admin.createSales');
-        Route::post('/storeSales', [adminController::class, 'storeSales'])->name('admin.storeSales');
+        Route::post('/storeSales', [AdminSalesController::class, 'storeSales'])->name('admin.storeSales');
         Route::get('/sales-home/{id}/', [AdminSalesController::class, 'editSales'])->name('admin.editSales');
         Route::put('/sales/update/{id}', [AdminSalesController::class, 'updateSales'])->name('admin.updateSales');
         Route::delete('/deleteSales', [AdminSalesController::class, 'destroySales'])->name('admin.deleteSales');

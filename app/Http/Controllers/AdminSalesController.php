@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Perumahan;
 
@@ -39,6 +40,11 @@ class AdminSalesController extends Controller
             'perumahan_id.*' => 'string|max:255',
 
         ]);
+        do{
+            $code = strtoupper(Str::random(6));
+        }while(User::where('code',$code)->exists());
+
+        $validatedData['code'] = $code;
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
@@ -100,8 +106,6 @@ class AdminSalesController extends Controller
 
     public function destroySales(Request $request)
     {
-        // Debug untuk melihat data yang diterima
-        \Log::info($request->id);
 
         // Ambil data perumahan berdasarkan ID
         $sales = User::findOrFail($request->id);
@@ -110,6 +114,6 @@ class AdminSalesController extends Controller
         $sales->delete();
 
         // Redirect dengan pesan sukses
-        return redirect('/sales-home')->with('success', 'Berhasil Menghapus Data User');
+        return redirect('/sales-home')->with('success', 'Berhasil Menghapus Data Sales');
     }
 }

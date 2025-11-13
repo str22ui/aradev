@@ -12,12 +12,6 @@
         @csrf
             {{-- Title --}}
 
-            <div class="mb-3">
-            <label for="referral_code">Kode Referral (Agent / Reseller)</label>
-            <input type="text" name="referral_code" id="referral_code" placeholder="Masukkan kode referral dari Agent/Reseller" class="form-control">
-
-            </div>
-
 
             <div class="mb-3">
               <label for="name" class="form-label">Nama Affiliate</label>
@@ -35,26 +29,12 @@
               <input type="text" value="" name="address" id="address" placeholder="Masukkan Alamat" class="form-control">
             </div>
 
-            <div class="mb-3">
-              <label for="commision_rate" class="form-label">Komisi </label>
-              <input type="text" value="" name="commission_rate" id="commission_rate" placeholder="Masukkan Komisi" class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label for="total_sales" class="form-label">Total Sales</label>
-              <input type="text" value="" name="total_sales" id="total_sales" placeholder="Masukkan Total Sales" class="form-control">
-            </div>
-
-            <div class="mb-3">
-              <label for="total_commission" class="form-label">Total Komisi</label>
-              <input type="text" value="" name="total_commission" id="total_commission" placeholder="Masukkan Total Komisi" class="form-control">
-            </div>
 
             <div class="mb-3">
               <label for="joined_at" class="form-label">Tanggal Join</label>
               <input type="date" name="joined_at" id="joined_at" class="form-control">
             </div>
-            <div id="perumahan-container">
+            {{-- <div id="perumahan-container">
                 <label for="perumahan_id" class="form-label block mb-2 text-sm font-medium">Perumahan</label>
                 <select id="perumahan_id" name="perumahan_id[]"
                     class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -68,7 +48,7 @@
         <div class="mb-3">
             <label for="email" class="form-label">Email Affiliate</label>
             <input type="email" name="email" id="email" placeholder="Masukkan Email Affiliate" class="form-control" required>
-        </div>
+        </div> --}}
 
         <!-- Tambahkan password -->
         <div class="mb-3">
@@ -94,7 +74,7 @@
 
 </section>
 
-<script>
+{{-- <script>
 function addPerumahan() {
         const container = document.getElementById('perumahan-container');
 
@@ -136,7 +116,7 @@ function addPerumahan() {
         container.appendChild(newSelect);
     }
 
-</script>
+</script> --}}
 
 
 @endsection

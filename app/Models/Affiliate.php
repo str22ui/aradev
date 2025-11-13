@@ -16,12 +16,6 @@ class Affiliate extends Model
     'name',
     'phone',
     'address',
-    'referred_by_name',
-    'referred_by_user_id',
-    'referred_by_code',
-    'commission_rate',
-    'total_sales',
-    'total_commission',
     'joined_at',
     'perumahan_id',
 ];
@@ -53,12 +47,7 @@ public function commissions()
 
 public function perumahan()
 {
-    return $this->belongsToMany(
-        Perumahan::class,
-        'affiliate_perumahan',
-        'affiliate_id',
-        'perumahan_id'
-    );
+    return $this->belongsTo(Perumahan::class, 'perumahan_id');
 }
 
 
