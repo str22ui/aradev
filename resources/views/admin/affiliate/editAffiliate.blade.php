@@ -54,7 +54,7 @@
               <input type="text" value="{{ $affiliate->joined_at }}" name="joined_at" id="joined_at"  class="form-control">
             </div>
 
-            <div id="perumahan-container">
+            {{-- <div id="perumahan-container">
                 <label for="perumahan_id" class="form-label block mb-2 text-sm font-medium">Perumahan yang Dipilih</label>
                 @foreach ($affiliate->perumahan_id as $index => $selectedId)
                     <div class="flex items-center space-x-2">
@@ -71,7 +71,7 @@
                             onclick="removePerumahan(this, {{ $index }})">Hapus</button>
                     </div>
                 @endforeach
-            </div>
+            </div> --}}
 
 
             <button type="button" onclick="addPerumahan()" class="btn btn-secondary my-3">Tambah Perumahan</button>

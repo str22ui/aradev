@@ -16,12 +16,12 @@
     </li>
 
 
-    <li class="sidebar-item {{ Request::is('admin/reseller*') || Request::is('admin/createReseller*') || Request::is('admin/editReseller*') || Request::is('admin/showReseller*') ? 'active' : '' }}">
+    {{-- <li class="sidebar-item {{ Request::is('admin/reseller*') || Request::is('admin/createReseller*') || Request::is('admin/editReseller*') || Request::is('admin/showReseller*') ? 'active' : '' }}">
         <a href="{{ route('admin.reseller') }}" class='sidebar-link'>
             <i class="bi bi-person-workspace"></i>
             <span>Reseller</span>
         </a>
-    </li>
+    </li> --}}
     @if (auth()->user()->role === 'admin')
     <li class="sidebar-item {{ Request::is('admin/sales*') || Request::is('admin/createSales*') || Request::is('admin/editSales*') || Request::is('admin/showSales*') ? 'active' : '' }}">
         <a href="{{ route('admin.sales') }}" class='sidebar-link'>

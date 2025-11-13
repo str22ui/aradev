@@ -72,10 +72,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/viewAffiliate', [DataViewController::class, 'dataViewAffiliate'])->name('dataview.affiliate');
     });
 
+    
+
     // ============================================
     // ADMIN & SALES ADMIN ROUTES
     // ============================================
-    Route::middleware('checkRole:admin,salesAdmin')->group(function () {
+    Route::middleware('checkRole:admin,salesAdmin,sales')->group(function () {
 
         // Dashboard
         Route::get('/dashboard', [AdminController::class, 'indexAdmin'])->name('admin.index');
@@ -179,11 +181,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/affiliate', [AdminAffiliateController::class, 'indexAffiliate'])->name('admin.affiliate');
         Route::get('/createAffiliate', [AdminAffiliateController::class, 'createAffiliate'])->name('admin.createAffiliate');
        Route::get('/createCommission/{id}', [AdminAffiliateController::class, 'createCommission'])
-    ->name('admin.createCommission');
+        ->name('admin.createCommission');
         Route::post('/storeCommission/{id}', [AdminAffiliateController::class, 'storeCommission'])
-    ->name('admin.storeCommission');
-Route::delete('/admin/commission/{id}', [AdminAffiliateController::class, 'deleteCommission'])
-    ->name('admin.deleteCommission');
+        ->name('admin.storeCommission');
+        Route::delete('/admin/commission/{id}', [AdminAffiliateController::class, 'deleteCommission'])
+        ->name('admin.deleteCommission');
 
         Route::post('/storeAffiliate', [AdminAffiliateController::class, 'storeAffiliate'])->name('admin.storeAffiliate');
         Route::get('/affiliate/{id}/', [AdminAffiliateController::class, 'editAffiliate'])->name('admin.editAffiliate');

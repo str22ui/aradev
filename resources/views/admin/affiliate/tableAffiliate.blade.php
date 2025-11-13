@@ -5,9 +5,6 @@
             <th class="col-md-1">Kode</th>
             <th class="col-md-1">Nama </th>
             <th class="col-md-2">Phone</th>
-
-            <th class="col-md-2">total_sales</th>
-            <th class="col-md-2">total_commission</th>
             <th class="col-md-2">Tanggal Join</th>
             <th class="col-md-2">Perumahan</th>
             <th class="col-md-3">Action</th>
@@ -22,9 +19,6 @@
                 <td>{{ $a->code }}</td>
                 <td>{{ $a->name }}</td>
                 <td>{{ $a->phone }}</td>
-
-                <td>{{ $a->total_sales }}</td>
-                <td>{{ $a->total_commission }}</td>
               <td>{{ \Carbon\Carbon::parse($a->joined_at)->format('d/m/y') }}</td>
 
                  <td>

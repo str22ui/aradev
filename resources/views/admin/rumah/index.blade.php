@@ -67,7 +67,7 @@
                             'Sold' => 'bg-danger'
                         ][$r->status] ?? '';
                     @endphp
-
+                      <td>Rp.{{ $r->harga }}</td>
                     <td>
                         <span class="badge fs-6 {{ $statusClass }}">
                             {{ $r->status }}
