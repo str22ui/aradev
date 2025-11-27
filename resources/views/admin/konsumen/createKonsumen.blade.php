@@ -33,7 +33,7 @@
                 <label for="domisili" class="form-label">domisili</label>
                 <input type="text" class="form-control" id="domisili" name="domisili">
             </div>
-         
+
             <div class="mb-3">
                 <label for="tanggal" class="form-label">Tanggal</label>
                 <input type="date" class="form-control" id="tanggal" name="tanggal">
@@ -71,7 +71,7 @@
                     <option name="sumber_informasi" value="Instagram Perumahan">Instagram Perumahan</option>
                     <option name="sumber_informasi" value="Walk In">Walk In Customer</option>
                     <option name="sumber_informasi" value="agent">Agent</option>
-                    <option name="sumber_informasi" value="Reseller">Reseller</option>
+                    <option name="sumber_informasi" value="Affiliate">Affiliate</option>
                     <option name="sumber_informasi" value="Dll">Dll</option>
                     </optgroup>
                 </select>
@@ -89,13 +89,13 @@
                 </div>
             </div>
 
-            <div class="reseller flex w-full gap-4 mb-4">
+            <div class="affiliate flex w-full gap-4 mb-4">
                 <div class="w-full">
-                    <label for="reseller_id" class="form-label block mb-2 text-sm font-medium">Nama Reseller</label>
-                   <select name="reseller_id" class="form-select">
-                    <option value="">Pilih Reseller</option>
-                    @foreach ($reseller as $reseller)
-                        <option value="{{ $reseller->id }}">{{ $reseller->nama }}</option>
+                    <label for="affiliate_id" class="form-label block mb-2 text-sm font-medium">Nama Affiliate</label>
+                   <select name="affiliate_id" class="form-select">
+                    <option value="">Pilih Affiliate</option>
+                    @foreach ($affiliate as $affiliate)
+                        <option value="{{ $affiliate->id }}">{{ $affiliate->name }}</option>
                     @endforeach
                 </select>
                 </div>
@@ -118,9 +118,9 @@
 <script>
     var selectInput2 = document.getElementById('sumber_informasi');
     var agentDiv2 = document.querySelector('.agent');
-    var resellerDiv2 = document.querySelector('.reseller');
+    var affiliateDiv2 = document.querySelector('.affiliate');
     agentDiv2.style.display = 'none'; // Default tidak ditampilkan
-    resellerDiv2.style.display = 'none'; // Default tidak ditampilkan
+    affiliateDiv2.style.display = 'none'; // Default tidak ditampilkan
 
     selectInput2.addEventListener('change', function() {
         if (this.value === 'agent') {
@@ -132,10 +132,10 @@
 
 
     selectInput2.addEventListener('change', function() {
-        if (this.value === 'Reseller') {
-            resellerDiv2.style.display = 'block';
+        if (this.value === 'Affiliate') {
+            affiliateDiv2.style.display = 'block';
         } else {
-            resellerDiv2.style.display = 'none';
+            affiliateDiv2.style.display = 'none';
         }
     });
 

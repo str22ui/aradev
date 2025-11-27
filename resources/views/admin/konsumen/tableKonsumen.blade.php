@@ -7,7 +7,7 @@
             <th class="col-md-2">No HP</th>
             <th class="col-md-2">Email</th>
             <th class="col-md-1">Agent</th>
-            <th class="col-md-1">Reseller</th>
+            <th class="col-md-1">Affiliate</th>
             <th class="col-md-2">Tanggal</th>
              @if (auth()->user()->role === 'admin')
                     <th class="col-md-2">User</th>
@@ -34,7 +34,7 @@
 
                     <td>{{ $k->email }}</td>
                     <td>{{ $k->agent->nama ?? 'No Data'}}</td>
-                    <td>{{ $k->reseller->nama ?? 'No Data'}}</td>
+                    <td>{{ $k->affiliate->name ?? 'No Data'}}</td>
                     <td>{{ $k->created_at->format('d/m/y') }}</td>
                       @if (auth()->user()->role === 'admin')
                         <td>

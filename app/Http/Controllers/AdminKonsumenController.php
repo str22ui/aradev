@@ -11,7 +11,7 @@ use App\Exports\ExportSurvey;
 use App\Exports\ExportPenawaran;
 use App\Exports\ExportAgent;
 use App\Exports\ExportReseller;
-
+use App\Models\Affiliate;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\Visit;
@@ -82,9 +82,9 @@ class AdminKonsumenController extends Controller
         }
 
         $agent = Agent::all();
-        $reseller = Reseller::all();
+        $affiliate = Affiliate::all();
 
-        return view('admin.konsumen.createKonsumen', compact('perumahan', 'agent', 'reseller'));
+        return view('admin.konsumen.createKonsumen', compact('perumahan', 'agent', 'affiliate'));
     }
 
 
@@ -101,13 +101,13 @@ class AdminKonsumenController extends Controller
             'perumahan' => 'required|not_in:pilih',
             'sumber_informasi' => 'required|not_in:-- Pilih --',
             'agent_id' => 'nullable|exists:agents,id',
-            'reseller_id' => 'nullable|exists:resellers,id',
+            'affiliate_id' => 'nullable|exists:affiliates,id',
             'user_id' => 'nullable',
         ]);
 
         // Pastikan nilai 'agent_id' dan 'reseller_id' menjadi null jika tidak dipilih
         $validatedData['agent_id'] = $request->filled('agent_id') ? $request->input('agent_id') : null;
-        $validatedData['reseller_id'] = $request->filled('reseller_id') ? $request->input('reseller_id') : null;
+        $validatedData['affiliate_id'] = $request->filled('affiliate_id') ? $request->input('affiliate_id') : null;
 
         // Set created_at dari input atau waktu sekarang
         $validatedData['created_at'] = $request->input('tanggal') ?? Carbon::now();
