@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Affiliate;
 use Illuminate\Support\Facades\Log;
 
 use Carbon\Carbon;
@@ -491,11 +492,11 @@ class LandingController extends Controller
         $selectedPerumahan = Perumahan::findOrFail($id); // Data spesifik berdasarkan ID
         // $agents = Agent::all();
         $agents = Agent::whereJsonContains('perumahan_id', $id)->get();
-        $reseller = Reseller::all();
+        $affiliate = Affiliate::all();
         $sales = User::where('role', 'sales')->get();
         $allService = Service::all();
 
-        return view('client.page.form', compact('allPerumahan', 'selectedPerumahan', 'agents', 'reseller','allService','sales'));
+        return view('client.page.form', compact('allPerumahan', 'selectedPerumahan', 'agents', 'affiliate','allService','sales'));
     }
 
 

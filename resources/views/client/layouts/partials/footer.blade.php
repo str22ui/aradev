@@ -142,12 +142,12 @@
     var radioInputs = document.querySelectorAll('input[name="info_radio"]');
     var dropdownInput = document.getElementById('sumber_informasi');
     var agentDiv = document.querySelector('.agent');
-    var resellerDiv = document.querySelector('.reseller');
+    var affiliateDiv = document.querySelector('.affiliate');
     var salesDiv = document.querySelector('.sales');
 
     // Menyembunyikan form agent secara default
     agentDiv.style.display = 'none';
-    resellerDiv.style.display = 'none';
+    affiliateDiv.style.display = 'none';
     salesDiv.style.display = 'none';
 
 
@@ -162,10 +162,10 @@
 
     // Event listener untuk dropdown
     dropdownInput.addEventListener('change', function() {
-        if (dropdownInput.value === 'Reseller') {
-            resellerDiv .style.display = 'flex'; // Tampilkan form agent
+        if (dropdownInput.value === 'Affiliate') {
+            affiliateDiv .style.display = 'flex'; // Tampilkan form agent
         } else {
-            resellerDiv .style.display = 'none'; // Sembunyikan form agent
+            affiliateDiv .style.display = 'none'; // Sembunyikan form agent
         }
     });
 

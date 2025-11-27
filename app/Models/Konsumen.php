@@ -19,8 +19,8 @@ class Konsumen extends Model
     'perumahan',
     'sumber_informasi',
     'agent_id',
-    'reseller_id',
     'user_id',
+    'reseller_id',
     'created_at',
 ];
 

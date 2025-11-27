@@ -116,7 +116,7 @@
                     <option name="sumber_informasi" value="Spanduk">Spanduk</option>
                     <option name="sumber_informasi" value="Walk in">Walk in Customer</option>
                     <option name="sumber_informasi" value="Agent">Agent</option>
-                    <option name="sumber_informasi" value="Reseller">Reseller</option>
+                    <option name="sumber_informasi" value="Affiliate">Affiliate</option>
                     <option name="sumber_informasi" value="Sales">Sales</option>
                     <option name="sumber_informasi" value="Dll">Dll</option>
                 </select>
@@ -140,17 +140,17 @@
                     </div>
                 </div>
 
-                <div class="reseller  flex w-full gap-4">
+                <div class="affiliate  flex w-full gap-4">
                     <div class="w-full">
-                        <label for="reseller_id" class="form-label block mb-2 text-sm font-medium ">Nama Reseller</label>
-                        <select id="reseller_id" name="reseller_id"
+                        <label for="affiliate_id" class="form-label block mb-2 text-sm font-medium ">Nama Affiliate</label>
+                        <select id="affiliate_id" name="affiliate_id"
                             class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                             <option value="">-- Pilih --</option>
-                            @foreach ($reseller as $r)
-                                <option value="{{ $r->id }}">{{ $r->nama }} - {{ $r->kota }} - {{substr($r->no_hp, -4)}} </option>
+                            @foreach ($affiliate as $a)
+                                <option value="{{ $a->id }}">{{ $a->name }} </option>
                             @endforeach
                         </select>
-                        @error('reseller_id')
+                        @error('affiliate_id')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                     @enderror
                     </div>

@@ -52,7 +52,10 @@ class DataViewController extends Controller
             ->orderBy('bulan', 'desc')
             ->paginate(6);
 
-        return view('client.component.DataView.affiliate', compact('affiliate', 'user', 'commissions'));
+        $totalUnit = AffiliatesCommision::where('affiliate_id',$affiliate->id)
+            ->distinct()
+            ->count('perumahan_id');
+        return view('client.component.DataView.affiliate', compact('affiliate', 'user', 'commissions','totalUnit'));
     }
 
 

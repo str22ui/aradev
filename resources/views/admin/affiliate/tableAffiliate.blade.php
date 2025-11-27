@@ -6,7 +6,6 @@
             <th class="col-md-1">Nama </th>
             <th class="col-md-2">Phone</th>
             <th class="col-md-2">Tanggal Join</th>
-            <th class="col-md-2">Perumahan</th>
             <th class="col-md-3">Action</th>
 
         </tr>
@@ -21,7 +20,7 @@
                 <td>{{ $a->phone }}</td>
               <td>{{ \Carbon\Carbon::parse($a->joined_at)->format('d/m/y') }}</td>
 
-                 <td>
+                 {{-- <td>
                     @php
                         $perumahanIds = json_decode($a->perumahan_id, true); // Decode JSON
                         $perumahans = $perumahan; // Pastikan $perumahan berisi koleksi data perumahan
@@ -41,7 +40,7 @@
                     @else
                         <span class="text-muted">N/A</span>
                     @endif
-                </td>
+                </td> --}}
                  <td>
                   <a href="{{ route('admin.createCommission', ['id' => $a->id]) }}" class="btn btn-primary btn-sm">
                     <i class="bi bi-plus-slash-minus"></i> Tambah Komisi

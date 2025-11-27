@@ -44,11 +44,11 @@
                     @endforeach
                 </select>
             </div>
-            <button type="button" onclick="addPerumahan()" class="btn btn-secondary my-3">Tambah Perumahan</button><br>
+            <button type="button" onclick="addPerumahan()" class="btn btn-secondary my-3">Tambah Perumahan</button><br> --}}
         <div class="mb-3">
             <label for="email" class="form-label">Email Affiliate</label>
             <input type="email" name="email" id="email" placeholder="Masukkan Email Affiliate" class="form-control" required>
-        </div> --}}
+        </div>
 
         <!-- Tambahkan password -->
         <div class="mb-3">
