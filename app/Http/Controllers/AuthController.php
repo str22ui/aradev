@@ -66,7 +66,7 @@ class AuthController extends Controller
     }
 
 
-    public function registerAffiliate(Request $request)
+   public function registerAffiliate(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -76,9 +76,30 @@ class AuthController extends Controller
             'address' => 'required|string|max:255',
             'perumahan_id' => 'nullable|array',
             'perumahan_id.*' => 'exists:perumahan,id',
+            'referrer_code' => 'nullable|string|max:20', // ← TAMBAH INI
         ]);
 
-        // 👤 Buat user baru untuk affiliate
+        // ← TAMBAH BAGIAN INI (validasi kode referral)
+        $referrerType = null;
+        $referrerId = null;
+        $referrerName = null;
+
+        if (!empty($validated['referrer_code'])) {
+            $referrer = User::where('code', strtoupper($validated['referrer_code']))
+                        ->whereIn('role', ['sales', 'salesAdmin'])
+                        ->first();
+
+            if ($referrer) {
+                $referrerType = User::class;
+                $referrerId = $referrer->id;
+                $referrerName = $referrer->name;
+            } else {
+                return back()
+                    ->withInput()
+                    ->withErrors(['referrer_code' => 'Kode referral tidak valid']);
+            }
+        }
+
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -86,7 +107,6 @@ class AuthController extends Controller
             'role' => 'affiliate',
         ]);
 
-        // 🧩 Buat data affiliate tanpa referral
         $affiliate = Affiliate::create([
             'user_id' => $user->id,
             'code' => strtoupper(Str::random(6)),
@@ -94,15 +114,20 @@ class AuthController extends Controller
             'phone' => $validated['phone'],
             'address' => $validated['address'],
             'joined_at' => now(),
+            'referrer_type' => $referrerType, // ← TAMBAH INI
+            'referrer_id' => $referrerId,     // ← TAMBAH INI
         ]);
 
-        // Jika ada perumahan dipilih, simpan sebagai JSON
         if (isset($validated['perumahan_id'])) {
             $affiliate->perumahan_id = json_encode($validated['perumahan_id']);
             $affiliate->save();
         }
 
-        return redirect('/loginUser')->with('success', 'Pendaftaran berhasil! Silakan login.');
+        $successMessage = $referrerName
+            ? "Pendaftaran berhasil! Anda terhubung dengan Sales: {$referrerName}. Silakan login."
+            : "Pendaftaran berhasil! Silakan login.";
+
+        return redirect('/loginUser')->with('success', $successMessage);
     }
 
 

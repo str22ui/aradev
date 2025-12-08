@@ -1,4 +1,4 @@
-@extends('admin.layouts.index', ['title' => 'Edit Data Agent', 'page_heading' => 'Edit Data Agent'])
+@extends('admin.layouts.index', ['title' => 'Edit Data Agent', 'page_heading' => 'Edit Data Affiliates'])
 
 @section('content')
 <section class="row">
@@ -48,13 +48,32 @@
                             @endforeach
                         </select>
                         <button type="button" class="btn-delete btn-danger text-white text-sm px-3 py-1 mt-1 rounded"
-                            onclick="removePerumahan(this, {{ $index }})">Hapus</button>
+                        onclick="removePerumahan(this, {{ $index }})">Hapus</button>
                     </div>
-                @endforeach
-            </div> --}}
+                    @endforeach
+                </div> --}}
+                {{-- <button type="button" onclick="addPerumahan()" class="btn btn-secondary my-3">Tambah Perumahan</button> --}}
+            <!-- Password Baru (Opsional) -->
+        <div class="mb-3">
+        <label for="password" class="form-label">Password Baru (Opsional)</label>
+        <input type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                placeholder="Kosongkan jika tidak ingin mengubah password">
+        <small class="text-muted">Minimal 6 karakter. Kosongkan jika tidak ingin mengubah.</small>
+        </div>
 
+        <!-- Konfirmasi Password -->
+        <div class="mb-3">
+        <label for="password_confirmation" class="form-label">Konfirmasi Password Baru</label>
+        <input type="password"
+                name="password_confirmation"
+                id="password_confirmation"
+                class="form-control"
+                placeholder="Ulangi password baru">
+        </div>
 
-            <button type="button" onclick="addPerumahan()" class="btn btn-secondary my-3">Tambah Perumahan</button>
 
             <br>
             <button type="submit" class="btn btn-primary">Update</button>

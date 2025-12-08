@@ -191,6 +191,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/affiliate/{id}/', [AdminAffiliateController::class, 'editAffiliate'])->name('admin.editAffiliate');
         Route::put('/affiliate/update/{id}', [AdminAffiliateController::class, 'updateAffiliate'])->name('admin.updateAffiliate');
         Route::delete('/deleteAffiliate', [AdminAffiliateController::class, 'destroyAffiliate'])->name('admin.deleteAffiliate');
+        // ✅ TAMBAHKAN ROUTE INI (ROUTE BARU) ✅
+        Route::get('/sales/{id}/affiliates', [AdminAffiliateController::class, 'salesAffiliates'])
+            ->name('admin.salesAffiliates');
 
         // Services
         Route::get('/service-home', [AdminServiceController::class, 'indexService'])->name('admin.service');
