@@ -17,28 +17,11 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Visit;
 use App\Models\Perumahan;
 use App\Models\User;
-use App\Models\Secondary;
+use App\Models\Affiliate;
 use App\Models\Rumah;
-use App\Models\Konsumen;
-use App\Models\Survey;
-use App\Models\Land;
 use App\Models\Agent;
 use App\Models\Reseller;
-use App\Models\Report;
 use App\Models\Penawaran;
-use App\Models\PerumahanImage;
-use App\Models\SecondaryImage;
-use App\Models\LandImage;
-use App\Models\Info;
-use App\Models\InfoImage;
-use App\Models\Service;
-use App\Models\Wishlist;
-use App\Models\ServiceImage;
-use App\Models\Testimony;
-use App\Models\TestimonyImage;
-use App\Models\Announcement;
-use Illuminate\Support\Str;
-use App\Models\CategoryBursa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -50,7 +33,7 @@ class AdminPenawaranController extends Controller
 {
 
     // ============ PENAWARAN ================
-   public function indexPenawaran()
+    public function indexPenawaran()
     {
         $user = Auth::user();
 
@@ -63,77 +46,75 @@ class AdminPenawaranController extends Controller
         }
 
         $users = User::all();
-        return view('admin.penawaran.index', compact('penawaran','users'));
+        return view('admin.penawaran.index', compact('penawaran', 'users'));
     }
 
 
     public function createPenawaran()
     {
-        $perumahan= Perumahan::all();
+        $user = Auth::user();
+
+        if ($user->role === 'sales') {
+            $perumahan = $user->perumahans;
+        } else {
+            $perumahan = Perumahan::all();
+        }
+
         $agent = Agent::all();
-        // $rumah = Rumah::where('perumahan_id', $id)->orderBy('no_kavling', 'asc')->get();
-        return view('admin.penawaran.createPenawaran', compact('perumahan','agent'));
+        $affiliate = Affiliate::all();
+        $rumah = Rumah::where('status', 'Available')->orderBy('no_kavling', 'asc')->get();
+
+        return view('admin.penawaran.createPenawaran', compact('perumahan', 'agent', 'affiliate', 'rumah'));
     }
 
     public function storePenawaran(Request $request)
-        {
-            $validatedData = $request->validate([
-                'nama_konsumen' => 'required',
-                'no_hp' => 'required',
-                'domisili' => 'nullable',
-                'email' => 'nullable|email',
-                'pekerjaan' => 'nullable',
-                'nama_kantor' => 'nullable',
-                'perumahan' => 'required',
-                'sumber_informasi' => 'required',
-                'agent_id' => 'nullable',
-                'user_id' => 'nullable',
-            ]);
+    {
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'email' => 'nullable|email',
+            'no_hp' => 'required',
+            'domisili' => 'required',
+            'pekerjaan' => 'required',
+            'nama_kantor' => 'nullable',
+            'sumber_informasi' => 'required',
+            'perumahan_id' => 'required',
+            'rumah_id' => 'required',
+            'agent_id' => 'nullable',
+            'affiliate_id' => 'nullable',
+            'payment' => 'required',
+            'income' => 'required',
+            'dp' => 'required',
+            'harga_pengajuan' => 'required',
+            'user_id' => 'nullable',
+        ]);
 
-           // Jika agent_id adalah 'pilih', set ke null
-            if ($request->input('agent_id') === 'pilih') {
-                $validatedData['agent_id'] = null;
-            } else {
-                $validatedData['agent_id'] = $request->input('agent_id');
-            }
-
-            // Set created_at ke tanggal dari input atau tanggal saat ini jika tidak diisi
-            $validatedData['created_at'] = $request->input('tanggal') ? $request->input('tanggal') : Carbon::now();
-
-            try {
-                Konsumen::create($validatedData);
-                return redirect('/konsumen')->with('success', 'Konsumen berhasil disimpan.');
-            } catch (\Exception $e) {
-                return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.']);
-            }
+        try {
+            Penawaran::create($validatedData);
+            return redirect('/penawaran')->with('success', 'Penawaran berhasil disimpan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data.'])->withInput();
+        }
     }
 
 
     public function editPenawaran($id)
     {
-        // Coba temukan data konsumen berdasarkan ID
         $penawaran = Penawaran::find($id);
-        // $perumahan = Perumahan::find($id);
         $perumahan = Perumahan::all();
-        $rumah = Rumah::find($id);
         $agent = Agent::all();
-        $reseller = Reseller::all();
+        $affiliate = Affiliate::all();
 
-        // Jika konsumen tidak ditemukan, tampilkan pesan error atau redirect
+        // Ambil rumah berdasarkan perumahan penawaran
+        $rumah = Rumah::where('perumahan_id', $penawaran->perumahan_id)
+            ->orderBy('no_kavling', 'asc')
+            ->get();
+
         if (!$penawaran) {
-            return redirect()->route('admin.penawaran')->with('error', 'Data Konsumen tidak ditemukan');
+            return redirect()->route('admin.penawaran')->with('error', 'Data Penawaran tidak ditemukan');
         }
 
-        // Jika ditemukan, kirim data ke view
-        return view('admin.penawaran.editPenawaran', [
-            'penawaran' => $penawaran,
-            'perumahan' => $perumahan,
-            'rumah' => $rumah,
-            'agent' => $agent,
-            'reseller' => $reseller,
-        ]);
+        return view('admin.penawaran.editPenawaran', compact('penawaran', 'perumahan', 'agent', 'affiliate', 'rumah'));
     }
-
 
     public function updatePenawaran(Request $request, $id)
     {
@@ -153,7 +134,7 @@ class AdminPenawaranController extends Controller
         $penawaran->harga_pengajuan = $request->input('harga_pengajuan');
         $penawaran->sumber_informasi = $request->input('sumber_informasi');
         $penawaran->agent_id = $request->input('agent_id');
-        $penawaran->reseller_id = $request->input('reseller_id');
+        $penawaran->affiliate_id = $request->input('affiliate_id');
         $penawaran->user_id = $request->input('user_id');
         // $penawaran->perumahan = $request->input('perumahan');
 
@@ -177,17 +158,17 @@ class AdminPenawaranController extends Controller
     }
 
     public function updateUserIdPenawaran(Request $request, $id)
-        {
-            $request->validate([
-                'user_id' => 'required|exists:users,id',
-            ]);
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
 
-            $penawaran = Penawaran::findOrFail($id);
-            $penawaran->user_id = $request->user_id;
-            $penawaran->save();
+        $penawaran = Penawaran::findOrFail($id);
+        $penawaran->user_id = $request->user_id;
+        $penawaran->save();
 
-            return redirect()->back()->with('success', 'User berhasil diperbarui');
-        }
+        return redirect()->back()->with('success', 'User berhasil diperbarui');
+    }
     // ============ END PENAWARAN ================
 
 }

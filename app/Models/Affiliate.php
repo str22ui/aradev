@@ -9,6 +9,7 @@ class Affiliate extends Model
 {
     use HasFactory;
 
+    protected $table = 'affiliates';
     protected $fillable = [
         'user_id',
         'code',

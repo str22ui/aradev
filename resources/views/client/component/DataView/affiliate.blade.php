@@ -96,7 +96,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-green-100 text-sm font-semibold uppercase">Total Sales</p>
-          <p class="text-3xl font-bold mt-2">Rp {{ number_format($commissions->sum('total') ?? 0, 0, ',', '.') }} Jt</p>
+          <p class="text-2xl font-bold mt-2">Rp {{ number_format($commissions->sum('total') ?? 0, 0, ',', '.') }}</p>
         </div>
         <svg class="w-12 h-12 text-green-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -108,7 +108,7 @@
       <div class="flex items-center justify-between">
         <div>
           <p class="text-blue-100 text-sm font-semibold uppercase">Total Fee Affiliate</p>
-          <p class="text-3xl font-bold mt-2">Rp {{ number_format($commissions->sum('fee_affiliate_30') ?? 0, 0, ',', '.') }}</p>
+          <p class="text-2xl font-bold mt-2">Rp {{ number_format($commissions->sum('fee_affiliate_30') ?? 0, 0, ',', '.') }}</p>
         </div>
         <svg class="w-12 h-12 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h6m-5 0a3 3 0 110 6H9l3 3m-3-6h6m6 1a9 9 0 11-18 0 9 9 0 0118 0z"></path>

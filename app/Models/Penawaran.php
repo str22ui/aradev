@@ -21,6 +21,7 @@ class Penawaran extends Model
         'sumber_informasi',
         'perumahan_id',
         'agent_id',
+        'affiliate_id',
         'payment',
         'income',
         'dp',
@@ -46,14 +47,13 @@ class Penawaran extends Model
         return $this->belongsTo(Rumah::class);
     }
 
-    public function reseller()
+    public function affiliate()
     {
-        return $this->belongsTo(Reseller::class);
+        return $this->belongsTo(Affiliate::class);
     }
 
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
 }

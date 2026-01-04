@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZWTJ8TKN7L"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
 
-    gtag('config', 'G-ZWTJ8TKN7L');
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZWTJ8TKN7L');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <Meta Content='@yield('desc')' Name='Description'/>
-    <Meta Content='@yield('keyword')' Name='Keywords'/>
+    <Meta Content='@yield('desc')' Name='Description' />
+    <Meta Content='@yield('keyword')' Name='Keywords' />
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Aradev @yield('title')</title>
     {{-- <link rel="icon" href="{{ asset('img/logo.png') }}" type = "image/x-icon"> --}}
@@ -27,81 +31,90 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     @vite('resources/css/app.css')
 
     <style>
-
-    .swiper-container {
-        width: 100%;
-        height: 100%;
-        border-radius: 12px; /* Sesuaikan dengan kebutuhan */
-        overflow: hidden; /* Pastikan gambar tidak keluar dari container */
-    }
-
-    /* Style tambahan untuk swiper slide */
-    .swiper-slide {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-    }
-
-
-    .swiper-slide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* Memastikan gambar mengisi ruang tanpa distorsi */
-        min-height: 300px; /* Tinggi minimum untuk mobile */
-    }
-
-     /* Untuk desktop - set tinggi yang lebih besar */
-     @media (min-width: 768px) {
-        .swiper-slide img {
-            height: 400px; /* Atur tinggi sesuai kebutuhan */
-        }
-
-        /* Buat grid memiliki tinggi yang sama */
-        .grid.grid-cols-1.md\:grid-cols-2 {
-            align-items: stretch;
-        }
-
-        /* Text container mengisi tinggi penuh */
-        .order-2.md\:order-1 {
+        .swiper-container {
+            width: 100%;
             height: 100%;
+            border-radius: 12px;
+            /* Sesuaikan dengan kebutuhan */
+            overflow: hidden;
+            /* Pastikan gambar tidak keluar dari container */
+        }
+
+        /* Style tambahan untuk swiper slide */
+        .swiper-slide {
+            position: relative;
             display: flex;
             flex-direction: column;
-            justify-content: center;
         }
-    }
 
-    .swiper-slide span {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        background: rgba(255, 255, 255, 0.8); /* Latar belakang teks */
-        padding: 8px 12px;
-        border-radius: 8px;
-        font-size: 14px;
-        margin-top: 10px;
-        display: inline-block;
-        font-weight: bold;
-    }
 
-    .swiper-slide a {
-        position: absolute;
-        bottom: 20px;
-        left: 20px;
-        background: white;
-        padding: 10px 20px;
-        border-radius: 25px;
-        text-decoration: none;
-        font-weight: bold;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-top: 10px;
-        display: inline-block;
-    }
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Memastikan gambar mengisi ruang tanpa distorsi */
+            min-height: 300px;
+            /* Tinggi minimum untuk mobile */
+        }
 
+        /* Untuk desktop - set tinggi yang lebih besar */
+        @media (min-width: 768px) {
+            .swiper-slide img {
+                height: 400px;
+                /* Atur tinggi sesuai kebutuhan */
+            }
+
+            /* Buat grid memiliki tinggi yang sama */
+            .grid.grid-cols-1.md\:grid-cols-2 {
+                align-items: stretch;
+            }
+
+            /* Text container mengisi tinggi penuh */
+            .order-2.md\:order-1 {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+
+        .swiper-slide span {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            /* Latar belakang teks */
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .swiper-slide a {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            display: inline-block;
+        }
     </style>
 </head>
-

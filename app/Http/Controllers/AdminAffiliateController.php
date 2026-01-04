@@ -142,18 +142,25 @@ class AdminAffiliateController extends Controller
         $affiliate = Affiliate::findOrFail($id);
 
         // Update referrer jika ada perubahan
-        if ($request->has('referrer_code') && !empty($request->referrer_code)) {
-            $referrer = User::where('code', $request->referrer_code)
-                        ->whereIn('role', ['sales', 'salesAdmin'])
-                        ->first();
-
-            if ($referrer) {
-                $affiliate->referrer_type = User::class;
-                $affiliate->referrer_id = $referrer->id;
+        if ($request->has('referrer_code')) {
+            if (empty($request->referrer_code)) {
+                // Kosongkan referrer jika field dikosongkan
+                $affiliate->referrer_type = null;
+                $affiliate->referrer_id = null;
             } else {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Kode referral tidak valid');
+                // Cari Sales berdasarkan kode
+                $referrer = User::where('code', $request->referrer_code)
+                            ->whereIn('role', ['sales', 'salesAdmin'])
+                            ->first();
+
+                if ($referrer) {
+                    $affiliate->referrer_type = User::class;
+                    $affiliate->referrer_id = $referrer->id;
+                } else {
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('error', 'Kode referral tidak valid');
+                }
             }
         }
 

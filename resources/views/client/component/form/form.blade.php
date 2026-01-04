@@ -131,7 +131,9 @@
                             class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                             <option value="">-- Pilih --</option>
                             @foreach ($agents as $agent)
-                                <option value="{{ $agent->id }}" data-kantor="{{ $agent->kantor }}">{{ $agent->nama }} - {{ $agent->kantor }}</option>
+                                <option value="{{ $agent->id }}">
+                                    {{ $agent->name }} - {{ $agent->kantor }}
+                                </option>
                             @endforeach
                         </select>
                         @error('agent_id')
@@ -147,7 +149,9 @@
                             class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
                             <option value="">-- Pilih --</option>
                             @foreach ($affiliate as $a)
-                                <option value="{{ $a->id }}">{{ $a->name }} </option>
+                                <option value="{{ $a->id }}">
+                                    {{ $a->name }} ({{ $a->code }})
+                                </option>
                             @endforeach
                         </select>
                         @error('affiliate_id')

@@ -180,12 +180,12 @@ Route::middleware(['auth'])->group(function () {
         // Affiliate Management (Admin mengelola affiliate)
         Route::get('/affiliate', [AdminAffiliateController::class, 'indexAffiliate'])->name('admin.affiliate');
         Route::get('/createAffiliate', [AdminAffiliateController::class, 'createAffiliate'])->name('admin.createAffiliate');
-       Route::get('/createCommission/{id}', [AdminAffiliateController::class, 'createCommission'])
-        ->name('admin.createCommission');
+        Route::get('/createCommission/{id}', [AdminAffiliateController::class, 'createCommission'])
+            ->name('admin.createCommission');
         Route::post('/storeCommission/{id}', [AdminAffiliateController::class, 'storeCommission'])
-        ->name('admin.storeCommission');
+            ->name('admin.storeCommission');
         Route::delete('/admin/commission/{id}', [AdminAffiliateController::class, 'deleteCommission'])
-        ->name('admin.deleteCommission');
+            ->name('admin.deleteCommission');
 
         Route::post('/storeAffiliate', [AdminAffiliateController::class, 'storeAffiliate'])->name('admin.storeAffiliate');
         Route::get('/affiliate/{id}/', [AdminAffiliateController::class, 'editAffiliate'])->name('admin.editAffiliate');
@@ -231,7 +231,7 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/survey/update/{id}', [AdminSurveyController::class, 'updateSurvey'])->name('admin.updateSurvey');
         Route::delete('/deleteSurvey', [AdminSurveyController::class, 'destroySurvey'])->name('admin.deleteSurvey');
         Route::get('/survey/pdf/{id}', function ($id) {
-            $survey = Survey::with(['rumah', 'perumahan','agent'])->findOrFail($id);
+            $survey = Survey::with(['rumah', 'perumahan', 'agent'])->findOrFail($id);
             $pdf = Pdf::loadView('admin.survey.pdfSurvey', compact('survey'));
             return $pdf->download('Konsumen_Survey.pdf');
         });
@@ -247,6 +247,11 @@ Route::middleware(['auth'])->group(function () {
             $penawaran = Penawaran::with(['rumah', 'perumahan'])->findOrFail($id);
             $pdf = Pdf::loadView('admin.penawaran.pdfPenawaran', compact('penawaran'));
             return $pdf->download('Surat_Penawaran.pdf');
+        });
+        Route::get('/api/rumah/perumahan/{id}', function ($id) {
+            return \App\Models\Rumah::where('perumahan_id', $id)
+                ->orderBy('no_kavling', 'asc')
+                ->get(['id', 'no_kavling', 'posisi', 'status']);
         });
 
         // Report (HANYA Admin & SalesAdmin)
@@ -287,7 +292,7 @@ Route::middleware(['auth'])->group(function () {
 // ============================================
 // PUBLIC ROUTES (Landing Pages)
 // ============================================
-Route::middleware('log.visits')->group(function(){
+Route::middleware('log.visits')->group(function () {
     Route::get('/', [LandingController::class, 'index'])->name('dashboard');
     Route::get('/perumahan/{kota}', [LandingController::class, 'getPerumahanByKota']);
     Route::get('/about', [LandingController::class, 'about'])->name('about');
@@ -308,7 +313,7 @@ Route::middleware('log.visits')->group(function(){
     Route::get('/form-download/{id}', [LandingController::class, 'download'])->name('download.form');
     Route::post('/form-create/{id}', [LandingController::class, 'storeKonsumen'])->name('form.konsumen');
     Route::get('/formPenawaran/{id}', [LandingController::class, 'formPenawaran'])->name('landingpage.formPenawaran');
-    Route::post('/storePenawaran', [LandingController::class, 'storePenawaranKonsumen'])->name('form.penawaran');
+    Route::post('/form/penawaran', [LandingController::class, 'storePenawaranKonsumen'])->name('form.penawaran');
     Route::get('/wishlist', [LandingController::class, 'wishlist'])->name('wishlist');
     Route::get('/formWishlist', [LandingController::class, 'formWishlist'])->name('landingpage.formWishlist');
     Route::post('/storeWishlist', [LandingController::class, 'storeWishlist'])->name('form.wishlist');

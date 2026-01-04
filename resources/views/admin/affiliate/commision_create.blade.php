@@ -51,7 +51,8 @@
 
                     <div class="mb-3">
                         <label for="harga_pricelist" class="form-label">Harga Pricelist</label>
-                        <input type="number" name="harga_pricelist" id="harga_pricelist" class="form-control" required readonly>
+                        <input type="number" name="harga_pricelist" id="harga_pricelist" class="form-control" required>
+                        <small class="text-muted">Harga dapat diubah sesuai dengan unit yang berbeda</small>
                     </div>
 
                     <div class="mb-3">
@@ -193,13 +194,16 @@ document.addEventListener("DOMContentLoaded", function () {
         total.value = totalValue.toFixed(0);
     }
 
-    // Saat perumahan diganti → ambil harga otomatis
+    // Saat perumahan diganti → ambil harga sebagai referensi
     perumahanSelect.addEventListener("change", function () {
         const selected = this.options[this.selectedIndex];
         const harga = selected.getAttribute("data-harga");
         hargaPricelist.value = harga ? harga : "";
         calculateAll();
     });
+
+    // Jika harga pricelist diubah manual → hitung ulang
+    hargaPricelist.addEventListener("input", calculateAll);
 
     // Jika biaya legalitas diubah → hitung ulang
     biayaLegalitas.addEventListener("input", calculateAll);

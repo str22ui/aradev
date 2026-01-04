@@ -34,6 +34,69 @@
               <input type="text" value="{{ $affiliate->joined_at }}" name="joined_at" id="joined_at"  class="form-control">
             </div>
 
+            <!-- TAMBAHKAN BAGIAN INI -->
+            <div class="mb-3 border p-3 rounded bg-light">
+                <label for="referrer_code" class="form-label fw-bold">
+                    <i class="bi bi-person-check"></i> Kode Referral Sales
+                </label>
+
+                <!-- Tampilkan referrer saat ini (jika ada) -->
+                @if($affiliate->referrer)
+                    <div class="alert alert-info mb-2">
+                        <strong>Referrer Saat Ini:</strong> {{ $affiliate->referrer->name }}
+                        <code>({{ $affiliate->referrer->code }})</code>
+                    </div>
+                @else
+                    <div class="alert alert-warning mb-2">
+                        <i class="bi bi-exclamation-triangle"></i> Affiliate ini belum terhubung dengan Sales
+                    </div>
+                @endif
+
+                <!-- Input kode referral baru -->
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="bi bi-upc-scan"></i>
+                    </span>
+                    <input type="text"
+                        name="referrer_code"
+                        id="referrer_code"
+                        class="form-control"
+                        placeholder="Masukkan kode referral Sales (kosongkan untuk hapus referrer)"
+                        value="{{ $affiliate->referrer ? $affiliate->referrer->code : old('referrer_code') }}">
+                    <button type="button" class="btn btn-outline-secondary" onclick="checkReferralCode()">
+                        <i class="bi bi-search"></i> Cek Kode
+                    </button>
+                </div>
+
+                <small class="text-muted d-block mt-1">
+                    💡 Masukkan kode untuk menghubungkan/mengubah referrer. Kosongkan untuk menghapus referrer.
+                </small>
+
+                <div id="referrer-info" class="mt-2"></div>
+
+                <!-- Dropdown manual pilih Sales (alternatif) -->
+                <div class="mt-3">
+                    <label for="sales_selector" class="form-label">Atau Pilih Sales Langsung</label>
+                    <select id="sales_selector" class="form-select" onchange="fillReferralCode(this)">
+                        <option value="">-- Pilih Sales --</option>
+                        @foreach($salesUsers as $sales)
+                            <option value="{{ $sales->code }}"
+                                    data-name="{{ $sales->name }}"
+                                    {{ $affiliate->referrer && $affiliate->referrer->id == $sales->id ? 'selected' : '' }}>
+                                {{ $sales->name }} ({{ $sales->code ?? $sales->email }})
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            @if(session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
+
             {{-- <div id="perumahan-container">
                 <label for="perumahan_id" class="form-label block mb-2 text-sm font-medium">Perumahan yang Dipilih</label>
                 @foreach ($affiliate->perumahan_id as $index => $selectedId)
@@ -89,6 +152,63 @@
 </div>
 
 </section>
+<script>
+// Function untuk mengisi kode referral dari dropdown
+function fillReferralCode(select) {
+    const code = select.value;
+    const name = select.options[select.selectedIndex].dataset.name;
+
+    if (code) {
+        document.getElementById('referrer_code').value = code;
+        document.getElementById('referrer-info').innerHTML =
+            `<div class="alert alert-success">
+                <i class="bi bi-check-circle"></i> Sales dipilih: <strong>${name}</strong> (${code})
+            </div>`;
+    } else {
+        document.getElementById('referrer_code').value = '';
+        document.getElementById('referrer-info').innerHTML = '';
+    }
+}
+
+// Function untuk cek kode referral
+function checkReferralCode() {
+    const code = document.getElementById('referrer_code').value.trim().toUpperCase();
+
+    if (!code) {
+        document.getElementById('referrer-info').innerHTML =
+            `<div class="alert alert-warning">
+                <i class="bi bi-info-circle"></i> Kode dikosongkan. Referrer akan dihapus saat update.
+            </div>`;
+        return;
+    }
+
+    // Set uppercase
+    document.getElementById('referrer_code').value = code;
+
+    // Cek apakah kode ada di dropdown
+    const salesSelect = document.getElementById('sales_selector');
+    const option = Array.from(salesSelect.options).find(opt => opt.value === code);
+
+    if (option) {
+        const name = option.dataset.name;
+        document.getElementById('referrer-info').innerHTML =
+            `<div class="alert alert-success">
+                <i class="bi bi-check-circle"></i> Kode valid! Sales: <strong>${name}</strong>
+            </div>`;
+        salesSelect.value = code;
+    } else {
+        document.getElementById('referrer-info').innerHTML =
+            `<div class="alert alert-danger">
+                <i class="bi bi-exclamation-triangle"></i> Kode tidak ditemukan atau bukan milik Sales
+            </div>`;
+    }
+}
+
+// Auto uppercase saat mengetik
+document.getElementById('referrer_code').addEventListener('input', function(e) {
+    this.value = this.value.toUpperCase();
+});
+</script>
 
 {{-- <script>
       function addPerumahan() {
@@ -145,6 +265,7 @@
     container.appendChild(hiddenInput);
 }
 </script> --}}
+
 @endsection
 
 

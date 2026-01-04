@@ -48,7 +48,7 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class AdminKonsumenController extends Controller
 {
-     // ============ KONSUMEN ================
+    // ============ KONSUMEN ================
     public function indexKonsumen()
     {
         $user = Auth::user();
@@ -62,14 +62,14 @@ class AdminKonsumenController extends Controller
             // Jika admin atau role lainnya, tampilkan semua
             $konsumen = Konsumen::with('agent')->get();
         }
-         $users = User::all();
+        $users = User::all();
         return view('admin.konsumen.index', [
             'konsumen' => $konsumen,
             'users' => $users,
         ]);
     }
 
-  public function createKonsumen()
+    public function createKonsumen()
     {
         $user = Auth::user();
 
@@ -105,7 +105,7 @@ class AdminKonsumenController extends Controller
             'user_id' => 'nullable',
         ]);
 
-        // Pastikan nilai 'agent_id' dan 'reseller_id' menjadi null jika tidak dipilih
+        // Pastikan nilai 'agent_id' dan 'affiliate_id' menjadi null jika tidak dipilih
         $validatedData['agent_id'] = $request->filled('agent_id') ? $request->input('agent_id') : null;
         $validatedData['affiliate_id'] = $request->filled('affiliate_id') ? $request->input('affiliate_id') : null;
 
@@ -139,7 +139,7 @@ class AdminKonsumenController extends Controller
         $rumah = Rumah::find($id);
         $perumahan = Perumahan::all();
         $agent = Agent::all();
-        $reseller = Reseller::all();
+        $affiliate = Affiliate::all();
 
         // Jika konsumen tidak ditemukan, tampilkan pesan error atau redirect
         if (!$konsumen) {
@@ -151,7 +151,7 @@ class AdminKonsumenController extends Controller
             'konsumen' => $konsumen,
             'perumahan' => $perumahan,
             'agent' => $agent,
-            'reseller' => $reseller,
+            'affiliate' => $affiliate,
             'rumah' => $rumah,
         ]);
     }
@@ -171,7 +171,7 @@ class AdminKonsumenController extends Controller
         $konsumen->perumahan = $request->input('perumahan');
         $konsumen->sumber_informasi = $request->input('sumber_informasi');
         $konsumen->agent_id = $request->input('agent_id');
-        $konsumen->reseller_id = $request->input('reseller_id');
+        $konsumen->affiliate_id = $request->input('affiliate_id');
         $konsumen->user_id = $request->input('user_id');
 
         // Save the changes to the database
@@ -182,16 +182,16 @@ class AdminKonsumenController extends Controller
     }
 
     public function updateUserIdKonsumen(Request $request, $id)
-        {
-            $request->validate([
-                'user_id' => 'required|exists:users,id',
-            ]);
+    {
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
 
-            $konsumen = Konsumen::findOrFail($id);
-            $konsumen->user_id = $request->user_id;
-            $konsumen->save();
+        $konsumen = Konsumen::findOrFail($id);
+        $konsumen->user_id = $request->user_id;
+        $konsumen->save();
 
-            return redirect()->back()->with('success', 'User berhasil diperbarui');
-        }
+        return redirect()->back()->with('success', 'User berhasil diperbarui');
+    }
     // ============ END KONSUMEN ================
 }

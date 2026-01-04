@@ -1,18 +1,21 @@
 <footer>
     <div class="bg-primary text-white py-6 px-5 mt-8">
-        <div class="container mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 gap-6 sm:gap-y-4 text-left md:text-left">
+        <div
+            class="container mx-auto grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 gap-6 sm:gap-y-4 text-left md:text-left">
             <div>
                 <h3 class="font-bold mb-2">Ara Development Property</h3>
-                <p class="text-sm">Ara Development Property, One Stop Property Services – Solusi Lengkap untuk Kebutuhan Properti Anda. Dengan layanan yang lengkap dan profesional, kami siap membantu Anda mewujudkan kebutuhan dan investasi properti impian Anda dengan mudah dan efisien.</p>
+                <p class="text-sm">Ara Development Property, One Stop Property Services – Solusi Lengkap untuk Kebutuhan
+                    Properti Anda. Dengan layanan yang lengkap dan profesional, kami siap membantu Anda mewujudkan
+                    kebutuhan dan investasi properti impian Anda dengan mudah dan efisien.</p>
             </div>
 
             <div class="md:text-center">
                 <h3 class="font-bold mb-2 ">Project</h3>
                 <ul class="text-sm list-none ">
                     @foreach ($allPerumahan as $p)
-                    <a href="/showPerumahan/{{$p->id}}">
-                        <li>{{ $p->perumahan }}</li>
-                    </a>
+                        <a href="/showPerumahan/{{ $p->id }}">
+                            <li>{{ $p->perumahan }}</li>
+                        </a>
                     @endforeach
                 </ul>
             </div>
@@ -21,15 +24,16 @@
                 <h3 class="font-bold mb-2 ">Services</h3>
                 <ul class="text-sm list-none ">
                     @foreach ($allService as $s)
-                    <a href="/showService/{{$s->id}}">
-                        <li>{{ $s->judul }}</li>
-                    </a>
+                        <a href="/showService/{{ $s->id }}">
+                            <li>{{ $s->judul }}</li>
+                        </a>
                     @endforeach
                 </ul>
             </div>
             <div>
                 <h3 class="font-bold mb-2">Location</h3>
-                <p class="text-sm">Sawangan Village Cluster Swarna Asri A-08 Jl. Raya Muchtar, Kelurahan Bedahan Kecamatan Sawangan Kota Depok 16511</p>
+                <p class="text-sm">Sawangan Village Cluster Swarna Asri A-08 Jl. Raya Muchtar, Kelurahan Bedahan
+                    Kecamatan Sawangan Kota Depok 16511</p>
             </div>
         </div>
     </div>
@@ -38,8 +42,9 @@
 
 
 @vite('resources/js/app.js')
-</html>
 
+</html>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
@@ -71,10 +76,10 @@
     //         },
     //     },
     // });
-//     function filterStatus() {
-//     const status = document.getElementById('filter-status').value;
-//     window.location.href = `?status=${status}`;
-// }
+    //     function filterStatus() {
+    //     const status = document.getElementById('filter-status').value;
+    //     window.location.href = `?status=${status}`;
+    // }
     // Dapatkan parameter 'status' dari URL
     const urlParams = new URLSearchParams(window.location.search);
     const activeStatus = urlParams.get('status') || 'all'; // Default 'all' jika tidak ada parameter
@@ -97,19 +102,19 @@
 
 
     var cardSwiper = new Swiper('.card-slider-container', {
-    loop: true, // Membuat slider berulang
-    autoplay: {
-        delay: 3000, // Interval pergantian slide otomatis (3000ms = 3 detik)
-        disableOnInteraction: false, // Autoplay tetap berlanjut setelah interaksi pengguna
-    },
-    pagination: {
-        el: '.swiper-pagination', // Menentukan elemen pagination
-        clickable: true, // Pagination dapat diklik untuk navigasi
-    },
-    effect: 'fade', // Efek transisi fade antar slide
-    fadeEffect: {
-        crossFade: true, // Memungkinkan transisi antar slide terlihat halus
-    },
+        loop: true, // Membuat slider berulang
+        autoplay: {
+            delay: 3000, // Interval pergantian slide otomatis (3000ms = 3 detik)
+            disableOnInteraction: false, // Autoplay tetap berlanjut setelah interaksi pengguna
+        },
+        pagination: {
+            el: '.swiper-pagination', // Menentukan elemen pagination
+            clickable: true, // Pagination dapat diklik untuk navigasi
+        },
+        effect: 'fade', // Efek transisi fade antar slide
+        fadeEffect: {
+            crossFade: true, // Memungkinkan transisi antar slide terlihat halus
+        },
     });
     var cardSwiper2 = new Swiper('.card-slider-container', {
         loop: true, // Make the slider loop
@@ -119,14 +124,14 @@
         },
         pagination: {
             el: '.swiper-pagination', // Pagination element
-            clickable: true,           // Make pagination clickable
+            clickable: true, // Make pagination clickable
         },
         effect: 'fade', // Fade effect for transitions
         fadeEffect: {
-            crossFade: true,  // Crossfade for smooth transitions
+            crossFade: true, // Crossfade for smooth transitions
         },
     });
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('success-modal');
         const closeModal = document.getElementById('close-modal');
 
@@ -138,7 +143,7 @@
     });
 
 
-        // Mendapatkan elemen
+    // Mendapatkan elemen
     var radioInputs = document.querySelectorAll('input[name="info_radio"]');
     var dropdownInput = document.getElementById('sumber_informasi');
     var agentDiv = document.querySelector('.agent');
@@ -163,17 +168,17 @@
     // Event listener untuk dropdown
     dropdownInput.addEventListener('change', function() {
         if (dropdownInput.value === 'Affiliate') {
-            affiliateDiv .style.display = 'flex'; // Tampilkan form agent
+            affiliateDiv.style.display = 'flex'; // Tampilkan form agent
         } else {
-            affiliateDiv .style.display = 'none'; // Sembunyikan form agent
+            affiliateDiv.style.display = 'none'; // Sembunyikan form agent
         }
     });
 
     dropdownInput.addEventListener('change', function() {
         if (dropdownInput.value === 'Sales') {
-            salesDiv .style.display = 'flex'; // Tampilkan form agent
+            salesDiv.style.display = 'flex'; // Tampilkan form agent
         } else {
-            salesDiv .style.display = 'none'; // Sembunyikan form agent
+            salesDiv.style.display = 'none'; // Sembunyikan form agent
         }
     });
 
@@ -191,18 +196,18 @@
 
 
     document.getElementById('rumah_id').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var lt = selectedOption.getAttribute('data-lt');
-    var lb = selectedOption.getAttribute('data-lb');
-    var posisi = selectedOption.getAttribute('data-posisi');
-    var harga = selectedOption.getAttribute('data-harga');
+        var selectedOption = this.options[this.selectedIndex];
+        var lt = selectedOption.getAttribute('data-lt');
+        var lb = selectedOption.getAttribute('data-lb');
+        var posisi = selectedOption.getAttribute('data-posisi');
+        var harga = selectedOption.getAttribute('data-harga');
 
 
-    document.getElementById('luas_tanah').value = lt;
-    document.getElementById('luas_bangunan').value = lb;
-    document.getElementById('posisi').value = posisi;
-    document.getElementById('harga').value = harga;
-});
+        document.getElementById('luas_tanah').value = lt;
+        document.getElementById('luas_bangunan').value = lb;
+        document.getElementById('posisi').value = posisi;
+        document.getElementById('harga').value = harga;
+    });
 
     document.querySelectorAll('.filter-btn').forEach(button => {
         button.addEventListener('click', () => {
@@ -221,6 +226,4 @@
             swiper.update();
         });
     });
-
-
 </script>

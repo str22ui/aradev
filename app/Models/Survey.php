@@ -23,7 +23,7 @@ class Survey extends Model
         'waktu_janjian',
         'sumber_informasi',
         'agent_id',
-        'reseller_id',
+        'affiliate_id',
         'user_id'
     ];
 
@@ -34,9 +34,9 @@ class Survey extends Model
     {
         return $this->belongsTo(Agent::class);
     }
-    public function reseller()
+    public function affiliate()
     {
-        return $this->belongsTo(Reseller::class);
+        return $this->belongsTo(Affiliate::class);
     }
     public function rumah()
     {
@@ -48,7 +48,7 @@ class Survey extends Model
         return $this->belongsTo(Perumahan::class);
     }
 
-      public function user()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

@@ -20,7 +20,7 @@ class Konsumen extends Model
     'sumber_informasi',
     'agent_id',
     'user_id',
-    'reseller_id',
+    'affiliate_id',
     'created_at',
 ];
 
