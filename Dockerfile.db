@@ -1,0 +1,3 @@
+FROM mariadb:11
+
+COPY aradev.sql /docker-entrypoint-initdb.d/init.sql
