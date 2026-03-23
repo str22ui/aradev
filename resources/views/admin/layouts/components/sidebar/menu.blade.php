@@ -22,9 +22,8 @@
 @include('admin.layouts.components.sidebar.masterRumah')
 @include('admin.layouts.components.sidebar.dataKonsumen')
 
-@if (auth()->user()->role !== 'sales')
+
 @include('admin.layouts.components.sidebar.dataAgent')
-@endif
 
 
 {{-- Report --}}

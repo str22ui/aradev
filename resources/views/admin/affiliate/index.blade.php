@@ -20,13 +20,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         @endif
-
+         @if (auth()->user()->role !== 'sales')
         <a href="{{ route('admin.createAffiliate') }}">
             <button type="submit" class="btn btn-primary mr-2 mb-2">
                 <i class="bi bi-plus-circle"></i> Insert Data
             </button>
         </a>
+        @endif
 
+        @if (auth()->user()->role !== 'sales')
         <form action="{{ url('affiliate/export/excel') }}" method="GET" class="d-flex justify-content-between align-items-center">
             <div>
                 <button type="submit" class="btn btn-success">
@@ -61,6 +63,7 @@
                 </div>
             </div>
         </form>
+        @endif
 
         <div class="table-responsive">
             <table class="table table-striped table-hover">

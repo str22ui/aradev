@@ -12,16 +12,26 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
 
 class AdminAffiliateController extends Controller
 {
     public function indexAffiliate()
     {
-        $affiliate = Affiliate::with('referrer')->get();
-        $perumahan = Perumahan::all();
         $user = Auth::user();
+        $perumahan = Perumahan::all();
         $agents = Agent::all();
+
+        // Jika role Sales, hanya tampilkan affiliate miliknya
+        if ($user->role === 'sales') {
+            $affiliate = Affiliate::with('referrer')
+                ->where('referrer_type', 'App\Models\User')
+                ->where('referrer_id', $user->id)
+                ->get();
+        } else {
+            // Admin / Super Admin tampil semua
+            $affiliate = Affiliate::with('referrer')->get();
+        }
 
         return view('admin.affiliate.index', [
             'affiliate' => $affiliate,
@@ -71,8 +81,8 @@ class AdminAffiliateController extends Controller
         if (!empty($validatedData['referrer_code'])) {
             // Cari Sales berdasarkan code
             $referrer = User::where('code', $validatedData['referrer_code'])
-                           ->whereIn('role', ['sales', 'salesAdmin'])
-                           ->first();
+                ->whereIn('role', ['sales', 'salesAdmin'])
+                ->first();
 
             if ($referrer) {
                 $referrerType = User::class;
@@ -127,7 +137,7 @@ class AdminAffiliateController extends Controller
         ]);
     }
 
-   public function updateAffiliate(Request $request, $id)
+    public function updateAffiliate(Request $request, $id)
     {
         $validatedData = $request->validate([
             'name' => 'required',
@@ -150,8 +160,8 @@ class AdminAffiliateController extends Controller
             } else {
                 // Cari Sales berdasarkan kode
                 $referrer = User::where('code', $request->referrer_code)
-                            ->whereIn('role', ['sales', 'salesAdmin'])
-                            ->first();
+                    ->whereIn('role', ['sales', 'salesAdmin'])
+                    ->first();
 
                 if ($referrer) {
                     $affiliate->referrer_type = User::class;

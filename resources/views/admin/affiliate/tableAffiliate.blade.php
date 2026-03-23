@@ -51,6 +51,7 @@
                     <a href="{{ route('admin.editAffiliate', ['id' => $a->id]) }}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square"></i>
                     </a>
+                     @if (auth()->user()->role !== 'sales')
                     <form onsubmit="return confirm('Apakah anda yakin ingin menghapus data?')" class="d-inline" action="{{ route('admin.deleteAffiliate') }}" method="POST">
                         @csrf
                         @method('DELETE')
@@ -58,7 +59,7 @@
                         <input type="hidden" name="id" value="{{ $a->id }}">
                         <button type="submit" name="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></button>
                     </form>
-
+                    @endif
 
                 </td>
             </tr>
