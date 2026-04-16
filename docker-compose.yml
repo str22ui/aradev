@@ -1,48 +1,41 @@
 services:
-    app:
-        build: .
-        container_name: aradev-app
-        ports:
-            - "8000:80"
-        volumes:
-            - .:/var/www/html
-            - /var/www/html/vendor
-            - /var/www/html/node_modules
-            - /var/www/html/public/build
-        depends_on:
-            db:
-                condition: service_healthy
-    db:
-        image: mariadb:11
-        container_name: aradev-db
-        ports:
-            - "3306:3306"
-        environment:
-            MARIADB_DATABASE: u433934007_aradev
-            MARIADB_ROOT_PASSWORD: secret
-            MARIADB_USER: aradev
-            MARIADB_PASSWORD: secret
-        volumes:
-            - db_data:/var/lib/mysql
-            - ./aradev.sql:/docker-entrypoint-initdb.d/aradev.sql
-        healthcheck:
-            test: ["CMD", "mariadb-admin", "ping", "--host", "localhost", "--user", "root", "-psecret"]
-            interval: 5s
-            timeout: 5s
-            retries: 15
-    phpmyadmin:
-        image: phpmyadmin:latest
-        container_name: aradev-pma
-        ports:
-            - "8080:80"
-        environment:
-            PMA_HOST: db
-            PMA_USER: aradev
-            PMA_PASSWORD: secret
-        depends_on:
-            db:
-                condition: service_healthy
+  app:
+    image: str22ui/aradev:latest
+    container_name: aradev-app
+    ports:
+      - "8000:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: str22ui/aradev-db:latest
+    container_name: aradev-db
+    environment:
+      MARIADB_DATABASE: u433934007_aradev
+      MARIADB_ROOT_PASSWORD: secret
+      MARIADB_USER: aradev
+      MARIADB_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-psecret"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: aradev-pma
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: aradev
+      PMA_PASSWORD: secret
+    depends_on:
+      db:
+        condition: service_healthy
+
 volumes:
-    db_data:
-
-
+  db_data:

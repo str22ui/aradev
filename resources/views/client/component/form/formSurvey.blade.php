@@ -116,7 +116,7 @@
                     <option name="sumber_informasi" value="Tiktok">Tiktok</option>
                     <option name="sumber_informasi" value="Brosur">Brosur</option>
                     <option name="sumber_informasi" value="Spanduk">Spanduk</option>
-                    <option name="sumber_informasi" value="Walk in">Walk in Customer</option>
+                    <option name="sumber_informasi" value="Walk in Customer">Walk in Customer</option>
                     <option name="sumber_informasi" value="Agent">Agent</option>
                     <option name="sumber_informasi" value="Affiliate">Affiliate</option>
                     <option name="sumber_informasi" value="Sales">Sales</option>

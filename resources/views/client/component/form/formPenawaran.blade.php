@@ -98,7 +98,7 @@
                     <option value="Tiktok">Tiktok</option>
                     <option value="Brosur">Brosur</option>
                     <option value="Spanduk">Spanduk</option>
-                    <option value="Walk in">Walk in Customer</option>
+                    <option value="Walk in Customer">Walk in Customer</option>
                     <option value="Agent">Agent</option>
                     <option value="Affiliate">Affiliate</option>
                     <option value="Sales">Sales</option>

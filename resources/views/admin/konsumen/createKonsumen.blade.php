@@ -71,7 +71,7 @@
                             <option name="sumber_informasi" value="Spanduk">Spanduk</option>
                             <option name="sumber_informasi" value="Youtube Aradev">Youtube Aradev</option>
                             <option name="sumber_informasi" value="Instagram Perumahan">Instagram Perumahan</option>
-                            <option name="sumber_informasi" value="Walk In">Walk In Customer</option>
+                            <option name="sumber_informasi" value="Walk In Customer">Walk In Customer</option>
                             <option name="sumber_informasi" value="agent">Agent</option>
                             <option name="sumber_informasi" value="Affiliate">Affiliate</option>
                             <option name="sumber_informasi" value="Dll">Dll</option>
