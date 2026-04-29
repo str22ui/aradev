@@ -53,7 +53,7 @@
     </form>
     {{-- @endif --}}
     <div class="table-responsive">
-        @include('admin.konsumen.tableKonsumen', ['konsumen' => $konsumen])
+        @include('admin.konsumen.tableKonsumen', ['konsumen' => $konsumen, 'users' => $users])
     </div>
 
 		
