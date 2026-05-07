@@ -260,7 +260,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/storeReport', [AdminReportController::class, 'storeReport'])->name('admin.storeReport');
         Route::get('/reportKonsumen/{id}', [AdminReportController::class, 'getKonsumen']);
         Route::get('/report/{id}/', [AdminReportController::class, 'editReport'])->name('admin.editReport');
-        Route::put('/report/update/{id}', [AdminReportController::class, 'updateReport'])->name('admin.updateReport');
+        Route::put('/report/update/{id}', [AdminReportController::class, 'updateReports'])->name('admin.updateReport');
         Route::post('/addReports/{id}', [AdminReportController::class, 'addReports']);
         Route::post('/reports/add/{id}', [AdminReportController::class, 'addedReports'])->name('admin.addReport');
         Route::delete('/deleteReport', [AdminReportController::class, 'destroyReport'])->name('admin.deleteReport');
