@@ -102,12 +102,12 @@ class AdminKonsumenController extends Controller
             'sumber_informasi' => 'required|not_in:-- Pilih --',
             'agent_id' => 'nullable|exists:agents,id',
             'affiliate_id' => 'nullable|exists:affiliates,id',
-            'user_id' => 'nullable',
         ]);
 
         // Pastikan nilai 'agent_id' dan 'affiliate_id' menjadi null jika tidak dipilih
         $validatedData['agent_id'] = $request->filled('agent_id') ? $request->input('agent_id') : null;
         $validatedData['affiliate_id'] = $request->filled('affiliate_id') ? $request->input('affiliate_id') : null;
+        $validatedData['user_id'] = Auth::id();
 
         // Set created_at dari input atau waktu sekarang
         $validatedData['created_at'] = $request->input('tanggal') ?? Carbon::now();

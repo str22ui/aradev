@@ -77,8 +77,9 @@ class AdminSurveyController extends Controller
             'sumber_informasi' => 'required',
             'agent_id' => 'nullable',
             'affiliate_id' => 'nullable',
-            'user_id' => 'nullable',
         ]);
+
+        $validatedData['user_id'] = Auth::id();
 
         if ($request->input('agent_id') === 'pilih') {
             $validatedData['agent_id'] = null;

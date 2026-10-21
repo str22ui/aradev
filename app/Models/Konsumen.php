@@ -33,6 +33,11 @@ class Konsumen extends Model
         return $this->belongsTo(Agent::class, 'agent_id');
     }
 
+    public function affiliate()
+    {
+        return $this->belongsTo(Affiliate::class, 'affiliate_id');
+    }
+
     public function reseller()
     {
         return $this->belongsTo(Reseller::class);

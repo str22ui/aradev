@@ -259,18 +259,20 @@ class AdminController extends Controller
           $exportOption = $request->input('export_option');
           $month = $request->input('month');
           $year = $request->input('year');
-          $fil = null;
-          if ($month < 10) {
-              $fil = $year . '-0' . $month;
-          } else {
-              $fil = $year . '-' . $month;
+          $user = Auth::user();
+          $konsumenQuery = Konsumen::with(['user', 'agent', 'affiliate']);
+
+          if ($user->role === 'sales') {
+              $konsumenQuery->where('user_id', $user->id);
           }
-          $konsumen = null; // Initialize $konsumen variable
 
           if ($exportOption == 'all') {
-              $konsumen = Konsumen::all();
+              $konsumen = $konsumenQuery->get();
           } elseif ($exportOption == 'month_year') {
-              $konsumen = Konsumen::where("created_at", "LIKE", "%{$fil}%")->get();
+              $konsumen = $konsumenQuery
+                  ->whereYear('created_at', $year)
+                  ->whereMonth('created_at', $month)
+                  ->get();
               // $konsumen = Report::whereYear('tanggal', $year)
               //     ->whereMonth('tanggal', $month)
               //     ->get();
