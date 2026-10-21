@@ -47,6 +47,69 @@
 			"lengthMenu": [[5, 20, 25, 50, -1], [5, 20, 25, 50, 'All']]
 		});
 
+		document.querySelectorAll('.page-content table').forEach(function (table, index) {
+			if (!table.tBodies.length || table.dataset.adminSearchInitialized === 'true') {
+				return;
+			}
+
+			table.dataset.adminSearchInitialized = 'true';
+
+			const rows = Array.from(table.tBodies[0].rows);
+			const searchId = 'admin-table-search-' + index;
+			const searchWrapper = document.createElement('div');
+			searchWrapper.className = 'admin-table-search d-flex justify-content-end mb-3';
+			searchWrapper.innerHTML = `
+				<div class="input-group" style="max-width: 360px;">
+					<span class="input-group-text"><i class="bi bi-search"></i></span>
+					<input type="search" id="${searchId}" class="form-control" placeholder="Cari data..." aria-label="Cari data pada tabel">
+				</div>
+			`;
+
+			const tableContainer = table.parentElement.classList.contains('table-responsive')
+				? table.parentElement
+				: table;
+			tableContainer.parentNode.insertBefore(searchWrapper, tableContainer);
+
+			const noResultRow = document.createElement('tr');
+			noResultRow.className = 'admin-table-search-empty';
+			noResultRow.style.display = 'none';
+			const noResultCell = document.createElement('td');
+			noResultCell.colSpan = table.tHead && table.tHead.rows.length
+				? table.tHead.rows[table.tHead.rows.length - 1].cells.length
+				: 1;
+			noResultCell.className = 'text-center text-muted py-4';
+			noResultCell.textContent = 'Data tidak ditemukan.';
+			noResultRow.appendChild(noResultCell);
+			table.tBodies[0].appendChild(noResultRow);
+
+			const searchableRows = rows.map(function (row) {
+				const rowCopy = row.cloneNode(true);
+				rowCopy.querySelectorAll('form, button, script, style').forEach(function (element) {
+					element.remove();
+				});
+
+				return {
+					row: row,
+					text: rowCopy.textContent.replace(/\s+/g, ' ').trim().toLocaleLowerCase('id-ID')
+				};
+			});
+
+			searchWrapper.querySelector('input').addEventListener('input', function (event) {
+				const keyword = event.target.value.trim().toLocaleLowerCase('id-ID');
+				let visibleRows = 0;
+
+				searchableRows.forEach(function (item) {
+					const isVisible = item.text.includes(keyword);
+					item.row.style.display = isVisible ? '' : 'none';
+					if (isVisible) {
+						visibleRows++;
+					}
+				});
+
+				noResultRow.style.display = visibleRows === 0 ? '' : 'none';
+			});
+		});
+
 		$("#datatable").on('click', '.delete-notification', function (e) {
 			e.preventDefault();
 			Swal.fire({
