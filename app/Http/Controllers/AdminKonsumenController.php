@@ -83,8 +83,10 @@ class AdminKonsumenController extends Controller
 
         $agent = Agent::all();
         $affiliate = Affiliate::all();
+        // Form production menampilkan daftar sales untuk input dari admin.
+        $sales = User::where('role', 'sales')->get();
 
-        return view('admin.konsumen.createKonsumen', compact('perumahan', 'agent', 'affiliate'));
+        return view('admin.konsumen.createKonsumen', compact('perumahan', 'agent', 'affiliate', 'sales'));
     }
 
 
